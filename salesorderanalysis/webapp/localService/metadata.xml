@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="test2" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="test" EntityType="test2.test"/>
+                <EntitySet Name="criticalPartMaster" EntityType="test2.criticalPartMaster"/>
+                <ActionImport Name="getPredictedData" Action="test2.getPredictedData"/>
+            </EntityContainer>
+            <EntityType Name="test">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="criticalPartMaster">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="plant" Type="Edm.String"/>
+                <Property Name="material" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="baseUOM" Type="Edm.String"/>
+                <Property Name="aghPredictedLeadTime" Type="Edm.String"/>
+            </EntityType>
+            <ComplexType Name="oExceldata">
+                <Property Name="Supplier" Type="Edm.String"/>
+                <Property Name="Material" Type="Edm.String"/>
+                <Property Name="Plant" Type="Edm.String"/>
+                <Property Name="Po_qty" Type="Edm.String"/>
+                <Property Name="Po_delivery_date" Type="Edm.String"/>
+                <Property Name="Po_item" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="oPredictedData">
+                <Property Name="Material" Type="Edm.String"/>
+                <Property Name="Plant" Type="Edm.String"/>
+                <Property Name="Po_delivery_date" Type="Edm.String"/>
+                <Property Name="Po_item" Type="Edm.String"/>
+                <Property Name="Po_qty" Type="Edm.String"/>
+                <Property Name="Supplier" Type="Edm.String"/>
+                <Property Name="predicted_delivery_qty" Type="Edm.String"/>
+                <Property Name="predicted_receipt_date" Type="Edm.String"/>
+            </ComplexType>
+            <Action Name="getPredictedData" IsBound="false">
+                <Parameter Name="excelData" Type="Collection(test2.oExceldata)" Nullable="false"/>
+                <ReturnType Type="Collection(test2.oPredictedData)" Nullable="false"/>
+            </Action>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
