@@ -31,9 +31,23 @@ modules:
       - hac2buildsalesorderanalysis.zip
       name: hac2buildsalesorderanalysis
       target-path: resources/
+    - artifacts:
+      - hac2buildalertmanagement.zip
+      name: hac2buildalertmanagement
+      target-path: resources/
 - name: hac2buildsalesorderanalysis
   type: html5
   path: salesorderanalysis
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: hac2buildalertmanagement
+  type: html5
+  path: alertmanagement
   build-parameters:
     build-result: dist
     builder: custom
