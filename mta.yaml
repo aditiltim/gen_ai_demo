@@ -35,6 +35,18 @@ modules:
       - hac2buildalertmanagement.zip
       name: hac2buildalertmanagement
       target-path: resources/
+    - artifacts:
+      - hac2buildpurchaseorderanalysis.zip
+      name: hac2buildpurchaseorderanalysis
+      target-path: resources/
+    # - artifacts:
+    #   - project1.zip
+    #   name: project1
+    #   target-path: resources/
+    - artifacts:
+      - hac2buildcriticalpartanalysis.zip
+      name: hac2buildcriticalpartanalysis
+      target-path: resources/
 - name: hac2buildsalesorderanalysis
   type: html5
   path: salesorderanalysis
@@ -48,6 +60,36 @@ modules:
 - name: hac2buildalertmanagement
   type: html5
   path: alertmanagement
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: hac2buildpurchaseorderanalysis
+  type: html5
+  path: purchaseorderanalysis
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+# - name: project1
+#   type: html5
+#   path: project1
+#   build-parameters:
+#     build-result: dist
+#     builder: custom
+#     commands:
+#     - npm install
+#     - npm run build:cf
+#     supported-platforms: []
+- name: hac2buildcriticalpartanalysis
+  type: html5
+  path: criticalpartanalysis
   build-parameters:
     build-result: dist
     builder: custom
