@@ -1,0 +1,82 @@
+{
+	"_version": "3.0.0",
+	"identification": {
+		"id": "e90f6b0f-d549-4df3-b5d1-838a54c82bb4",
+		"entityType": "bundle"
+	},
+	"payload": {
+		"catalogs": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "defaultCatalogId",
+				"title": "{{title}}",
+				"entityType": "catalog",
+				"i18n": "i18n/defaultCatalogId.properties"
+			},
+			"payload": {
+				"viz": []
+			}
+		}],
+		"groups": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "defaultGroupId",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/defaultGroupId.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "hac2build.salesorderanalysis-0-1693980694322",
+					"appId": "hac2build.salesorderanalysis",
+					"vizId": "salesorder-display"
+				}, {
+					"id": "hac2build.alertmanagement-1-1693980694322",
+					"appId": "hac2build.alertmanagement",
+					"vizId": "alerttable-display"
+				}, {
+					"id": "hac2build.purchaseorderanalysis-2-1693980694322",
+					"appId": "hac2build.purchaseorderanalysis",
+					"vizId": "purchaseorder-display"
+				}, {
+					"id": "hac2build.criticalpartanalysis-3-1693980694322",
+					"appId": "hac2build.criticalpartanalysis",
+					"vizId": "criticalpart-display"
+				}]
+			}
+		}],
+		"sites": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "35c9de43-a0e9-41f2-84bd-85a9da1fe505",
+				"entityType": "site",
+				"title": "SAP Fiori launchpad site on Cloud Foundry",
+				"description": "SAP Fiori launchpad site on Cloud Foundry, deployed from WING"
+			},
+			"payload": {
+				"config": {
+					"ushellConfig": {
+						"renderers": {
+							"fiori2": {
+								"componentData": {
+									"config": {
+										"applications": {
+											"Shell-home": {}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"groupsOrder": ["defaultGroupId"],
+				"sap.cloud.portal": {
+					"config": {
+						"theme.id": "sap_horizon",
+						"theme.active": ["sap_horizon", "sap_fiori_3_dark", "sap_belize_hcb", "sap_belize_hcw"]
+					}
+				}
+			}
+		}]
+	}
+}

@@ -14,6 +14,7 @@ modules:
       forwardAuthToken: false
       name: ui5
       url: https://ui5.sap.com
+  - name: portal_resources_gen_ai_demo
   parameters:
     disk-quota: 256M
     memory: 256M
@@ -39,10 +40,6 @@ modules:
       - hac2buildpurchaseorderanalysis.zip
       name: hac2buildpurchaseorderanalysis
       target-path: resources/
-    # - artifacts:
-    #   - project1.zip
-    #   name: project1
-    #   target-path: resources/
     - artifacts:
       - hac2buildcriticalpartanalysis.zip
       name: hac2buildcriticalpartanalysis
@@ -77,16 +74,6 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-# - name: project1
-#   type: html5
-#   path: project1
-#   build-parameters:
-#     build-result: dist
-#     builder: custom
-#     commands:
-#     - npm install
-#     - npm run build:cf
-#     supported-platforms: []
 - name: hac2buildcriticalpartanalysis
   type: html5
   path: criticalpartanalysis
@@ -97,6 +84,20 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: gen_ai_flp
+  type: com.sap.application.content
+  path: gen_ai_flp
+  requires:
+  - name: portal_resources_gen_ai_demo
+    parameters:
+      content-target: true
+      service-key:
+        config:
+          content-endpoint: developer
+        name: content-deploy-key
+  - name: gen_ai_demo_html_repo_host
+  - name: gen_ai_demo_ui_deployer
+  - name: uaa_gen_ai_demo
 resources:
 - name: gen_ai_demo_html_repo_runtime
   type: org.cloudfoundry.managed-service
@@ -133,5 +134,10 @@ resources:
     service: destination
     service-name: gen_ai_demo-destination-service
     service-plan: lite
+- name: portal_resources_gen_ai_demo
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: portal
+    service-plan: standard
 parameters:
   deploy_mode: html5-repo
