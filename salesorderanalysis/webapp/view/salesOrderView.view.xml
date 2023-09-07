@@ -22,8 +22,8 @@
 						<content>
 							<Title id="_IDGenTitle1" text="Sales Order Analysis" level="H2"/>
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton1" text="Recalculate SAP Availibility Check" press="onRecalPress"/>
-							<Button id="_IDGenButton2" text="Notify Customer via Email" press="onEmailPress"/>
+							<Button id="_IDGenButton1" text="Availibility Check" press="onRecalPress"/>
+							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
@@ -67,7 +67,8 @@
 							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{Order_Quantity}"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{Unit_Price}"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{Current_SAP_Delivery_Date}"/>
-							<ObjectStatus id="_IDGenObjectStatus1" text="{GEN_AI_Delivery_Date}"/>
+							<ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/>
+							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{GEN_AI_Delivery_Date}"/> -->
 						</cells>
 					</ColumnListItem>
 				</items>
