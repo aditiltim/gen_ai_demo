@@ -83,11 +83,6 @@
           "bundleName": "hac2build.criticalpartanalysis.i18n.i18n"
         }
       },
-      "Sample": {
-        "preload": true,
-        "type": "sap.ui.model.json.JSONModel",
-        "uri": "model/Sample.json"
-      },
       "Data": {
         "preload": true,
         "type": "sap.ui.model.json.JSONModel",

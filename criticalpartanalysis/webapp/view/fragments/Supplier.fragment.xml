@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog id="Supplier" class="sapUiResponsiveContentPadding" title="Search Project">
+		 <content>
+                            <SearchField id="Suppsearchfield" class="sapUiSmallMargin" search="handleSearch1" />
+
+                            <Table width="20rem" id="suppTable" mode="SingleSelectMaster" selectionChange="OnProjSelect" items="{/Supplier_Master}">
+                                <columns>
+                                    <Column id="_IDGenColumn1541">
+                                        <Text id="_IDGenText141" text="Supplier" />
+                                    </Column>
+                    
+                                </columns>
+                                <columns>
+                                    <Column id="_IDGenColumn15611">
+                                        <Text id="_IDGenText1471" text="Name" />
+                                    </Column>
+                    
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="_IDGenColumnListItem102">
+                                     <Text id="_IDGenText26183" text="{Supplier}" />
+                                        <Text id="_IDGenText2601" text="{Name}" />
+                                        
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                   
+        </content>
+        <endButton>
+            <Button id="_IDGenButton1101"  icon="sap-icon://cancel" type="Negative" text="Cancel" press="onSupplierCancel" />
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>
