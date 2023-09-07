@@ -24,41 +24,25 @@
 				<HBox id="_IDGenHBox2">
             <Text id="_IDGenText4" text="Sales Organization"/>
              <Label id="_IDGenLabel1" text="" width ="0.5rem" />
-<<<<<<< HEAD
              <Input id="input11" valueHelpRequest="SalesOrgValueHelpProject" valueHelpOnly="true"  showValueHelp="true"/>
-=======
-             <Input id="input11"/>
->>>>>>> b350d0463ac4d1d2e50aece1c61ebea9aca7b493
             </HBox>
              <Label id="_IDGenLabel2" text="" width ="1rem"/>
             <HBox id="_IDGenHBox3">
             <Text id="_IDGenText5" text="Customer"/>
              <Label id="_IDGenLabel3" text="" width ="0.5rem" />
-<<<<<<< HEAD
             <Input id="input12" valueHelpRequest="CustomerValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
-=======
-            <Input id="input12"/>
->>>>>>> b350d0463ac4d1d2e50aece1c61ebea9aca7b493
             </HBox>
              <Label id="_IDGenLabel4" text="" width ="1rem"/>
             <HBox id="_IDGenHBox4">
             <Text id="_IDGenText6" text="Suppliers"/>
              <Label id="_IDGenLabel5" text="" width ="0.5rem" />
-<<<<<<< HEAD
             <Input id="input13" valueHelpRequest="SuppliersValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
-=======
-            <Input id="input13"/>
->>>>>>> b350d0463ac4d1d2e50aece1c61ebea9aca7b493
             </HBox>
              <Label id="_IDGenLabel6" text="" width ="1rem"/>
             <HBox id="_IDGenHBox5">
             <Text id="_IDGenText7" text="Period"/>
              <Label id="_IDGenLabel7" text="" width ="0.5rem" />
-<<<<<<< HEAD
               <Input id="input14" />
-=======
-            <Input id="input15"/>
->>>>>>> b350d0463ac4d1d2e50aece1c61ebea9aca7b493
             </HBox>
             <Label id="_IDGenLabel8" text="" width ="2.5rem" />
             <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/>
