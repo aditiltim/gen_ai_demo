@@ -24,25 +24,25 @@
 				<HBox id="_IDGenHBox2">
             <Text id="_IDGenText4" text="Sales Organization"/>
              <Label id="_IDGenLabel1" text="" width ="0.5rem" />
-             <Input id="input11"/>
+             <Input id="input11" valueHelpRequest="SalesOrgValueHelpProject" valueHelpOnly="true"  showValueHelp="true"/>
             </HBox>
              <Label id="_IDGenLabel2" text="" width ="1rem"/>
             <HBox id="_IDGenHBox3">
             <Text id="_IDGenText5" text="Customer"/>
              <Label id="_IDGenLabel3" text="" width ="0.5rem" />
-            <Input id="input12"/>
+            <Input id="input12" valueHelpRequest="CustomerValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
             </HBox>
              <Label id="_IDGenLabel4" text="" width ="1rem"/>
             <HBox id="_IDGenHBox4">
             <Text id="_IDGenText6" text="Suppliers"/>
              <Label id="_IDGenLabel5" text="" width ="0.5rem" />
-            <Input id="input13"/>
+            <Input id="input13" valueHelpRequest="SuppliersValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
             </HBox>
              <Label id="_IDGenLabel6" text="" width ="1rem"/>
             <HBox id="_IDGenHBox5">
             <Text id="_IDGenText7" text="Period"/>
              <Label id="_IDGenLabel7" text="" width ="0.5rem" />
-            <Input id="input15"/>
+              <Input id="input14" />
             </HBox>
             <Label id="_IDGenLabel8" text="" width ="2.5rem" />
             <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/>
@@ -86,7 +86,7 @@
  
             <f:Card id="_IDGenCard1" class="sapUiMediumMargin" width="250px">
                 <f:header>
-                    <card:Header id="_IDGenHeader1" title="Sales Order Analysis" press="visible" />
+                    <card:Header id="_IDGenHeader1" title="Sales Order Analysis" press="hideSalesorderchart" />
                 </f:header>
                 <f:content >
                     <List id="_IDGenList1" showSeparators="None" >
@@ -94,7 +94,6 @@
                                 <VBox id="_IDGenVBox1" class="sapUiSmallMarginBegin" >
                                 <HBox id="_IDGenHBox6">
                                     <Button id="_IDGenButton1" icon="sap-icon://my-sales-order" type="Transparent" press="goToSalesApp" />
-                                     <Button id="_IDGenButton18" icon="sap-icon://hide" type="Transparent" press="visible" />
                                      </HBox>
                                     <Text id="_IDGenText1" text="Customers  : 12" />
                                 </VBox>
@@ -110,7 +109,7 @@
             </f:Card>
             <f:Card id="_IDGenCard2" class="sapUiMediumMargin" width="250px">
                 <f:header>
-                    <card:Header id="_IDGenHeader2" title="Purchase Order Analysis" />
+                    <card:Header id="_IDGenHeader2" title="Purchase Order Analysis" press="hidePurchasechart"/>
                 </f:header>
                 <f:content>
                     <List id="_IDGenList2" showSeparators="None">
@@ -153,7 +152,7 @@
                     </List>
                 </f:content>
             </f:Card>
-              <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" visible="false">
+              <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" >
                                  
                                      <chart:ChartContainer id="chartContainer7"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent275" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
@@ -168,9 +167,10 @@
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
+                                                    selectData="onClickSalesOrder"
                                                 >
                                                     <viz:dataset>
-                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset14122" data="{Data>/Records}">
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset14122" data="{Data>/Records}" >
                                                             <viz.data:dimensions>
                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11223" name="Month" value="{Month}" />
                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11221" name="Plant" value="{Plant}" />
@@ -201,10 +201,11 @@
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'}, 
-                                                        title:{ text:'Order Priority for last 12 months'},dataLabel:{visible:true,showTotal:true}}"
+                                                        title:{ text:'purchase order'},dataLabel:{visible:true,showTotal:true}}"
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
+                                                     selectData="onClickPurchaseOrder"
                                                 >
                                                     <viz:dataset>
                                                         <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1422" data="{Data>/Records}">

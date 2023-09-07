@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog id="Salesorg" class="sapUiResponsiveContentPadding" title="Search Project">
+		 <content>
+                            <SearchField id="searchfield" class="sapUiSmallMargin" search="handleSearch" />
+
+                            <Table width="20rem" id="salesOrg" mode="SingleSelectMaster" selectionChange="OnProjSelect" items="{/SO_Data}">
+                                <columns>
+                                    <Column id="_IDGenColumn15">
+                                        <Text id="_IDGenText14" text="Sales Orgnisation" />
+                                    </Column>
+                    
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="_IDGenColumnListItem1">
+                                        <Text id="_IDGenText26" text="{Sales_Orgnisation}" />
+                                        
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                   
+        </content>
+        <endButton>
+            <Button id="_IDGenButton11"  icon="sap-icon://cancel" type="Negative" text="Cancel" press="onSalesorgCancel" />
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>

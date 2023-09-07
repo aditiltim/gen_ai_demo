@@ -104,6 +104,7 @@
       },
       "cdsModel": {
         "dataSource": "cdsService",
+        "type": "sap.ui.model.odata.v4.ODataModel",
         "preload": true,
         "settings": {
           "synchronizationMode": "None",
