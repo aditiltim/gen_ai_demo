@@ -13,6 +13,8 @@ sap.ui.define([
           console.log("SalesOrderView");
         },
         onLocalAiPress: function (oEvent) {
+
+          debugger
           var settings = {
             "url": "https://13.127.183.113:8007/send_news_summary",
             "method": "POST",

@@ -2,21 +2,17 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
+    "sap/ui/model/FilterOperator",
+    'sap/ui/core/Fragment',
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,JSONModel,Filter, FilterOperator) {
+    function (Controller,JSONModel,Filter, FilterOperator, Fragment) {
         "use strict";
 
         return Controller.extend("hac2build.criticalpartanalysis.controller.CriticalPartAnalysis", {
             onInit: function () {
-                var oModel = new sap.ui.model.json.JSONModel();
-
-                oModel.loadData("model/Sample.json");
-
-                this.getView().setModel(oModel, "Sample");
                 // this._fnGetService = sap.ushell && 
                 // sap.ushell.Container &&
                 // sap.ushell.Container.getService; 
@@ -35,6 +31,59 @@ sap.ui.define([
 
                 // })) || "";
 
+            },
+            SalesOrgValueHelpProject: function (oEvent) {
+                var sInputValue = oEvent.getSource().getValue();
+
+                this.inputId = oEvent.getSource().getId();
+                // create value help dialog
+                if (!this.Salesorg) {
+                    this.Salesorg = sap.ui.xmlfragment(
+                        "hac2build.criticalpartanalysis.view.fragments.SalesOrganization",
+                        this
+                    );
+                    this.getView().addDependent(this.Salesorg);
+                }
+                this.Salesorg.open();
+
+
+            },
+            CustomerValueHelp: function (oEvent){
+                var sInputValue = oEvent.getSource().getValue();
+                this.inputId = oEvent.getSource().getId();
+                // create value help dialog
+                if (!this.cust) {
+                    this.cust = sap.ui.xmlfragment(
+                        "hac2build.criticalpartanalysis.view.fragments.Customers",
+                        this
+                    );
+                    this.getView().addDependent(this.cust);
+                }
+                this.cust.open();
+
+            },
+            SuppliersValueHelp: function(oEvent){
+                var sInputValue = oEvent.getSource().getValue();
+                this.inputId = oEvent.getSource().getId();
+                // create value help dialog
+                if (!this.Supplier) {
+                    this.Supplier = sap.ui.xmlfragment(
+                        "hac2build.criticalpartanalysis.view.fragments.Supplier",
+                        this
+                    );
+                    this.getView().addDependent(this.Supplier);
+                }
+                this.Supplier.open();
+
+            },
+            onSalesorgCancel: function(){
+                this.Salesorg.close();
+            },
+            onCustomerCancel: function(){
+                this.cust.close();
+            },
+            onSupplierCancel: function(){
+                this.Supplier.close();
             },
             handleSearch: function(oEvent){
                 var query = this.getView().byId("input11").getValue();
