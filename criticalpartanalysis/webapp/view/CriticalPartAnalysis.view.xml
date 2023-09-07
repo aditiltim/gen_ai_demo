@@ -1,10 +1,56 @@
 <mvc:View controllerName="hac2build.criticalpartanalysis.controller.CriticalPartAnalysis"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
+    xmlns:u="sap.uxap"
     xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout"
 	xmlns:card="sap.f.cards"
 	xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:svm="sap.ui.comp.smartvariants"
+     xmlns:chart="sap.suite.ui.commons"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:vizData="sap.viz.ui5.data"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:C="sap.suite.ui.microchart"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
 	height="100%">
+    <Page id="page">
+    		<subHeader>
+			<Toolbar id="_IDGenToolbar1">
+				<HBox id="_IDGenHBox2">
+            <Text id="_IDGenText4" text="Sales Organization"/>
+             <Label text="" width ="0.5rem" />
+             <Input id="input11"/>
+            </HBox>
+             <Label text="" width ="1rem"/>
+            <HBox id="_IDGenHBox3">
+            <Text id="_IDGenText5" text="Customer"/>
+             <Label text="" width ="0.5rem" />
+            <Input id="input12"/>
+            </HBox>
+             <Label text="" width ="1rem"/>
+            <HBox id="_IDGenHBox4">
+            <Text id="_IDGenText6" text="Suppliers"/>
+             <Label text="" width ="0.5rem" />
+            <Input id="input13"/>
+            </HBox>
+             <Label text="" width ="1rem"/>
+            <HBox id="_IDGenHBox5">
+            <Text id="_IDGenText7" text="Period"/>
+             <Label text="" width ="0.5rem" />
+            <Input id="input15"/>
+            </HBox>
+            <Label text="" width ="2.5rem" />
+            <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/>
+			</Toolbar>
+		</subHeader>
+		
+			
+   
             <!-- <GenericTile id="_IDGenGenericTile1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Sales Order Analysis"
                 subheader="Click" press="goToSalesApp" >
                 <TileContent id="_IDGenTileContent1" priorityText="Order Value" unit="Order Value :" footer="$350,000">
@@ -34,16 +80,22 @@
                     <ImageContent id="_IDGenImageContent4" src="sap-icon://home-share" />
                 </TileContent>
             </GenericTile> -->
-            
+            	
+			
+          
+ 
             <f:Card id="_IDGenCard1" class="sapUiMediumMargin" width="250px">
                 <f:header>
-                    <card:Header id="_IDGenHeader1" title="Sales Order Analysis" />
+                    <card:Header id="_IDGenHeader1" title="Sales Order Analysis" press="visible" />
                 </f:header>
-                <f:content>
-                    <List id="_IDGenList1" showSeparators="None">
-                        <CustomListItem id="_IDGenCustomListItem1">
+                <f:content >
+                    <List id="_IDGenList1" showSeparators="None" >
+                        <CustomListItem id="_IDGenCustomListItem1" >
                                 <VBox id="_IDGenVBox1" class="sapUiSmallMarginBegin" >
+                                <HBox>
                                     <Button id="_IDGenButton1" icon="sap-icon://my-sales-order" type="Transparent" press="goToSalesApp" />
+                                     <Button id="_IDGenButton18" icon="sap-icon://hide" type="Transparent" press="visible" />
+                                     </HBox>
                                     <Text id="_IDGenText1" text="Customers  : 12" />
                                 </VBox>
                                 <VBox id="_IDGenVBox2" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
@@ -86,7 +138,10 @@
                         <CustomListItem id="_IDGenCustomListItem3">
                                 <VBox id="_IDGenVBox31" class="sapUiSmallMarginBegin" >
                                     <Button id="_IDGenButton3" icon="sap-icon://factory" type="Transparent" press="goToProdOApp" />
-                                    <Text id="_IDGenText31" text="Critical Parts     : 08" />
+                                    <HBox id="_IDGenHBox1">
+                                    <Text id="_IDGenText31" text="Critical Parts     :" />
+                                    <Text id="text1" text="80" class="colorRed"/>
+                                    </HBox>
                                 </VBox>
                                 <VBox id="_IDGenVBox32" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
                                     <Text id="_IDGenText32" text="Delivery Plants : 03" />
@@ -98,25 +153,81 @@
                     </List>
                 </f:content>
             </f:Card>
-            <f:Card id="_IDGenCard4" class="sapUiMediumMargin" width="250px">
-                <f:header>
-                    <card:Header id="_IDGenHeader4" title="Alerts / Notifications" />
-                </f:header>
-                <f:content>
-                    <List id="_IDGenList4" showSeparators="None">
-                        <CustomListItem id="_IDGenCustomListItem4">
-                                <VBox id="_IDGenVBox41" class="sapUiSmallMarginBegin" >
-                                    <Button id="_IDGenButton41" icon="sap-icon://alert" type="Transparent" press="goToAlertsApp" />
-                                    <Text id="_IDGenText41" text="Buyers :     08" />
-                                </VBox>
-                                <VBox id="_IDGenVBox42" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText42" text="Planners :   03" />
-                                </VBox>
-                                <VBox id="_IDGenVBox43" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                    <Text id="_IDGenText43" text="Sales Representative:  02" />
-                                </VBox>
-                        </CustomListItem>
-                    </List>
-                </f:content>
-            </f:Card>
+              <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" visible="false">
+                                 
+                                     <chart:ChartContainer id="chartContainer7"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent275" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame1" 
+                                                    height="300px"   
+                                                    width="100%"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'}, 
+                                    title:{ text:'Order Priority for last 12 months'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset14122" data="{Data>/Records}">
+                                                            <viz.data:dimensions>
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11223" name="Month" value="{Month}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11221" name="Plant" value="{Plant}" />
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252211" name="Quantity" value="{Quantity}" />
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18521" type="Measure" uid="valueAxis" values="Quantity" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem29231" type="Dimension" uid="categoryAxis" values="Month" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2928" type="Dimension" uid="color" values="Plant" />
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+                                </layout:VerticalLayout> 
+                                 <layout:VerticalLayout id="_IDGenVerticalLayout3" width="100%" visible="false">
+                                 
+                                     <chart:ChartContainer id="chartContainer74"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent25" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame2" 
+                                                    height="300px"   
+                                                    width="100%"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'}, 
+                                    title:{ text:'Order Priority for last 12 months'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1422" data="{Data>/Records}">
+                                                            <viz.data:dimensions>
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1123" name="Month" value="{Month}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1121" name="Plant" value="{Plant}" />
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25211" name="Quantity" value="{Quantity}" />
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem1821" type="Measure" uid="valueAxis" values="Quantity" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2231" type="Dimension" uid="categoryAxis" values="Month" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem228" type="Dimension" uid="color" values="Plant" />
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+                                </layout:VerticalLayout>                   
+            
+          </Page>
+           
 </mvc:View>

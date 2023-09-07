@@ -1,0 +1,19 @@
+{
+    "Reports": [
+        {
+            "Customers": "12",
+            "Sales Orders": "35",
+            "Order Value": "$350,000",
+            "Suppliers": "12",
+            "Purchase Orders": "35",
+            "PO Value": "$170,000",
+            "Critical Parts": "08",
+            "Delivery Plants": "03",
+            "Production Order": "40",
+            "Buyers": "08",
+            "Planners": "03",
+            "Sales Representative": "02"
+        }
+       
+    ]
+}

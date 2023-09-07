@@ -1,0 +1,256 @@
+{
+    "Records": [
+        {
+            "Month": "Sep",
+            "Quantity": 1,
+            "Plant": "Alpha-Methyl",
+            "Day": "Sunday",
+            "Alpha1": 10
+        },
+        {
+            "Month": "Oct",
+            "Quantity": 2,
+            "Plant": "Alpha-Methyl",
+            "Day": "friday",
+            "Alpha1": 23
+        },
+        {
+            "Month": "Nov",
+            "Quantity": 5,
+            "Plant": "Alpha-Methyl",
+            "Day": "Sunday",
+            "Alpha1": 60
+        },
+        {
+            "Month": "Dec",
+            "Quantity": 2,
+            "Plant": "Alpha-Methyl",
+            "Day": "Saturday",
+            "Alpha1": 90
+        },
+        {
+            "Month": "Jan",
+            "Quantity": 1,
+            "Plant": "Alpha-Methyl",
+            "Day": "friday",
+            "Alpha1": 100
+        },
+        {
+            "Month": "Feb",
+            "Quantity": 2,
+            "Plant": "Alpha-Methyl",
+            "Day": "thursday",
+            "Alpha1": 300
+        },
+        {
+            "Month": "Mar",
+            "Quantity": 6,
+            "Plant": "Alpha-Methyl",
+            "Day": "wednesday",
+            "Alpha1": 120
+        },
+        {
+            "Month": "Apr",
+            "Quantity": 6,
+            "Plant": "Alpha-Methyl",
+            "Day": "tuesday",
+            "Alpha1": 80
+        },
+        {
+            "Month": "May",
+            "Quantity": 6,
+            "Plant": "Alpha-Methyl",
+            "Day": "monday",
+            "Alpha1": 60
+        },
+        {
+            "Month": "Jun",
+            "Quantity": 6,
+            "Plant": "Alpha-Methyl",
+            "Day": "monday",
+            "Alpha1": 160
+        },
+        {
+            "Month": "Jul",
+            "Quantity": 6,
+            "Plant": "Alpha-Methyl",
+            "Day": "monday",
+            "Alpha1": 150
+        },
+        {
+            "Month": "Aug",
+            "Quantity": 6,
+            "Plant": "Alpha-Methyl",
+            "Day": "monday",
+            "Alpha1": 220
+        },
+        {
+            "Month": "Jan",
+            "Quantity": 2,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 170
+        },
+        {
+            "Month": "Feb",
+            "Quantity": 5,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 290
+        },
+        {
+            "Month": "Mar",
+            "Quantity": 9,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 231
+        },
+        {
+            "Month": "Apr",
+            "Quantity": 5,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 232
+        },
+        {
+            "Month": "May",
+            "Quantity": 3,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 233
+        },
+        {
+            "Month": "Jun",
+            "Quantity": 1,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 234
+        },
+        {
+            "Month": "Jul",
+            "Quantity": 4,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 235
+        },
+        {
+            "Month": "Aug",
+            "Quantity": 2,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 236
+        },
+        {
+            "Month": "Sep",
+            "Quantity": 11,
+            "Plant": "Methoxetamine",
+            "Day": "monday",
+            "Alpha1": 237
+        },
+        {
+            "Month": "Oct",
+            "Quantity": 5,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 238
+        },
+        {
+            "Month": "Nov",
+            "Quantity": 2,
+            "Plant": "Rolicyclidine",
+            "Day": "monday",
+            "Alpha1": 239
+        },
+        {
+            "Month": "Dec",
+            "Quantity": 6,
+            "Plant": "Rolicyclidine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Jan",
+            "Quantity": 6,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Feb",
+            "Quantity": 6,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Mar",
+            "Quantity": 6,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Apr",
+            "Quantity": 6,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "May",
+            "Quantity": 6,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Jun",
+            "Quantity": 6,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Jul",
+            "Quantity": 7,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Aug",
+            "Quantity": 7,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Sep",
+            "Quantity": 7,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Oct",
+            "Quantity": 7,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Nov",
+            "Quantity": 7,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        },
+        {
+            "Month": "Dec",
+            "Quantity": 7,
+            "Plant": "Methoxetamine",
+            "Day": "sunday",
+            "Alpha1": 230
+        }
+    ]
+}
