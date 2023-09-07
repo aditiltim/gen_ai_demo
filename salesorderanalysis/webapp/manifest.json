@@ -24,6 +24,15 @@
           "localUri": "localService/metadata.xml",
           "odataVersion": "4.0"
         }
+      },
+      "cdsService": {
+        "uri": "/odata/v4/test2/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
       }
     },
     "crossNavigation": {
@@ -58,7 +67,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.117.1",
       "libs": {
@@ -92,6 +101,23 @@
           "autoExpandSelect": true,
           "earlyRequests": true
         }
+      },
+      "localModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false,
+        "uri": "model/test.json"
+      },
+      "cdsModel": {
+        "dataSource": "cdsService",
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
       }
     },
     "resources": {
@@ -113,28 +139,33 @@
       },
       "routes": [
         {
-          "name": "RoutesalesOrderView",
-          "pattern": ":?query:",
-          "target": [
-            "TargetsalesOrderView"
-          ]
+          "pattern": "salesOrderGraph",
+          "name": "salesOrderGraph",
+          "target": "salesOrderGraph"  
+        },{
+          "pattern": "salesOrderView",
+          "name": "salesOrderView",
+          "target": "salesOrderView"   
         }
       ],
       "targets": {
-        "TargetsalesOrderView": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "salesOrderView",
-          "viewName": "salesOrderView"
+        "salesOrderGraph": {         
+          "id": "salesOrderGraph",
+          "name": "salesOrderGraph",
+          "clearControlAggregation": false
+        },
+        "salesOrderView": {
+          "name": "salesOrderView",
+          "viewType" : "XML"
         }
+        
       }
     },
     "rootView": {
-      "viewName": "hac2build.salesorderanalysis.view.App",
+      "viewName": "hac2build.salesorderanalysis.view.salesOrderView",
       "type": "XML",
       "async": true,
-      "id": "App"
+      "id": "salesOrderView"
     }
   }
 }
