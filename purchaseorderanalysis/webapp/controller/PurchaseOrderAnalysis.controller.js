@@ -1,10 +1,11 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller) {
+    function (Controller,MessageBox) {
         "use strict";
 
         return Controller.extend("hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis", {
@@ -12,6 +13,71 @@ sap.ui.define([
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 console.log("Purchase Order View");
 			},
+            onLocalAI: function(oEvent){
+                var that = this;
+                var sUrl = that.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+                var token;
+                $.ajax({
+                    url: sUrl,
+                    method: "GET",
+                    async: false,
+                    headers: {
+                        "X-CSRF-Token": "Fetch",
+                    },
+                    success: function (result, xhr, data) {
+                        token = data.getResponseHeader("X-CSRF-Token");
+                    },
+                    error: function (result, xhr, data) {
+                        console.log("Error");
+                    },
+                });
+                var urlext = "getPredictedData";
+                var payload = {
+                    "excelData": [{
+                        "Supplier": "S10204001",
+                        "Material": "100-110-01",
+                        "Plant": "1001",
+                        "Po_qty": "5",
+                        "Po_delivery_date": "2023-06-08",
+                        "Po_item": "10"
+                    },
+                    {
+                        "Supplier": "S10204001",
+                        "Material": "100-110-01",
+                        "Plant": "1001",
+                        "Po_qty": "5",
+                        "Po_delivery_date": "2023-06-08",
+                        "Po_item": "10"
+                    },
+                    {
+                        "Supplier": "S10204001",
+                        "Material": "100-110-01",
+                        "Plant": "1001",
+                        "Po_qty": "5",
+                        "Po_delivery_date": "2023-06-08",
+                        "Po_item": "10"
+                    }]
+                  }
+                    jQuery.ajax({
+                    url: sUrl + urlext,
+                    type: "POST",
+                    async: false,
+                    headers: {
+                        "X-CSRF-Token": token,
+                    },
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                    success: function (oData) {
+                        if (oData.value) {
+                            MessageBox.success("Success");
+                            console.log(oData.value);
+                            }
+                        },
+                        error: function (e) {
+                            MessageBox.error("Please add proper data");
+                        },
+                    });
+                },
             onLocalAiPress: function (oEvent) {
               var settings = {
                 "url": "https://13.127.183.113:8007/send_news_summary",

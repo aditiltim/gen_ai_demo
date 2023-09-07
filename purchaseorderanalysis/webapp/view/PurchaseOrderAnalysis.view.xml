@@ -15,7 +15,7 @@
 						<content>
 							<!-- <Title id="_IDGenTitle1" text="Purchase Order Analysis" level="H2"/> -->
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton3" text="Local AI" press="onLocalAiPress"/>
+							<Button id="_IDGenButton3" text="Local AI" press="onLocalAI"/>
 							<Button id="_IDGenButton1" text="Availibility Check" press="onRecalPress"/>
 							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
 						</content>
