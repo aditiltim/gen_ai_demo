@@ -62,6 +62,9 @@ sap.ui.define([
                 this.cust.open();
 
             },
+            salesOrderGraph : function(oEvent){
+
+            },
             SuppliersValueHelp: function(oEvent){
                 var sInputValue = oEvent.getSource().getValue();
                 this.inputId = oEvent.getSource().getId();
@@ -107,6 +110,56 @@ sap.ui.define([
 
 
             },
+            onClickSalesOrder: function(oEvent){
+                this._fnGetService = sap.ushell &&
+                sap.ushell.Container &&
+                sap.ushell.Container.getService;
+            this._oCrossAppNavigation = this._fnGetService &&
+                this._fnGetService("CrossApplicationNavigation");
+
+            this._hash = (this._oCrossAppNavigation &&
+                this._oCrossAppNavigation.hrefForExternal({
+
+                    target: {
+                        semanticObject: "salesorder",
+                        action: "display"
+                    },
+
+                })) || "";
+            if (this._oCrossAppNavigation) {
+                var oHref = this._oCrossAppNavigation.toExternal({
+                    target: {
+                        shellHash: this._hash
+                    }
+                })
+            }
+
+            },
+            onClickPurchaseOrder: function(oEvent){
+                this._fnGetService = sap.ushell &&
+                    sap.ushell.Container &&
+                    sap.ushell.Container.getService;
+                this._oCrossAppNavigation = this._fnGetService &&
+                    this._fnGetService("CrossApplicationNavigation");
+
+                this._hash = (this._oCrossAppNavigation &&
+                    this._oCrossAppNavigation.hrefForExternal({
+
+                        target: {
+                            semanticObject: "purchaseorder",
+                            action: "display"
+                        },
+
+                    })) || "";
+                if (this._oCrossAppNavigation) {
+                    var oHref = this._oCrossAppNavigation.toExternal({
+                        target: {
+                            shellHash: this._hash
+                        }
+                    })
+                }
+
+            },
             onPress: function (oEvent) {
                 this._fnGetService = sap.ushell &&
                     sap.ushell.Container &&
@@ -133,60 +186,27 @@ sap.ui.define([
             },
             goToSalesApp: function (oEvent) {
 
+
                 this.getView().byId("_IDGenVerticalLayout2").setVisible(true);
                 var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
                 var oVizFrame1 = this.getView().byId("idVizFrame1");
                 oVizFrame1.setModel(jsonData);
-                this._fnGetService = sap.ushell &&
-                    sap.ushell.Container &&
-                    sap.ushell.Container.getService;
-                this._oCrossAppNavigation = this._fnGetService &&
-                    this._fnGetService("CrossApplicationNavigation");
-
-                this._hash = (this._oCrossAppNavigation &&
-                    this._oCrossAppNavigation.hrefForExternal({
-
-                        target: {
-                            semanticObject: "salesorder",
-                            action: "display"
-                        },
-
-                    })) || "";
-                if (this._oCrossAppNavigation) {
-                    var oHref = this._oCrossAppNavigation.toExternal({
-                        target: {
-                            shellHash: this._hash
-                        }
-                    })
-                }
+               
               
             },
-            visible : function(){
+            hideSalesorderchart : function(){
                 this.getView().byId("_IDGenVerticalLayout2").setVisible(false);
             },
+            hidePurchasechart : function(){
+                this.getView().byId("_IDGenVerticalLayout3").setVisible(false);
+            },
             goToPOApp: function (oEvent) {
-                this._fnGetService = sap.ushell &&
-                    sap.ushell.Container &&
-                    sap.ushell.Container.getService;
-                this._oCrossAppNavigation = this._fnGetService &&
-                    this._fnGetService("CrossApplicationNavigation");
-
-                this._hash = (this._oCrossAppNavigation &&
-                    this._oCrossAppNavigation.hrefForExternal({
-
-                        target: {
-                            semanticObject: "purchaseorder",
-                            action: "display"
-                        },
-
-                    })) || "";
-                if (this._oCrossAppNavigation) {
-                    var oHref = this._oCrossAppNavigation.toExternal({
-                        target: {
-                            shellHash: this._hash
-                        }
-                    })
-                }
+                this.getView().byId("_IDGenVerticalLayout2").setVisible(false);
+                this.getView().byId("_IDGenVerticalLayout3").setVisible(true);
+                var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
+                var oVizFrame1 = this.getView().byId("idVizFrame2");
+                oVizFrame1.setModel(jsonData);
+               
             },
             goToAlertsApp: function (oEvent) {
                 this._fnGetService = sap.ushell &&

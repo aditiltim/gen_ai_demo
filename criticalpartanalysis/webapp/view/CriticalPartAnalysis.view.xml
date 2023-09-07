@@ -86,7 +86,7 @@
  
             <f:Card id="_IDGenCard1" class="sapUiMediumMargin" width="250px">
                 <f:header>
-                    <card:Header id="_IDGenHeader1" title="Sales Order Analysis" press="visible" />
+                    <card:Header id="_IDGenHeader1" title="Sales Order Analysis" press="hideSalesorderchart" />
                 </f:header>
                 <f:content >
                     <List id="_IDGenList1" showSeparators="None" >
@@ -109,7 +109,7 @@
             </f:Card>
             <f:Card id="_IDGenCard2" class="sapUiMediumMargin" width="250px">
                 <f:header>
-                    <card:Header id="_IDGenHeader2" title="Purchase Order Analysis" />
+                    <card:Header id="_IDGenHeader2" title="Purchase Order Analysis" press="hidePurchasechart"/>
                 </f:header>
                 <f:content>
                     <List id="_IDGenList2" showSeparators="None">
@@ -152,7 +152,7 @@
                     </List>
                 </f:content>
             </f:Card>
-              <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" visible="false">
+              <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" >
                                  
                                      <chart:ChartContainer id="chartContainer7"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent275" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
@@ -167,6 +167,7 @@
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
+                                                    selectData="onClickSalesOrder"
                                                 >
                                                     <viz:dataset>
                                                         <viz.data:FlattenedDataset id="_IDGenFlattenedDataset14122" data="{Data>/Records}" >
@@ -200,10 +201,11 @@
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'}, 
-                                                        title:{ text:'Order Priority for last 12 months'},dataLabel:{visible:true,showTotal:true}}"
+                                                        title:{ text:'purchase order'},dataLabel:{visible:true,showTotal:true}}"
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
+                                                     selectData="onClickPurchaseOrder"
                                                 >
                                                     <viz:dataset>
                                                         <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1422" data="{Data>/Records}">
