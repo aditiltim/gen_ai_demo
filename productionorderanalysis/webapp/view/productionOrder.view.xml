@@ -19,7 +19,7 @@
                 </headerToolbar>
                 <columns>
                     <Column id="column1" hAlign="Center"> 
-                        <Label id="label1" design="Bold" text="BOM Component"/>
+                        <Label id="label1" design="Bold" text="BOM Component" wrapping="true"/>
                     </Column>
                     <Column id="column2" hAlign="Center"> 
                         <Label id="label2" design="Bold" text="Stock Type"/>
@@ -28,10 +28,10 @@
                         <Label id="label3" design="Bold" text="Operation"/>
                     </Column>
                     <Column id="column4" hAlign="Center"> 
-                        <Label id="label4" design="Bold" text="BOM Component"/>
+                        <Label id="label4" design="Bold" text="BOM Component" wrapping="true"/>
                     </Column>
                     <Column id="column5" hAlign="Center"> 
-                        <Label id="label5" design="Bold" text="Procured/In house"/>
+                        <Label id="label5" design="Bold" text="Procured/In house" wrapping="true"/>
                     </Column>
                     <Column id="column6" hAlign="Center"> 
                         <Label id="label6" design="Bold" text="Vendor"/>
@@ -43,13 +43,13 @@
                         <Label id="label8" design="Bold" text="Critical Item"/>
                     </Column>
                     <Column id="column9" hAlign="Center"> 
-                        <Label id="label9" design="Bold" text="SAP Planned Delivery"/>
+                        <Label id="label9" design="Bold" text="SAP Planned Delivery" wrapping="true"/>
                     </Column>
                     <Column id="column10" hAlign="Center"> 
-                        <Label id="label10" design="Bold" text="AI Computed Date"/>
+                        <Label id="label10" design="Bold" text="AI Computed Date" wrapping="true"/>
                     </Column>
                     <Column id="column11" hAlign="Center"> 
-                        <Label id="label11" design="Bold" text="Confirmed by Purchasing"/>
+                        <Label id="label11" design="Bold" text="Confirmed by Purchasing" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>
