@@ -27,9 +27,6 @@
                     <Column id="column3" hAlign="Center"> 
                         <Label id="label3" design="Bold" text="Material"/>
                     </Column>
-                    <Column id="column4" hAlign="Center"> 
-                        <Label id="label4" design="Bold" text="Material Description" wrapping="true"/>
-                    </Column>
                     <Column id="column5" hAlign="Center"> 
                         <Label id="label5" design="Bold" text="Total Order Quantity" wrapping="true"/>
                     </Column>
@@ -44,9 +41,6 @@
                     </Column>
                     <Column id="column9" hAlign="Center"> 
                         <Label id="label9" design="Bold" text="SO" wrapping="true"/>
-                    </Column>
-                    <Column id="column10" hAlign="Center"> 
-                        <Label id="label10" design="Bold" text="SO Item" wrapping="true"/>
                     </Column>
                     <Column id="column11" hAlign="Center"> 
                         <Label id="label11" design="Bold" text="Planned Delivery Date" wrapping="true"/>
@@ -81,23 +75,21 @@
                         <cells>
                             <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{Order}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{Basic_Start_Date}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{Material}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier4" title="{Material_Description}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{Material}" text="{Material_Description}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier5" title="{Total_Order_Quantity}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier6" title="{Base_Unit_Measure}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier7" title="{Plant}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{SLOC}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{SO}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier10" title="{SO_Item}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{Planned_Del_Date}"/>
-                            <!-- <Text id="_IDGenObjectIdentifier11" text="{path: 'Planned_Del_Date', type: 'new sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd'}}"/> -->
+                            <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{SO}" text="{SO_Item}"/>
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{Planned_Del_Date}"/> -->
+                            <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{path: 'Planned_Del_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{Predicted_Finish_Date}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier13" title="{Material_component}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier14" title="{Vendor}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier15" title="{PO_no}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier16" title="{Critical_part}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{PO_Delivery_Date}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier18" title="{GEN_AI_Delivery_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{path: 'PO_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier18" title="{path: 'GEN_AI_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier19" title="{Sentiment}"/>
                         </cells>
                     </ColumnListItem>
