@@ -1,15 +1,17 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "hac2build/purchaseorderanalysis/model/formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,MessageBox) {
+    function (Controller,MessageBox,formatter) {
         "use strict";
 
         return Controller.extend("hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis", {
-            onInit: function () {
+          formatter: formatter,  
+          onInit: function () {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 console.log("Purchase Order View");
                 this.onLoadTabData();
@@ -88,15 +90,23 @@ sap.ui.define([
           contentType: "application/json",
           success: function (oData) {
               var that = this;
-                    sap.m.MessageBox.success("Success");
+                    debugger
                     console.log(oData)
-                    sContext.getModel("oTableModel").setProperty(sPath +"/Local_AI_Delivery_Date", oData.predicted_receipt_date);
-                    sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+                    // console.log(formattedRespDate);
+                    var predicted_receipt_date = oData.value[0].predicted_receipt_date;
+                    var oResponseDate = new Date(predicted_receipt_date);
+                    var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd"});
+                    var formattedPredictedReceiptDate= dateFormat.format(oResponseDate);
+                    console.log(formattedPredictedReceiptDate)
+                    sContext.getModel("oTableModel").setProperty(sPath +"/Local_AI_Delivery_Date", formattedPredictedReceiptDate);
+                    sap.m.MessageBox.success("Success");
+                    
+                    // sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
                     console.log(oData.value)
           
           },
             error: function (e) {
-              MessageBox.error("Please add proper data");
+              MessageBox.error("Request Timeout");
             },
           });
         },
@@ -140,18 +150,48 @@ sap.ui.define([
                 },
                 data: JSON.stringify(payload),
                 contentType: "application/json",
-                success: function (oData) {
-                  var that = this;
-                    sap.m.MessageBox.success("Success");
-                    console.log(oData)
-                    sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", oData.updated_delivery_date);
-                    sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
-                    console.log(oData.value);
-                    //that.downloadExcel(oData.value);
+                // success: function (oData) {
+                //   var that = this;
+                //     sap.m.MessageBox.success("Success");
+                //     console.log(oData)
+                //     sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", oData.updated_delivery_date);
+                //     sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+                //     console.log(oData.value);
+                //     //that.downloadExcel(oData.value);
                   
+                // },
+                success: function (oData) {
+            
+                  MessageBox.success("Success");
+                  var updatedDate = oData.updated_delivery_date;
+                  var oResponseDate = new Date(updatedDate);
+                  var deliveryDate = new Date(del_date);
+                  var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+                  var formattedRespDate = dateFormat.format(oResponseDate);
+                  var formattedDelDate = dateFormat.format(deliveryDate);
+                  // var calcDiffDate = new Date(updatedDate);
+                  if (formattedRespDate > formattedDelDate) {
+                    //that.getView().byId("_IDGenObjectStatus1").setState("Error");
+                    sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                    sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.Sentiment);
+                    
+                    console.log("updatedDate is greater");
+                  }
+                  // else{
+                  //   sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                  //   console.log("updatedDate is greater");
+                  // }
+                  var negSentiment = oData.percentage_negative_news;
+      
+      
+                  // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
+                  // this.getView().byId("idTablelist").getBinding("items").refresh();
+                  console.log(oData.value);
+      
                 },
+                
                 error: function (e) {
-                  MessageBox.error("Please add proper data");
+                  MessageBox.error("Request Timeout");
                 },
               });
       
@@ -247,7 +287,7 @@ sap.ui.define([
               });
         },
         onUpdatePO: function () {
-          MessageBox.confirm("Do you want to confirm the purchase order?");
+          MessageBox.confirm("Do you want to confirm the Purchase Order?");
         },
         });
 
