@@ -260,7 +260,7 @@
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'},
                                                         title:{ text:'Production Order'},dataLabel:{visible:true,showTotal:true}}"
-                                                    vizType="stacked_bar"
+                                                    vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
                                                      selectData="onClickProductionOrder"
