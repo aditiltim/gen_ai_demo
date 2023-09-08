@@ -122,7 +122,7 @@ sap.ui.define([
 
                     },
                     error: function (response) {
-                        MessageBox.error(response.responseText);
+                        sap.m.MessageBox.error(response.responseText);
 
                     }
                 });
@@ -160,7 +160,7 @@ sap.ui.define([
 
                     },
                     error: function (response) {
-                        MessageBox.error(response.responseText);
+                        sap.m.MessageBox.error(response.responseText);
 
                     }
                 });
@@ -197,7 +197,7 @@ sap.ui.define([
 
                     },
                     error: function (response) {
-                        MessageBox.error(response.responseText);
+                        sap.m.MessageBox.error(response.responseText);
 
                     }
                 });

@@ -126,15 +126,16 @@
                                     <Text id="text1" text="80" class="colorRed"/>
                                     </HBox>
                                 </VBox>
-                                <VBox id="_IDGenVBox32" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText32" text="Delivery Plants : 03" />
-                                </VBox>
-                                <VBox id="_IDGenVBox33" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                                  <VBox id="_IDGenVBox33" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
                                     <Label id="_IDGenText33" text="Production Order :  40" design="Bold"/>
                                 </VBox>
                                 <VBox id="_IDGenVBox22122" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
                                     <Text id="_IDGenText21212" text="Impacted Orders : 01" />
                                 </VBox>
+                                <VBox id="_IDGenVBox32" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
+                                    <Text id="_IDGenText32" text="Delivery Plants : 03" />
+                                </VBox>
+                              
                                 
                         </CustomListItem>
                     </List>
@@ -151,7 +152,7 @@
                                 <HBox id="_IDGenHBox6">
                                     <Button id="_IDGenButton1" icon="sap-icon://my-sales-order" type="Transparent" press="goToSalesApp" />
                                      </HBox>
-                                    <Text id="_IDGenText1" text="Customers  : 12" />
+                                    <Text id="_IDGenText1" text="Customers  : 12"  />
                                 </VBox>
                                 <VBox id="_IDGenVBox2" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
                                     <Label id="_IDGenText2" text="Sales Orders : 05" design="Bold"/>
@@ -271,12 +272,12 @@
                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11213" name="Status" value="{Status}" />
                                                             </viz.data:dimensions>
                                                             <viz.data:measures>
-                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252191" name="ProductionOrderCount" value="{ProductionOrderCount}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252191" name="ProdductionOrderCount" value="{ProdductionOrderCount}" />
                                                             </viz.data:measures>
                                                         </viz.data:FlattenedDataset>
                                                     </viz:dataset>
                                                     <viz:feeds>
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18291" type="Measure" uid="valueAxis" values="ProductionOrderCount" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18291" type="Measure" uid="valueAxis" values="ProdductionOrderCount" />
                                                         <viz.feeds:FeedItem id="_IDGenFeedItem22301" type="Dimension" uid="categoryAxis" values="ProductionOrder" />    
                                                         <viz.feeds:FeedItem id="_IDGenFeedItem2286" type="Dimension" uid="color" values="Status" />
                                                     </viz:feeds>
