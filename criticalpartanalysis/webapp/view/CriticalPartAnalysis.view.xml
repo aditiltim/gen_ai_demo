@@ -13,6 +13,8 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:viz="sap.viz.ui5.controls"
     xmlns:vizData="sap.viz.ui5.data"
+    xmlns:w="sap.ui.integration.widgets"
+	xmlns:cssgrid="sap.ui.layout.cssgrid"
     xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
     xmlns:C="sap.suite.ui.microchart"
     xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
@@ -166,6 +168,20 @@
                     </List>
                 </f:content>
             </f:Card>
+            	<!-- <f:GridContainer id="_IDGenGridContainer1">
+					<f:layout>
+						<f:GridContainerSettings id="_IDGenGridContainerSettings1" rowSize="5rem" columnSize="5rem" gap="1rem" />
+					</f:layout>
+					<f:layoutS>
+						<f:GridContainerSettings id="_IDGenGridContainerSettings2" rowSize="5rem" columnSize="5rem" gap="0.5rem" />
+					</f:layoutS>
+					<w:Card id="_IDGenCard4" manifest="{Data>/stackedColumn}">
+                     <Text id="_IDGenText13" text="Order Value  : $ 350,000" /> <Text id="_IDGenText223" text="Order Value  : $ 350,000" />
+						<w:layoutData>
+							<f:GridContainerItemLayoutData id="_IDGenGridContainerItemLayoutData1" rows="5" columns="4" />
+						</w:layoutData>
+					</w:Card>
+                    </f:GridContainer> -->
            
               <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" visible="false">
                                  

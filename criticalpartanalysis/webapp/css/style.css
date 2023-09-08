@@ -17,3 +17,6 @@
     overflow: hidden;
     background-color: #00a5e787;
 }
+.sapUiSizeCompact .sapMInputBaseHasEndIcons .sapMInputBaseInner, .sapUiSizeCompact .sapMInputBaseHasBeginIcons .sapMInputBaseInner {
+   width: calc(5rem);
+}
