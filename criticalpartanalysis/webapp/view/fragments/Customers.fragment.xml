@@ -3,7 +3,7 @@
 		 <content>
                             <SearchField id="searchfield2" class="sapUiSmallMargin" search="handleSearch1" />
 
-                            <Table width="20rem" id="importedproj" mode="SingleSelectMaster" selectionChange="OnProjSelect" items="{/Customer_Master}">
+                            <Table width="20rem" id="importedproj" mode="SingleSelectMaster" selectionChange="OnCustomerNoSelect" items="{/Customer_Master}">
                                 <columns>
                                     <Column id="_IDGenColumn151">
                                         <Text id="_IDGenText1441" text="CustomerNo" />
@@ -27,7 +27,7 @@
                    
         </content>
         <endButton>
-            <Button id="_IDGenButton111"  icon="sap-icon://cancel" type="Negative" text="Cancel" press="onCustomerCancel" />
+            <Button id="button"  icon="sap-icon://cancel" type="Negative" text="Cancel" press="onCustomerCancel" />
         </endButton>
 	</Dialog>
 </core:FragmentDefinition>
