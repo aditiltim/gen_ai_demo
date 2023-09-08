@@ -2,126 +2,100 @@
 
 <mvc:View controllerName="hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}" showHeader="false" enableScrolling="true" class="sapUiContentPadding"
-		showNavButton="false">
-        <content>
-			<Table id="idProductsTable" growing="true" growingThreshold="10" paste="onPaste" 
-			items="{
-						path: '/purchaseOrder'
-					}">
-				<headerToolbar>
-					<OverflowToolbar id="otbSubheader">
-						<Title id="_IDGenTitle1" text="Alerts / Notifications" level="H2" />
-						<!-- <ToolbarSpacer id="_IDGenToolbarSpacer1" />
-						<Button id="editButton" text="Edit" type="Transparent"
-							press="onEdit" />
-						<Button id="saveButton" text="Save" type="Transparent"
-							press="onSave" visible="false" />
-						<Button id="cancelButton" text="Cancel" type="Transparent"
-							press="onCancel" visible="false" /> -->
+    xmlns="sap.m"
+	xmlns:plugins="sap.m.plugins"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable">
+	<Page id="_IDGenPage1" showHeader="false" enableScrolling="true">
+	<content>
+		<Table class="table1" items="{oTableModel>/}"  id="idTablelist" visible="true"
+				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="SingleSelectMaster" selectionChange="onSelectedRow" alternateRowColors="true">
+				<headerToolbar backgroundDesign="Solid">
+					<OverflowToolbar id="_IDGenOverflowToolbar1">
+						<content>
+							<!-- <Title id="_IDGenTitle1" text="Purchase Order Analysis" level="H2"/> -->
+							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+							<Button id="_IDGenButton3" text="Local AI" press="onLocalAI"/>
+							<Button id="_IDGenButton1" text="Availibility Check" press="onAvailablePress"/>
+							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
+						</content>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column id="_IDGenColumn1">
-						<Text id="_IDGenText1" text="Critical Part" />
+					<Column id="_IDGenColumn1" hAlign="Center">
+						<Label id="_IDGenLabel1" design="Bold" text="Supplier"/>
 					</Column>
-					<Column id="_IDGenColumn2" >
-						<Text id="_IDGenText2" text="Description" />
+					<Column id="_IDGenColumn2" hAlign="Center">
+						<Label id="_IDGenLabel2" design="Bold" text="PO"/>
 					</Column>
-					<Column id="_IDGenColumn3" >
-						<Text id="_IDGenText3" text="Quantity Ordered" />
+					<Column id="_IDGenColumn3" hAlign="Center">
+						<Label id="_IDGenLabel3" design="Bold" text="PO Item"/>
 					</Column>
-					<Column id="_IDGenColumn4" >
-						<Text id="_IDGenText4" text="Supplier" />
+					<Column id="_IDGenColumn4" hAlign="Center">
+						<Label id="_IDGenLabel4" design="Bold" text="PO SLN"/>
 					</Column>
-                    <Column id="_IDGenColumn5" >
-						<Text id="_IDGenText5" text="Supplier Location" />
+					<Column id="_IDGenColumn10" hAlign="Center">
+						<Label id="_IDGenLabel10" design="Bold" text="Material"/>
 					</Column>
-					<Column id="_IDGenColumn6" >
-						<Text id="_IDGenText6" text="Buyer" />
+					<Column id="_IDGenColumn11" hAlign="Center">
+						<Label id="_IDGenLabel11" design="Bold" text="Description"/>
 					</Column>
-					<Column id="_IDGenColumn7" >
-						<Text id="_IDGenText7" text="Planner" />
+					<Column id="_IDGenColumn12" hAlign="Center">
+						<Label id="_IDGenLabel12" design="Bold" text="QTY"/>
 					</Column>
-					<Column id="_IDGenColumn8" >
-						<Text id="_IDGenText8" text="Disruption Category" />
+					<!-- <Column id="_IDGenColumn5" hAlign="Center">
+						<Label id="_IDGenLabel5" design="Bold" text="FG Item"/>
+					</Column> -->
+					<Column id="_IDGenColumn13" hAlign="Center">
+						<Label id="_IDGenLabel13" design="Bold" text="Plant"/>
 					</Column>
-                    <Column id="_IDGenColumn9" hAlign="End">
-						<Text id="_IDGenText9" text="Last date of update" />
+					<Column id="_IDGenColumn14" hAlign="Center">
+						<Label id="_IDGenLabel14" design="Bold" text="Sales Order"/>
+					</Column>
+					<Column id="_IDGenColumn6" hAlign="Center">
+						<Label id="_IDGenLabel6" design="Bold" text="SO Item"/>
+					</Column>
+					<!-- <Column id="_IDGenColumn15" hAlign="Center">
+						<Label id="_IDGenLabel15" design="Bold" wrapping="true" text="Purchase Orgnisation"/>
+					</Column>
+					<Column id="_IDGenColumn7" hAlign="Center">
+						<Label id="_IDGenLabel7" design="Bold" wrapping="true" text="Purchasing Group"/>
+					</Column> -->
+					<Column id="_IDGenColumn8" hAlign="Center" autoPopinWidth="50">
+						<Label id="_IDGenLabel8" design="Bold" wrapping="true" text="Planned Delivery Date"/>
+					</Column>
+					<Column id="_IDGenColumn16" hAlign="Center">
+						<Label id="_IDGenLabel16" design="Bold" wrapping="true" text="Local AI Delivery Date"/>
+					</Column>
+					<Column id="_IDGenColumn9" hAlign="Center">
+						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="GEN AI Delivery Date"/>
 					</Column>
 				</columns>
-				<items >
-					<!-- <ColumnListItem id="_IDGenColumnListItem1" vAlign="Middle">
-						<cells>
-							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{Name}" text="{ProductId}" />
-							<ObjectNumber id="_IDGenObjectNumber1"
-								number="{
-								path:'AlertsModel',
-								type: 'sap.ui.model.type.String',
-								formatOptions: {showMeasure: false}
-							}"
-								unit="{UoM}" />
-							<ObjectNumber id="_IDGenObjectNumber2" number="{WeightMeasure}" unit="{WeightUnit}"
-								state="{
-							path: 'WeightMeasure',
-							formatter: 'sap.m.sample.TableEditable.Formatter.weightState'
-						}" />
-							<ObjectNumber id="_IDGenObjectNumber3"
-								number="{
-								parts:[{path:'Price'},{path:'CurrencyCode'}],
-								type: 'sap.ui.model.type.Currency',
-								formatOptions: {showMeasure: false}
-							}"
-								unit="{CurrencyCode}" />
+				<items>
+					<ColumnListItem id="_IDGenColumnListItem1" class="cells">
+						<cells >
+							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{oTableModel>Supplier}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{oTableModel>PO}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>PO_Item}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>PO_SL}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Material_Description}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Quantity} PC"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{FG_Item}"/> -->
+							<ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>Plant}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier10" title="{oTableModel>Sales_order}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier11" title="{oTableModel>SO_Item}"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{Purchase_Orgnisation}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier13" title="{Purchasing_Group}"/> -->
+							<ObjectIdentifier id="_IDGenObjectIdentifier14" title="{oTableModel>Delivery_date}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier15" title="{oTableModel>Local_AI_Delivery_Date}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier16" title="{oTableModel>GEN_AI_Delivery_Date}"/>
+
 						</cells>
-					</ColumnListItem> -->
-					<ColumnListItem
-                            id="_IDGenColumnListItem1"                        >
-                            <cells>
-                             <ObjectIdentifier
-                                    id="_IDGenObjectIdentifier1"
-                                    text="{materail}"
-                                />
-                                <ObjectIdentifier
-                                    id="_IDGenObjectIdentifier2"
-                                    text="{description}"
-                                />
-								<ObjectIdentifier
-                                    id="_IDGenObjectIdentifier3"
-                                    text="{qty}"
-                                />
-                               
-                                <ObjectIdentifier
-                                    id="_IDGenObjectIdentifier4"
-                                    text="{supplier}"
-                                />
-								<ObjectIdentifier
-                                    id="_IDGenObjectIdentifier5"
-                                    text="{location}"
-                                />
-                               
-                                <ObjectIdentifier
-                                    id="_IDGenObjectIdentifier6"
-                                    text="{buyer}"
-                                />
-								<ObjectIdentifier
-                                    id="_IDGenObjectIdentifier7"
-                                    text="{planner}"
-                                />
-								<ObjectIdentifier
-                                    id="_IDGenObjectIdentifier8"
-                                    text="{category}"
-                                />
-                               
-                                <ObjectIdentifier
-                                    id="_IDGenObjectIdentifier9"
-                                    text="{lastUpdateDate}"
-                                />
-                            </cells>
-                        </ColumnListItem>
+					</ColumnListItem>
 				</items>
 			</Table>
-		</content>
-    </Page>
+	</content>
+	</Page>
 </mvc:View>
+

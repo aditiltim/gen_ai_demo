@@ -15,15 +15,15 @@
 		</HBox>
 	</content>
 	<content>
-		<Table class="table1" items="{path : '/SO_Data'}"  id="idTablelist" visible="true"
-				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="MultiSelect" selectionChange="onSelectProject" alternateRowColors="true">
+		<Table class="table1" items="{oTableModel>/}"  id="idTablelist" visible="true"
+				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="SingleSelectMaster" selectionChange="onSelectedRow" alternateRowColors="true">
 				<headerToolbar backgroundDesign="Solid">
 					<OverflowToolbar id="_IDGenOverflowToolbar1">
 						<content>
 							<Title id="_IDGenTitle1" text="Sales Order Analysis" level="H2"/>
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton1" text="Recalculate SAP Availibility Check" press="onRecalPress"/>
-							<Button id="_IDGenButton2" text="Notify Customer via Email" press="onEmailPress"/>
+							<Button id="_IDGenButton1" text="Availibility Check" press="onAvailablePress"/>
+							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
@@ -55,19 +55,25 @@
 					<Column id="_IDGenColumn9" hAlign="Center">
 						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="Gen AI Predicted Delivery Date"/>
 					</Column>
+					<Column id="_IDGenColumn10" hAlign="Center" autoPopinWidth="50">
+						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Sentiment %"/>
+					</Column>
 				</columns>
 				<items>
-					<ColumnListItem id="_IDGenColumnListItem1" class="cells">
+					<ColumnListItem id="_IDGenColumnListItem1" class="cells" press="onRowSelected">
 						<cells >
-							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{Sales_Order}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{Sold_to}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier3" title="{SO_Item}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier4" title="{Plant}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{Material}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{Order_Quantity}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{Unit_Price}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{Current_SAP_Delivery_Date}"/>
-							<ObjectStatus id="_IDGenObjectStatus1" text="{GEN_AI_Delivery_Date}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{oTableModel>Sales_Order}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{oTableModel>Sold_to}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>SO_Item}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>Plant}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Order_Quantity}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Unit_Price}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Current_SAP_Delivery_Date}"/>			
+							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}"/>
+							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
+							<ObjectStatus id="_IDGenObjectStatus2" text="{Sentiment}"/>
+							
 						</cells>
 					</ColumnListItem>
 				</items>
