@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
-	<Dialog id="cust" class="sapUiResponsiveContentPadding" title="Search Project">
+	<Dialog id="cust" class="sapUiResponsiveContentPadding" title="Search...">
 		 <content>
                             <SearchField id="searchfield2" class="sapUiSmallMargin" search="handleSearch1" />
 

@@ -17,6 +17,7 @@ sap.ui.define([
 
                 this.salesOrderGraph();
                 this.purchaseOrderGraph();
+                this.productionOrderGraph();
                 
                   
                 // this._fnGetService = sap.ushell && 
@@ -132,7 +133,7 @@ sap.ui.define([
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 this.purchaseOrderArr = [];
                 $.ajax({
-                    url: sUrl + "PODataView?$apply=groupby((Status),aggregate($count as SalesOrderCount))",
+                    url: sUrl + "PODataView?$apply=groupby((PO,Status),aggregate($count as SalesOrderCount))",
                     method: "GET",
                     async: false,
                     headers: {
@@ -141,7 +142,8 @@ sap.ui.define([
                     success: function (data) {
                         for (var i = 0; i < data.value.length; i++) {
                             var obj = {
-                                SalesOrderCount: data.value[i].SalesOrderCount,
+                                PurchaseOrder  : data.value[i].PO,
+                                PurchaseOrderCount: data.value[i].SalesOrderCount,
                                 Status: data.value[i].Status
 
                             }
@@ -152,6 +154,43 @@ sap.ui.define([
                         var oModel = new sap.ui.model.json.JSONModel();
                         oModel.setData(that.purchaseOrderArr);
                         that.getOwnerComponent().setModel(oModel, "poModel");
+
+
+
+
+                    },
+                    error: function (response) {
+                        MessageBox.error(response.responseText);
+
+                    }
+                });
+            },
+            productionOrderGraph: function (oEvent) {
+                var that = this;
+                var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
+                this.purchaseOrderArr = [];
+                $.ajax({
+                    url: sUrl + "PODataView?$apply=groupby((PO,Status),aggregate($count as SalesOrderCount))",
+                    method: "GET",
+                    async: false,
+                    headers: {
+                        "X-CSRF-Token": "Fetch"
+                    },
+                    success: function (data) {
+                        for (var i = 0; i < data.value.length; i++) {
+                            var obj = {
+                                ProductionOrder  : data.value[i].PO,
+                                ProdductionOrderCount: data.value[i].SalesOrderCount,
+                                Status: data.value[i].Status
+
+                            }
+                            that.purchaseOrderArr.push(obj);
+                           
+
+                        }
+                        var oModel = new sap.ui.model.json.JSONModel();
+                        oModel.setData(that.purchaseOrderArr);
+                        that.getOwnerComponent().setModel(oModel, "productionModel");
 
 
 
@@ -186,28 +225,28 @@ sap.ui.define([
             onSupplierCancel: function () {
                 this.suppliers.close();
             },
-            handleSearch: function (oEvent) {
-                var query = this.getView().byId("input11").getValue();
-                if (query == "" || query == undefined || query == null) {
-                    this.getView().byId("_IDGenText1").setVisible(true);
-                    this.getView().byId("_IDGenText2").setVisible(true);
-                    this.getView().byId("_IDGenText3").setVisible(true);
+            // handleSearch: function (oEvent) {
+            //     var query = this.getView().byId("input11").getValue();
+            //     if (query == "" || query == undefined || query == null) {
+            //         this.getView().byId("_IDGenText1").setVisible(true);
+            //         this.getView().byId("_IDGenText2").setVisible(true);
+            //         this.getView().byId("_IDGenText3").setVisible(true);
 
-                }
-                if (query === this.getView().byId("_IDGenText1").getText().split('  :')[0]) {
-                    this.getView().byId("_IDGenText1").setVisible(true);
-                    this.getView().byId("_IDGenText2").setVisible(false);
-                    this.getView().byId("_IDGenText3").setVisible(false);
-
-
-                }
-                // else{
-                //     this.getView().byId("_IDGenText2").setVisible(false);
-                //     this.getView().byId("_IDGenText3").setVisible(false);
-                // }
+            //     }
+            //     if (query === this.getView().byId("_IDGenText1").getText().split('  :')[0]) {
+            //         this.getView().byId("_IDGenText1").setVisible(true);
+            //         this.getView().byId("_IDGenText2").setVisible(false);
+            //         this.getView().byId("_IDGenText3").setVisible(false);
 
 
-            },
+            //     }
+            //     // else{
+            //     //     this.getView().byId("_IDGenText2").setVisible(false);
+            //     //     this.getView().byId("_IDGenText3").setVisible(false);
+            //     // }
+
+
+            // },
             OnSalesOrgProjSelect: function (oEvent) {
 
                 var ProjId = oEvent.getSource().getSelectedItem().getBindingContext().getObject().Sales_Orgnisation;
