@@ -23,25 +23,25 @@
 							<Title id="_IDGenTitle1" text="Sales Order Analysis" level="H2"/>
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 							<Button id="_IDGenButton1" text="Availibility Check" press="onAvailablePress"/>
-							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
+							<Button id="_IDGenButton2" text="Notify Customer" press="onOpenPopoverDialog"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column id="_IDGenColumn1" hAlign="Center">
-						<Label id="_IDGenLabel1" design="Bold" text="Sales Order"/>
+					<Column id="_IDGenColumn1" hAlign="Left">
+						<Label id="_IDGenLabel1" design="Bold" wrapping="true" text="Sales Order / Item"/>
 					</Column>
-					<Column id="_IDGenColumn2" hAlign="Center">
-						<Label id="_IDGenLabel2" design="Bold" text="Sold-To-Party"/>
+					<Column id="_IDGenColumn2" hAlign="Left">
+						<Label id="_IDGenLabel2" design="Bold" wrapping="true" text="Sold to Party No. / Name"/>
 					</Column>
-					<Column id="_IDGenColumn3" hAlign="Center">
+					<!-- <Column id="_IDGenColumn3" hAlign="Center">
 						<Label id="_IDGenLabel3" design="Bold" text="Item"/>
-					</Column>
-					<Column id="_IDGenColumn4" hAlign="Center">
+					</Column> -->
+					<!-- <Column id="_IDGenColumn4" hAlign="Center">
 						<Label id="_IDGenLabel4" design="Bold" text="Plant"/>
-					</Column>
-					<Column id="_IDGenColumn5" hAlign="Center">
-						<Label id="_IDGenLabel5" design="Bold" text="Material"/>
+					</Column> -->
+					<Column id="_IDGenColumn5" hAlign="Left">
+						<Label id="_IDGenLabel5" design="Bold" wrapping="true" text="Material No. / Description"/>
 					</Column>
 					<Column id="_IDGenColumn6" hAlign="Center">
 						<Label id="_IDGenLabel6" design="Bold" text="Quantity"/>
@@ -62,19 +62,18 @@
 				<items>
 					<ColumnListItem id="_IDGenColumnListItem1" class="cells" press="onRowSelected">
 						<cells >
-							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{oTableModel>Sales_Order}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{oTableModel>Sold_to}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>SO_Item}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>Plant}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Order_Quantity}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Unit_Price}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{oTableModel>Sales_Order}" text="{oTableModel>SO_Item}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{oTableModel>Sold_to}" text="{oTableModel>Customer_Name}"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>SO_Item}"/> -->
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>Plant}"/> -->
+							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"   text="{oTableModel>Material_Description}"/>
+							<ObjectNumber id="_IDGenObjectIdentifier6" number="{oTableModel>Order_Quantity}" unit="EA"/>
+							<ObjectNumber id="_IDGenObjectIdentifier7" number="{oTableModel>Unit_Price}" unit="USD"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Current_SAP_Delivery_Date}"/>				
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}"/> -->
 							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.statusText'}"/>	
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
-							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}"/>
-							
+							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="None" press="onClickSentiment" />				
 						</cells>
 					</ColumnListItem>
 				</items>
