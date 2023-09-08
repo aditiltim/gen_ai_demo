@@ -5,7 +5,7 @@
     <Page id="page" showHeader="false" enableScrolling="true">
         <content>
             <!-- Table for production orders -->
-            <Table id="productionOrderTable" sticky="HeaderToolbar,ColumnHeaders,InfoToolbar" mode="MultiSelect" alternateRowColors="true">
+            <Table id="productionOrderTable" items="{path: '/Prd_Data'}" sticky="HeaderToolbar,ColumnHeaders,InfoToolbar" mode="MultiSelect" alternateRowColors="true">
                 <!-- HeaderToolbar -->
                 <headerToolbar >
                     <OverflowToolbar id="_IDGenOverflowToolbar1">
@@ -19,53 +19,86 @@
                 </headerToolbar>
                 <columns>
                     <Column id="column1" hAlign="Center"> 
-                        <Label id="label1" design="Bold" text="BOM Component" wrapping="true"/>
+                        <Label id="label1" design="Bold" text="Order" wrapping="true"/>
                     </Column>
                     <Column id="column2" hAlign="Center"> 
-                        <Label id="label2" design="Bold" text="Stock Type"/>
+                        <Label id="label2" design="Bold" text="Basic Start Date" wrapping="true"/>
                     </Column>
                     <Column id="column3" hAlign="Center"> 
-                        <Label id="label3" design="Bold" text="Operation"/>
+                        <Label id="label3" design="Bold" text="Material"/>
                     </Column>
                     <Column id="column4" hAlign="Center"> 
-                        <Label id="label4" design="Bold" text="BOM Component" wrapping="true"/>
+                        <Label id="label4" design="Bold" text="Material Description" wrapping="true"/>
                     </Column>
                     <Column id="column5" hAlign="Center"> 
-                        <Label id="label5" design="Bold" text="Procured/In house" wrapping="true"/>
+                        <Label id="label5" design="Bold" text="Total Order Quantity" wrapping="true"/>
                     </Column>
                     <Column id="column6" hAlign="Center"> 
-                        <Label id="label6" design="Bold" text="Vendor"/>
+                        <Label id="label6" design="Bold" text="Base Unit of Measure" wrapping="true"/>
                     </Column>
                     <Column id="column7" hAlign="Center"> 
-                        <Label id="label7" design="Bold" text="PO Number"/>
+                        <Label id="label7" design="Bold" text="Plant"/>
                     </Column>
                     <Column id="column8" hAlign="Center"> 
-                        <Label id="label8" design="Bold" text="Critical Item"/>
+                        <Label id="label8" design="Bold" text="SLOC"/>
                     </Column>
                     <Column id="column9" hAlign="Center"> 
-                        <Label id="label9" design="Bold" text="SAP Planned Delivery" wrapping="true"/>
+                        <Label id="label9" design="Bold" text="SO" wrapping="true"/>
                     </Column>
                     <Column id="column10" hAlign="Center"> 
-                        <Label id="label10" design="Bold" text="AI Computed Date" wrapping="true"/>
+                        <Label id="label10" design="Bold" text="SO Item" wrapping="true"/>
                     </Column>
                     <Column id="column11" hAlign="Center"> 
-                        <Label id="label11" design="Bold" text="Confirmed by Purchasing" wrapping="true"/>
+                        <Label id="label11" design="Bold" text="Planned Delivery Date" wrapping="true"/>
+                    </Column>
+                    <Column id="column12" hAlign="Center"> 
+                        <Label id="label12" design="Bold" text="Predicted Finish Date" wrapping="true"/>
+                    </Column>
+                    <Column id="column13" hAlign="Center"> 
+                        <Label id="label13" design="Bold" text="Material Component" wrapping="true"/>
+                    </Column>
+                    <Column id="column14" hAlign="Center"> 
+                        <Label id="label14" design="Bold" text="Vendor" wrapping="true"/>
+                    </Column>
+                    <Column id="column15" hAlign="Center"> 
+                        <Label id="label15" design="Bold" text="PO Number" wrapping="true"/>
+                    </Column>
+                    <Column id="column16" hAlign="Center"> 
+                        <Label id="label16" design="Bold" text="Critical Part" wrapping="true"/>
+                    </Column>
+                    <Column id="column17" hAlign="Center"> 
+                        <Label id="label17" design="Bold" text="PO Delivery Date" wrapping="true"/>
+                    </Column>
+                    <Column id="column18" hAlign="Center"> 
+                        <Label id="label18" design="Bold" text="AI Computed Date" wrapping="true"/>
+                    </Column>
+                    <Column id="column19" hAlign="Center"> 
+                        <Label id="label19" design="Bold" text="Sentiment %" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="_IDGenColumnListItem1">
                         <cells>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier1" title="30"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier2" title="Stock Item"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier3" title="10020"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier4" title="102-300"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier5" title="Procured"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier6" title="3000"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier7" title="900002"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier8" title="X"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier9" title="30.10.2023"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier10" title="05.11.2023"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier11" title="Yes"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{Order}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{Basic_Start_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{Material}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier4" title="{Material_Description}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier5" title="{Total_Order_Quantity}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier6" title="{Base_Unit_Measure}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier7" title="{Plant}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{SLOC}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{SO}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier10" title="{SO_Item}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{Planned_Del_Date}"/>
+                            <!-- <Text id="_IDGenObjectIdentifier11" text="{path: 'Planned_Del_Date', type: 'new sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd'}}"/> -->
+                            <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{Predicted_Finish_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier13" title="{Material_component}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier14" title="{Vendor}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier15" title="{PO_no}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier16" title="{Critical_part}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{PO_Delivery_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier18" title="{GEN_AI_Delivery_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier19" title="{Sentiment}"/>
                         </cells>
                     </ColumnListItem>
                 </items>

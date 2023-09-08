@@ -15,6 +15,7 @@ sap.ui.define([
  
             onAvailabilityCheckPress: function (oEvent) {
                 var that = this;
+                var d
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 var token;
                 $.ajax({
