@@ -69,10 +69,9 @@
 							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Order_Quantity}"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Unit_Price}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Current_SAP_Delivery_Date}"/>			
-							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" />
-							<!-- <ObjectStatus id="_IDGenObjectStatus1" state="{path:'oTableModel>GEN_AI_Delivery_Date',formatter:'.formatter.formatDateFn'}"/> -->
-							<!-- <ObjectStatus id="_IDGenObjectStatus1" state="oTableModel>GEN_AI_Delivery_Date"/> -->
+							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Current_SAP_Delivery_Date}"/>				
+							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}"/> -->
+							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.statusText'}"/>	
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
 							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}"/>
 							

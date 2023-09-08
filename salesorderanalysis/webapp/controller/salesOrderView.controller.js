@@ -92,7 +92,7 @@ sap.ui.define([
             var formattedDelDate = dateFormat.format(deliveryDate);
             // var calcDiffDate = new Date(updatedDate);
             if (formattedRespDate > formattedDelDate) {
-              that.getView().byId("_IDGenObjectStatus1").setState("Error");
+              //that.getView().byId("_IDGenObjectStatus1").setState("Error");
               sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
               console.log("updatedDate is greater");
             }
@@ -100,7 +100,7 @@ sap.ui.define([
 
 
             // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
-            // sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+            // this.getView().byId("idTablelist").getBinding("items").refresh();
             console.log(oData.value);
 
           },
