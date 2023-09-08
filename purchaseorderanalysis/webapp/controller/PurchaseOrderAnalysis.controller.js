@@ -1,15 +1,17 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "hac2build/purchaseorderanalysis/model/formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,MessageBox) {
+    function (Controller,MessageBox,formatter) {
         "use strict";
 
         return Controller.extend("hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis", {
-            onInit: function () {
+          formatter: formatter,  
+          onInit: function () {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 console.log("Purchase Order View");
                 this.onLoadTabData();
@@ -44,7 +46,7 @@ sap.ui.define([
         var Supplier = this.getView().getModel("oRowModel").oData.Supplier;
         var Material = this.getView().getModel("oRowModel").oData.Material_Description;
         var Plant = this.getView().getModel("oRowModel").oData.Plant;
-        // debugger
+        debugger
         // var Po_qty = this.getView().getModel("oRowModel").oData.Quantity;
         var Po_qty = JSON.stringify(this.getView().getModel("oRowModel").oData.Quantity);
         var Po_delivery_date = this.getView().getModel("oRowModel").oData.Delivery_date;
@@ -70,8 +72,8 @@ sap.ui.define([
         var payload = {
           "excelData": [{
             "Supplier": Supplier,
-            "Material": Material,
-            "Plant": Plant,
+            "Material": "100-110-01",
+            "Plant": "1002",
             "Po_qty": Po_qty,
             "Po_delivery_date": Po_delivery_date,
             "Po_item": Po_item
@@ -87,37 +89,130 @@ sap.ui.define([
           data: JSON.stringify(payload),
           contentType: "application/json",
           success: function (oData) {
-            
-              MessageBox.success("Success");
-              console.log(oData.value);
-              sContext.getModel("oTableModel").setProperty(sPath +"/Local_AI_Delivery_Date", local_updated_delivery_date);
-              sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+              var that = this;
+                    debugger
+                    console.log(oData)
+                    // console.log(formattedRespDate);
+                    var predicted_receipt_date = oData.value[0].predicted_receipt_date;
+                    var oResponseDate = new Date(predicted_receipt_date);
+                    var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd"});
+                    var formattedPredictedReceiptDate= dateFormat.format(oResponseDate);
+                    console.log(formattedPredictedReceiptDate)
+                    sContext.getModel("oTableModel").setProperty(sPath +"/Local_AI_Delivery_Date", formattedPredictedReceiptDate);
+                    sap.m.MessageBox.success("Success");
+                    
+                    // sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+                    console.log(oData.value)
           
           },
             error: function (e) {
-              MessageBox.error("Please add proper data");
+              MessageBox.error("Request Timeout");
             },
           });
         },
-            onLocalAiPress: function (oEvent) {
-              var settings = {
-                "url": "https://13.127.183.113:8007/send_news_summary",
-                "method": "POST",
-                "timeout": 0,
-                "headers": {
-                  "Content-Type": "application/json"
-                },
-                "data": JSON.stringify({
-                  "company_name": "zomato",
-                  "delivery_date": "2023-09-05"
-                }),
-              };
+      onAvailablePress: function (oEvent) {
+              // debugger
+              var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
+              var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
+              var customer = JSON.stringify(this.getView().getModel("oRowModel").oData.Customer);
+              var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
       
-              $.ajax(settings).done(function (response) {
-                console.log(response);
+              var that = this;
+              var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+              var token;
+              $.ajax({
+                url: sUrl,
+                method: "GET",
+                async: false,
+                headers: {
+                  "X-CSRF-Token": "Fetch"
+                },
+                success: function (result, xhr, data) {
+                  token = data.getResponseHeader("X-CSRF-Token");
+                },
+                error: function (result, xhr, data) {
+                  console.log("Error");
+                },
               });
-            },
-            onEmailPress: function (odata) {
+              var urlext = "getNewsSummaryData";
+              var payload = {
+                "newsData": {
+                  "company_name": customer,
+                  "delivery_date": del_date
+                }
+              }
+              jQuery.ajax({
+                url: sUrl + urlext,
+                type: "POST",
+                async: false,
+                headers: {
+                  "X-CSRF-Token": token
+                },
+                data: JSON.stringify(payload),
+                contentType: "application/json",
+                // success: function (oData) {
+                //   var that = this;
+                //     sap.m.MessageBox.success("Success");
+                //     console.log(oData)
+                //     sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", oData.updated_delivery_date);
+                //     sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+                //     console.log(oData.value);
+                //     //that.downloadExcel(oData.value);
+                  
+                // },
+                success: function (oData) {
+            
+                  MessageBox.success("Success");
+                  var updatedDate = oData.updated_delivery_date;
+                  var oResponseDate = new Date(updatedDate);
+                  var deliveryDate = new Date(del_date);
+                  var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+                  var formattedRespDate = dateFormat.format(oResponseDate);
+                  var formattedDelDate = dateFormat.format(deliveryDate);
+                  // var calcDiffDate = new Date(updatedDate);
+                  if (formattedRespDate > formattedDelDate) {
+                    //that.getView().byId("_IDGenObjectStatus1").setState("Error");
+                    sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                    sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.Sentiment);
+                    
+                    console.log("updatedDate is greater");
+                  }
+                  // else{
+                  //   sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                  //   console.log("updatedDate is greater");
+                  // }
+                  var negSentiment = oData.percentage_negative_news;
+      
+      
+                  // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
+                  // this.getView().byId("idTablelist").getBinding("items").refresh();
+                  console.log(oData.value);
+      
+                },
+                
+                error: function (e) {
+                  MessageBox.error("Request Timeout");
+                },
+              });
+      
+              // var settings = {
+              //   "url": "https://13.127.183.113:8007/send_news_summary",
+              //   "method": "POST",
+              //   "timeout": 0,
+              //   "headers": {
+              //     "Content-Type": "application/json"
+              //   },
+              //   "data": JSON.stringify({
+              //     "company_name": sold_To,
+              //     "delivery_date": del_date
+              //   }),
+              // };
+      
+              // $.ajax(settings).done(function (response) {
+              //   console.log(response);
+              // });
+        },
+      onEmailPress: function (odata) {
               var that = this;
               var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
               var token;
@@ -155,7 +250,7 @@ sap.ui.define([
                 headers: {
                   "X-CSRF-Token": token,
                 },
-                data:JSON.stringify(payload),
+                data: JSON.stringify(payload),
                 contentType: "application/json",
                 success: function (oData) {
                   if (oData.value) {
@@ -168,8 +263,8 @@ sap.ui.define([
                   MessageBox.error("Please add proper data");
                 },
               });
-            },
-            onRecalPress: function (oEvent) {
+        },
+      onRecalPress: function (oEvent) {
               var settings = {
                 "url": "https://openai-serv-app.cfapps.eu10-004.hana.ondemand.com/api/v1/completions",
                 "method": "POST",
@@ -190,10 +285,13 @@ sap.ui.define([
               $.ajax(settings).done(function (response) {
                 console.log(response);
               });
-            }
-        }
-        );
-    }
-);
+        },
+        onUpdatePO: function () {
+          MessageBox.confirm("Do you want to confirm the Purchase Order?");
+        },
+        });
+
+    });
+
 
       

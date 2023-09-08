@@ -13,6 +13,8 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:viz="sap.viz.ui5.controls"
     xmlns:vizData="sap.viz.ui5.data"
+    xmlns:w="sap.ui.integration.widgets"
+	xmlns:cssgrid="sap.ui.layout.cssgrid"
     xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
     xmlns:C="sap.suite.ui.microchart"
     xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
@@ -38,14 +40,19 @@
              <Label id="_IDGenLabel5" text="" width ="0.5rem" />
             <Input id="input13" valueHelpRequest="SuppliersValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
             </HBox>
+             <HBox id="_IDGenHBox33">
+            <Text id="_IDGenText25" text="Plant"/>
+             <Label id="_IDGenLabel13" text="" width ="0.5rem" />
+            <Input id="input15" valueHelpRequest="CustomerValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
+            </HBox>
              <Label id="_IDGenLabel6" text="" width ="1rem"/>
             <HBox id="_IDGenHBox5">
             <Text id="_IDGenText7" text="Period"/>
-             <Label id="_IDGenLabel7" text="" width ="0.5rem" />
-              <Input id="input14" />
+             <Label id="_IDGenLabel7" text=""  width ="0.5rem" />
+              <Input id="input14"  value = "Next 30 Days"/>
             </HBox>
-            <!-- <Label id="_IDGenLabel8" text="" width ="2.5rem" />
-            <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/> -->
+            <Label id="_IDGenLabel8" text="" width ="1.5rem" />
+            <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/>
 			</Toolbar>
 		</subHeader>
 		
@@ -83,31 +90,7 @@
             	
 			
           
- 
-            <f:Card id="_IDGenCard1" class="sapUiMediumMargin" width="250px">
-                <f:header>
-                    <card:Header id="_IDGenHeader1" class="colorBlack" title="Sales Order Analysis" press="hideSalesorderchart" />
-                </f:header>
-                <f:content >
-                    <List id="_IDGenList1" showSeparators="None" >
-                        <CustomListItem id="_IDGenCustomListItem1" >
-                                <VBox id="_IDGenVBox1" class="sapUiSmallMarginBegin" >
-                                <HBox id="_IDGenHBox6">
-                                    <Button id="_IDGenButton1" icon="sap-icon://my-sales-order" type="Transparent" press="goToSalesApp" />
-                                     </HBox>
-                                    <Text id="_IDGenText1" text="Customers  : 12" />
-                                </VBox>
-                                <VBox id="_IDGenVBox2" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText2" text="Sales Orders : 35" />
-                                </VBox>
-                                <VBox id="_IDGenVBox3" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                    <Text id="_IDGenText3" text="Order Value : $ 350,000" />
-                                </VBox>
-                        </CustomListItem>
-                    </List>
-                </f:content>
-            </f:Card>
-            <f:Card id="_IDGenCard2" class="sapUiMediumMargin" width="250px">
+             <f:Card id="_IDGenCard2" class="sapUiMediumMargin" width="250px">
                 <f:header>
                     <card:Header id="_IDGenHeader2" title="Purchase Order Analysis" press="hidePurchasechart"/>
                 </f:header>
@@ -119,7 +102,10 @@
                                     <Text id="_IDGenText21" text="Suppliers  : 12" />
                                 </VBox>
                                 <VBox id="_IDGenVBox22" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText22" text="Purchase Orders : 35" />
+                                    <Label id="_IDGenText22" text="Purchase Orders : 15" design="Bold"/>
+                                </VBox>
+                                 <VBox id="_IDGenVBox222" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
+                                    <Text id="_IDGenText212" text="Impacted Orders : 01" />
                                 </VBox>
                                 <VBox id="_IDGenVBox23" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
                                     <Text id="_IDGenText23" text="PO Value : $ 170,000" />
@@ -128,7 +114,7 @@
                     </List>
                 </f:content>
             </f:Card>
-        <f:Card id="_IDGenCard3" class="sapUiMediumMargin" width="250px">
+            <f:Card id="_IDGenCard3" class="sapUiMediumMargin" width="250px">
                 <f:header>
                     <card:Header id="_IDGenHeader3" title="Production Order Analysis" press="hideProductionchart"/>
                 </f:header>
@@ -137,22 +123,67 @@
                         <CustomListItem id="_IDGenCustomListItem3">
                                 <VBox id="_IDGenVBox31" class="sapUiSmallMarginBegin" >
                                     <Button id="_IDGenButton3" icon="sap-icon://factory" type="Transparent" press="goToProdOApp" />
-                                    <HBox id="_IDGenHBox1">
-                                    <Text id="_IDGenText31" text="Critical Parts     :" />
-                                    <Text id="text1" text="80" class="colorRed"/>
-                                    </HBox>
+                                   
+                                    <Label id="_IDGenText31" text="Critical Parts  :  80" />
+                                    
+                                </VBox>
+                                  <VBox id="_IDGenVBox33" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                                    <Label id="_IDGenText33" text="Production Order :  40" design="Bold"/>
+                                </VBox>
+                                <VBox id="_IDGenVBox22122" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
+                                    <Text id="_IDGenText21212" text="Impacted Orders : 01" />
                                 </VBox>
                                 <VBox id="_IDGenVBox32" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
                                     <Text id="_IDGenText32" text="Delivery Plants : 03" />
                                 </VBox>
-                                <VBox id="_IDGenVBox33" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                    <Text id="_IDGenText33" text="Production Order :  40" />
+                              
+                                
+                        </CustomListItem>
+                    </List>
+                </f:content>
+            </f:Card>
+            <f:Card id="_IDGenCard1" class="sapUiMediumMargin" width="250px">
+                <f:header>
+                    <card:Header id="_IDGenHeader1" class="colorBlack" title="Sales Order Analysis" press="hideSalesorderchart" />
+                </f:header>
+                <f:content >
+                    <List id="_IDGenList1" showSeparators="None" >
+                        <CustomListItem id="_IDGenCustomListItem1" >
+                                <VBox id="_IDGenVBox1" class="sapUiSmallMarginBegin" >
+                                <HBox id="_IDGenHBox6">
+                                    <Button id="_IDGenButton1" icon="sap-icon://my-sales-order" type="Transparent" press="goToSalesApp" />
+                                     </HBox>
+                                    <Text id="_IDGenText1" text="Customers  : 12"  />
+                                </VBox>
+                                <VBox id="_IDGenVBox2" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
+                                    <Label id="_IDGenText2" text="Sales Orders : 05" design="Bold"/>
+                                </VBox>
+                                   <VBox id="_IDGenVBox2212" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
+                                    <Text id="_IDGenText2122" text="Impacted Orders : 01" />
+                                </VBox>
+                                <VBox id="_IDGenVBox3" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                                    <Text id="_IDGenText3" text="Order Value  : $ 350,000" />
                                 </VBox>
                         </CustomListItem>
                     </List>
                 </f:content>
             </f:Card>
-              <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" >
+            	<!-- <f:GridContainer id="_IDGenGridContainer1">
+					<f:layout>
+						<f:GridContainerSettings id="_IDGenGridContainerSettings1" rowSize="5rem" columnSize="5rem" gap="1rem" />
+					</f:layout>
+					<f:layoutS>
+						<f:GridContainerSettings id="_IDGenGridContainerSettings2" rowSize="5rem" columnSize="5rem" gap="0.5rem" />
+					</f:layoutS>
+					<w:Card id="_IDGenCard4" manifest="{Data>/stackedColumn}">
+                     <Text id="_IDGenText13" text="Order Value  : $ 350,000" /> <Text id="_IDGenText223" text="Order Value  : $ 350,000" />
+						<w:layoutData>
+							<f:GridContainerItemLayoutData id="_IDGenGridContainerItemLayoutData1" rows="5" columns="4" />
+						</w:layoutData>
+					</w:Card>
+                    </f:GridContainer> -->
+           
+              <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" visible="false">
                                  
                                      <chart:ChartContainer id="chartContainer7"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent275" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
@@ -163,7 +194,7 @@
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'},
-                                                        title:{ text:'Sales order'},dataLabel:{visible:true,showTotal:true}}"
+                                                        title:{ text:'Sales Order'},dataLabel:{visible:true,showTotal:true}}"
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
@@ -182,8 +213,8 @@
                                                     </viz:dataset>
                                                     <viz:feeds>
                                                         <viz.feeds:FeedItem id="_IDGenFeedItem18521" type="Measure" uid="valueAxis" values="SalesOrderCount" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem29231"  type="Dimension" uid="categoryAxis" values="Sales_Order" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2928" type="Dimension" uid="color" values="Status" />
+                                                      <viz.feeds:FeedItem id="_IDGenFeedItem22331" type="Dimension" uid="categoryAxis" values="Sales_Order" />    
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2281" type="Dimension" uid="color" values="Status" /> 
                                                         
                                                     </viz:feeds>
                                                 </viz:VizFrame>
@@ -193,7 +224,7 @@
                                 </layout:VerticalLayout> 
                                              
               
-                    <layout:VerticalLayout id="_IDGenVerticalLayout3" width="100%" visible="false">
+                    <layout:VerticalLayout id="_IDGenVerticalLayout3" width="100%" visible="true">
                                  
                                      <chart:ChartContainer id="chartContainer74"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent25" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
@@ -204,8 +235,8 @@
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'},
-                                                        title:{ text:'purchase order'},dataLabel:{visible:true,showTotal:true}}"
-                                                    vizType="stacked_bar"
+                                                        title:{ text:'Purchase Order'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
                                                      selectData="onClickPurchaseOrder"
@@ -213,17 +244,18 @@
                                                     <viz:dataset>
                                                         <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1422" data="{poModel>/}">
                                                             <viz.data:dimensions>
+                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition16123" name="PurchaseOrder" value="{PurchaseOrder}" />
                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1123" name="Status" value="{Status}" />
                                                             </viz.data:dimensions>
                                                             <viz.data:measures>
-                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25211" name="SalesOrderCount" value="{SalesOrderCount}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25211" name="PurchaseOrderCount" value="{PurchaseOrderCount}" />
                                                             </viz.data:measures>
                                                         </viz.data:FlattenedDataset>
                                                     </viz:dataset>
                                                     <viz:feeds>
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem1821" type="Measure" uid="valueAxis" values="SalesOrderCount" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2231" type="Dimension" uid="categoryAxis" values="Status" />    
-                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem228" type="Dimension" uid="color" values="Status" /> -->
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem1821" type="Measure" uid="valueAxis" values="PurchaseOrderCount" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2231" type="Dimension" uid="categoryAxis" values="PurchaseOrder" />    
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem228" type="Dimension" uid="color" values="Status" /> 
                                                     </viz:feeds>
                                                 </viz:VizFrame>
                                             </chart:content>
@@ -242,26 +274,27 @@
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'},
-                                                        title:{ text:'production order'},dataLabel:{visible:true,showTotal:true}}"
-                                                    vizType="stacked_bar"
+                                                        title:{ text:'Production Order'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
                                                      selectData="onClickProductionOrder"
                                                 >
                                                     <viz:dataset>
-                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa2" data="{poModel>/}">
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa2" data="{productionModel>/}">
                                                             <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition116213" name="ProductionOrder" value="{ProductionOrder}" />
                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11213" name="Status" value="{Status}" />
                                                             </viz.data:dimensions>
                                                             <viz.data:measures>
-                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252191" name="SalesOrderCount" value="{SalesOrderCount}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252191" name="ProdductionOrderCount" value="{ProdductionOrderCount}" />
                                                             </viz.data:measures>
                                                         </viz.data:FlattenedDataset>
                                                     </viz:dataset>
                                                     <viz:feeds>
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18291" type="Measure" uid="valueAxis" values="SalesOrderCount" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem22301" type="Dimension" uid="categoryAxis" values="Status" />    
-                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem228" type="Dimension" uid="color" values="Status" /> -->
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18291" type="Measure" uid="valueAxis" values="ProdductionOrderCount" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem22301" type="Dimension" uid="categoryAxis" values="ProductionOrder" />    
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2286" type="Dimension" uid="color" values="Status" />
                                                     </viz:feeds>
                                                 </viz:VizFrame>
                                             </chart:content>
