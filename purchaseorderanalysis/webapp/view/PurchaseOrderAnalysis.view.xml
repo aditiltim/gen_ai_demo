@@ -9,52 +9,53 @@
 	<Page id="_IDGenPage1" showHeader="false" enableScrolling="true">
 	<content>
 		<Table class="table1" items="{oTableModel>/}"  id="idTablelist" visible="true"
-				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="SingleSelectMaster" selectionChange="onSelectedRow" alternateRowColors="true">
+				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="SingleSelectMaster" selectionChange="onSelectedRow" alternateRowColors="true" >
 				<headerToolbar backgroundDesign="Solid">
 					<OverflowToolbar id="_IDGenOverflowToolbar1">
 						<content>
 							<!-- <Title id="_IDGenTitle1" text="Purchase Order Analysis" level="H2"/> -->
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 							<Button id="_IDGenButton3" text="Local AI" press="onLocalAI"/>
-							<Button id="_IDGenButton1" text="Availibility Check" press="onAvailablePress"/>
-							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
+							<Button id="_IDGenButton1" text="Availiability Check" press="onAvailablePress"/>
+							<Button id="_IDGenButton2" text="Notification" press="onEmailPress"/>
+							<Button id="_IDGenButton4" text="Update PO" press="onUpdatePO"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column id="_IDGenColumn1" hAlign="Center">
+					<Column id="_IDGenColumn1" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="8%">
 						<Label id="_IDGenLabel1" design="Bold" text="Supplier"/>
 					</Column>
-					<Column id="_IDGenColumn2" hAlign="Center">
+					<Column id="_IDGenColumn2" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="8%">
 						<Label id="_IDGenLabel2" design="Bold" text="PO"/>
 					</Column>
-					<Column id="_IDGenColumn3" hAlign="Center">
-						<Label id="_IDGenLabel3" design="Bold" text="PO Item"/>
+					<Column id="_IDGenColumn3" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="4%">
+						<Label id="_IDGenLabel3" design="Bold" text="PO Item" wrapping="true"/>
 					</Column>
-					<Column id="_IDGenColumn4" hAlign="Center">
+					<!-- <Column id="_IDGenColumn4" hAlign="Center">
 						<Label id="_IDGenLabel4" design="Bold" text="PO SLN"/>
-					</Column>
-					<Column id="_IDGenColumn10" hAlign="Center">
+					</Column> -->
+					<Column id="_IDGenColumn10" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="12%">
 						<Label id="_IDGenLabel10" design="Bold" text="Material"/>
 					</Column>
-					<Column id="_IDGenColumn11" hAlign="Center">
-						<Label id="_IDGenLabel11" design="Bold" text="Description"/>
+					<Column id="_IDGenColumn11" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="15%">
+						<Label id="_IDGenLabel11" design="Bold" text="Description" />
 					</Column>
 					<Column id="_IDGenColumn12" hAlign="Center">
 						<Label id="_IDGenLabel12" design="Bold" text="QTY"/>
 					</Column>
-					<!-- <Column id="_IDGenColumn5" hAlign="Center">
-						<Label id="_IDGenLabel5" design="Bold" text="FG Item"/>
-					</Column> -->
-					<Column id="_IDGenColumn13" hAlign="Center">
-						<Label id="_IDGenLabel13" design="Bold" text="Plant"/>
+					<Column id="_IDGenColumn5" hAlign="Center">
+						<Label id="_IDGenLabel5" design="Bold" text="Customer"/>
 					</Column>
-					<Column id="_IDGenColumn14" hAlign="Center">
+					<!-- <Column id="_IDGenColumn13" hAlign="Center">
+						<Label id="_IDGenLabel13" design="Bold" text="Plant"/>
+					</Column> -->
+					<!-- <Column id="_IDGenColumn14" hAlign="Center">
 						<Label id="_IDGenLabel14" design="Bold" text="Sales Order"/>
 					</Column>
 					<Column id="_IDGenColumn6" hAlign="Center">
 						<Label id="_IDGenLabel6" design="Bold" text="SO Item"/>
-					</Column>
+					</Column> -->
 					<!-- <Column id="_IDGenColumn15" hAlign="Center">
 						<Label id="_IDGenLabel15" design="Bold" wrapping="true" text="Purchase Orgnisation"/>
 					</Column>
@@ -77,14 +78,15 @@
 							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{oTableModel>Supplier}"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{oTableModel>PO}"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>PO_Item}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>PO_SL}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>PO_SL}"/> -->
 							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Material_Description}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Material_Description}"/> -->
 							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Quantity} PC"/>
-							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{FG_Item}"/> -->
-							<ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>Plant}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier10" title="{oTableModel>Sales_order}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier11" title="{oTableModel>SO_Item}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Customer}"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>Plant}"/> -->
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier10" title="{oTableModel>Sales_order}"/> -->
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{oTableModel>SO_Item}"/> -->
 							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{Purchase_Orgnisation}"/>
 							<ObjectIdentifier id="_IDGenObjectIdentifier13" title="{Purchasing_Group}"/> -->
 							<ObjectIdentifier id="_IDGenObjectIdentifier14" title="{oTableModel>Delivery_date}"/>
