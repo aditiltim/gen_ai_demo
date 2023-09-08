@@ -121,10 +121,9 @@
                         <CustomListItem id="_IDGenCustomListItem3">
                                 <VBox id="_IDGenVBox31" class="sapUiSmallMarginBegin" >
                                     <Button id="_IDGenButton3" icon="sap-icon://factory" type="Transparent" press="goToProdOApp" />
-                                    <HBox id="_IDGenHBox1">
-                                    <Text id="_IDGenText31" text="Critical Parts     :" />
-                                    <Text id="text1" text="80" class="colorRed"/>
-                                    </HBox>
+                                   
+                                    <Label id="_IDGenText31" text="Critical Parts  :  80" />
+                                    
                                 </VBox>
                                   <VBox id="_IDGenVBox33" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
                                     <Label id="_IDGenText33" text="Production Order :  40" design="Bold"/>
@@ -161,7 +160,7 @@
                                     <Text id="_IDGenText2122" text="Impacted Orders : 01" />
                                 </VBox>
                                 <VBox id="_IDGenVBox3" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                    <Text id="_IDGenText3" text="Order Value : $ 350,000" />
+                                    <Text id="_IDGenText3" text="Order Value  : $ 350,000" />
                                 </VBox>
                         </CustomListItem>
                     </List>

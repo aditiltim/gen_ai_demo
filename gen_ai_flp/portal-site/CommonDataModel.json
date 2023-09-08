@@ -27,21 +27,21 @@
 			},
 			"payload": {
 				"viz": [{
-					"id": "hac2build.salesorderanalysis-0-1693980694322",
-					"appId": "hac2build.salesorderanalysis",
-					"vizId": "salesorder-display"
+					"id": "hac2build.criticalpartanalysis-0-1694165108767",
+					"appId": "hac2build.criticalpartanalysis",
+					"vizId": "criticalpart-display"
 				}, {
-					"id": "hac2build.alertmanagement-1-1693980694322",
-					"appId": "hac2build.alertmanagement",
-					"vizId": "alerttable-display"
-				}, {
-					"id": "hac2build.purchaseorderanalysis-2-1693980694322",
+					"id": "hac2build.purchaseorderanalysis-1-1694165108767",
 					"appId": "hac2build.purchaseorderanalysis",
 					"vizId": "purchaseorder-display"
 				}, {
-					"id": "hac2build.criticalpartanalysis-3-1693980694322",
-					"appId": "hac2build.criticalpartanalysis",
-					"vizId": "criticalpart-display"
+					"id": "hac2build.salesorderanalysis-2-1694165108767",
+					"appId": "hac2build.salesorderanalysis",
+					"vizId": "salesorder-display"
+				}, {
+					"id": "hac2build.productionorderanalysis-3-1694165108767",
+					"appId": "hac2build.productionorderanalysis",
+					"vizId": "productionorder-display"
 				}]
 			}
 		}],

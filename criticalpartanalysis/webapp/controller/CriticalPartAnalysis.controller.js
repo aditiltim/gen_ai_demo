@@ -3,12 +3,13 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    'sap/ui/core/Fragment',
+    "sap/m/MessageBox",
+    'sap/ui/core/Fragment'
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, Filter, FilterOperator, Fragment) {
+    function (Controller, JSONModel, MessageBox, Filter, FilterOperator, Fragment) {
         "use strict";
 
         return Controller.extend("hac2build.criticalpartanalysis.controller.CriticalPartAnalysis", {
@@ -122,7 +123,7 @@ sap.ui.define([
 
                     },
                     error: function (response) {
-                        sap.m.MessageBox.error(response.responseText);
+                        MessageBox.error(response.responseText);
 
                     }
                 });
@@ -160,7 +161,7 @@ sap.ui.define([
 
                     },
                     error: function (response) {
-                        sap.m.MessageBox.error(response.responseText);
+                        MessageBox.error(response.responseText);
 
                     }
                 });
@@ -197,7 +198,7 @@ sap.ui.define([
 
                     },
                     error: function (response) {
-                        sap.m.MessageBox.error(response.responseText);
+                        MessageBox.error(response.responseText);
 
                     }
                 });
@@ -328,7 +329,7 @@ sap.ui.define([
                     this._oCrossAppNavigation.hrefForExternal({
 
                         target: {
-                            semanticObject: "purchaseorder",
+                            semanticObject: "productionorder",
                             action: "display"
                         },
 
