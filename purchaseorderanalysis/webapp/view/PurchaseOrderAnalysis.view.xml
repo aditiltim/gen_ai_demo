@@ -8,15 +8,15 @@
 	xmlns:smartTable="sap.ui.comp.smarttable">
 	<Page id="_IDGenPage1" showHeader="false" enableScrolling="true">
 	<content>
-		<Table class="table1" items="{path : '/PO_Data'}"  id="idTablelist" visible="true"
-				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="MultiSelect" selectionChange="onSelectProject" alternateRowColors="true">
+		<Table class="table1" items="{oTableModel>/}"  id="idTablelist" visible="true"
+				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="SingleSelectMaster" selectionChange="onSelectedRow" alternateRowColors="true">
 				<headerToolbar backgroundDesign="Solid">
 					<OverflowToolbar id="_IDGenOverflowToolbar1">
 						<content>
 							<!-- <Title id="_IDGenTitle1" text="Purchase Order Analysis" level="H2"/> -->
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton3" text="Local AI" press="onLocalAiPress"/>
-							<Button id="_IDGenButton1" text="Availibility Check" press="onRecalPress"/>
+							<Button id="_IDGenButton3" text="Local AI" press="onLocalAI"/>
+							<Button id="_IDGenButton1" text="Availibility Check" press="onAvailablePress"/>
 							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
 						</content>
 					</OverflowToolbar>
@@ -43,9 +43,9 @@
 					<Column id="_IDGenColumn12" hAlign="Center">
 						<Label id="_IDGenLabel12" design="Bold" text="QTY"/>
 					</Column>
-					<Column id="_IDGenColumn5" hAlign="Center">
+					<!-- <Column id="_IDGenColumn5" hAlign="Center">
 						<Label id="_IDGenLabel5" design="Bold" text="FG Item"/>
-					</Column>
+					</Column> -->
 					<Column id="_IDGenColumn13" hAlign="Center">
 						<Label id="_IDGenLabel13" design="Bold" text="Plant"/>
 					</Column>
@@ -55,12 +55,12 @@
 					<Column id="_IDGenColumn6" hAlign="Center">
 						<Label id="_IDGenLabel6" design="Bold" text="SO Item"/>
 					</Column>
-					<Column id="_IDGenColumn15" hAlign="Center">
+					<!-- <Column id="_IDGenColumn15" hAlign="Center">
 						<Label id="_IDGenLabel15" design="Bold" wrapping="true" text="Purchase Orgnisation"/>
 					</Column>
 					<Column id="_IDGenColumn7" hAlign="Center">
 						<Label id="_IDGenLabel7" design="Bold" wrapping="true" text="Purchasing Group"/>
-					</Column>
+					</Column> -->
 					<Column id="_IDGenColumn8" hAlign="Center" autoPopinWidth="50">
 						<Label id="_IDGenLabel8" design="Bold" wrapping="true" text="Planned Delivery Date"/>
 					</Column>
@@ -74,22 +74,22 @@
 				<items>
 					<ColumnListItem id="_IDGenColumnListItem1" class="cells">
 						<cells >
-							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{Supplier}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{PO}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier3" title="{PO_Item}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier4" title="{PO_SL}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{Material}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{Material_Description}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{Quantity}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{FG_Item}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier9" title="{Plant}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier10" title="{Sales_order}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier11" title="{SO_Item}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier12" title="{Purchase_Orgnisation}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier13" title="{Purchasing_Group}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier14" title="{Delivery_date}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier15" title="{Local_AI_Delivery_Date}"/>
-							<ObjectIdentifier id="_IDGenObjectIdentifier16" title="{GEN_AI_Delivery_Date}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{oTableModel>Supplier}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier2" title="{oTableModel>PO}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>PO_Item}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>PO_SL}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Material_Description}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Quantity} PC"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{FG_Item}"/> -->
+							<ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>Plant}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier10" title="{oTableModel>Sales_order}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier11" title="{oTableModel>SO_Item}"/>
+							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{Purchase_Orgnisation}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier13" title="{Purchasing_Group}"/> -->
+							<ObjectIdentifier id="_IDGenObjectIdentifier14" title="{oTableModel>Delivery_date}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier15" title="{oTableModel>Local_AI_Delivery_Date}"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier16" title="{oTableModel>GEN_AI_Delivery_Date}"/>
 
 						</cells>
 					</ColumnListItem>
@@ -99,18 +99,3 @@
 	</Page>
 </mvc:View>
 
-<!-- ID,Material,Plant,SO_Item
-Current_SAP_Delivery_Date,GEN_AI_Delivery_Date,ID,Material,Order_Quantity,Plant,SO_Item,Sales_Order,Sold_to,Unit_Price
-	"ID": "232ed",
-            "orderID": null,
-            "status": null,
-            "date": null,
-            "material": "100-100-01",
-            "description": "Pump Casting 01",
-            "qty": 5,
-            "uom": "PC",
-            "plant": "1001",
-            "sloc": null,
-            "soitem": null,
-            "plannedDeliverdate": null,
-            "preditceddate": null -->

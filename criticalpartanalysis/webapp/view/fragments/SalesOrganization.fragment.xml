@@ -3,7 +3,7 @@
 		 <content>
                             <SearchField id="searchfield" class="sapUiSmallMargin" search="handleSearch" />
 
-                            <Table width="20rem" id="salesOrg" mode="SingleSelectMaster" selectionChange="OnProjSelect" items="{/SO_Data}">
+                            <Table width="20rem" id="salesOrg" mode="SingleSelectMaster" selectionChange="OnSalesOrgProjSelect" items="{/SO_Data}">
                                 <columns>
                                     <Column id="_IDGenColumn15">
                                         <Text id="_IDGenText14" text="Sales Orgnisation" />

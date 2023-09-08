@@ -1,17 +1,104 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller) {
+    function (Controller,MessageBox) {
         "use strict";
 
         return Controller.extend("hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis", {
             onInit: function () {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 console.log("Purchase Order View");
+                this.onLoadTabData();
 			},
+      onLoadTabData: function () {
+        var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
+        jQuery.ajax({
+          url: sUrl + "PO_Data",
+          type: "GET",
+          async: false,
+          contentType: "application/json",
+          success: function (data) {
+            var tempJSONModel = new sap.ui.model.json.JSONModel();
+            tempJSONModel.setData(data.value);
+            var a = this.getView().setModel(tempJSONModel, "oTableModel");
+          }.bind(this),
+          error: function (e) {
+
+            // sap.m.MessageBox.error("Unable to fetch the details");
+          }.bind(this)
+        });
+      },
+      onSelectedRow: function (oEvent) {
+        var oSelectedItem = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").getObject();
+        var oRowModel = new sap.ui.model.json.JSONModel();
+        oRowModel.setData(oSelectedItem);
+        this.getView().setModel(oRowModel, "oRowModel");
+      },
+      onLocalAI: function(oEvent){
+        var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
+        var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
+        var Supplier = this.getView().getModel("oRowModel").oData.Supplier;
+        var Material = this.getView().getModel("oRowModel").oData.Material_Description;
+        var Plant = this.getView().getModel("oRowModel").oData.Plant;
+        // debugger
+        // var Po_qty = this.getView().getModel("oRowModel").oData.Quantity;
+        var Po_qty = JSON.stringify(this.getView().getModel("oRowModel").oData.Quantity);
+        var Po_delivery_date = this.getView().getModel("oRowModel").oData.Delivery_date;
+        var Po_item = JSON.stringify(this.getView().getModel("oRowModel").oData.PO_Item);
+        var that = this;
+        var sUrl = that.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+        var token;
+        $.ajax({
+          url: sUrl,
+          method: "GET",
+          async: false,
+          headers: {
+            "X-CSRF-Token": "Fetch",
+          },
+          success: function (result, xhr, data) {
+            token = data.getResponseHeader("X-CSRF-Token");
+          },
+          error: function (result, xhr, data) {
+            console.log("Error");
+          },
+        });
+        var urlext = "getPredictedData";
+        var payload = {
+          "excelData": [{
+            "Supplier": Supplier,
+            "Material": Material,
+            "Plant": Plant,
+            "Po_qty": Po_qty,
+            "Po_delivery_date": Po_delivery_date,
+            "Po_item": Po_item
+          }]
+        }
+        jQuery.ajax({
+          url: sUrl + urlext,
+          type: "POST",
+          async: false,
+          headers: {
+            "X-CSRF-Token": token,
+          },
+          data: JSON.stringify(payload),
+          contentType: "application/json",
+          success: function (oData) {
+            
+              MessageBox.success("Success");
+              console.log(oData.value);
+              sContext.getModel("oTableModel").setProperty(sPath +"/Local_AI_Delivery_Date", local_updated_delivery_date);
+              sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+          
+          },
+            error: function (e) {
+              MessageBox.error("Please add proper data");
+            },
+          });
+        },
             onLocalAiPress: function (oEvent) {
               var settings = {
                 "url": "https://13.127.183.113:8007/send_news_summary",

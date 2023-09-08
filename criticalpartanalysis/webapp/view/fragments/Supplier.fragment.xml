@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
-	<Dialog id="Supplier" class="sapUiResponsiveContentPadding" title="Search Project">
+	<Dialog id="suppliers" class="sapUiResponsiveContentPadding" title="Search Project">
 		 <content>
                             <SearchField id="Suppsearchfield" class="sapUiSmallMargin" search="handleSearch1" />
 
-                            <Table width="20rem" id="suppTable" mode="SingleSelectMaster" selectionChange="OnProjSelect" items="{/Supplier_Master}">
+                            <Table width="20rem" id="suppTable" mode="SingleSelectMaster" selectionChange="OnSupplierSelect" items="{/Supplier_Master}">
                                 <columns>
                                     <Column id="_IDGenColumn1541">
                                         <Text id="_IDGenText141" text="Supplier" />
