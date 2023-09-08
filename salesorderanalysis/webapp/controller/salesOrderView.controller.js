@@ -1,13 +1,16 @@
 sap.ui.define([
-  "sap/ui/core/mvc/Controller"
+  "sap/ui/core/mvc/Controller",
+  "sap/m/MessageBox",
+  "hac2build/salesorderanalysis/model/formatter"
 ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller) {
+  function (Controller, MessageBox, formatter) {
     "use strict";
 
     return Controller.extend("hac2build.salesorderanalysis.controller.salesOrderView", {
+      formatter: formatter,
       onInit: function () {
         var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         console.log("SalesOrderView");
@@ -43,7 +46,7 @@ sap.ui.define([
         var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
         var sold_To = this.getView().getModel("oRowModel").oData.Sold_to;
         var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
-
+        // var genDate = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
         var that = this;
         var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
         var token;
@@ -68,6 +71,7 @@ sap.ui.define([
             "delivery_date": del_date
           }
         }
+        var that = this;
         jQuery.ajax({
           url: sUrl + urlext,
           type: "POST",
@@ -78,16 +82,30 @@ sap.ui.define([
           data: JSON.stringify(payload),
           contentType: "application/json",
           success: function (oData) {
-            var that = this;
-              sap.m.MessageBox.success("Success");
-              sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", updated_delivery_date);
-              sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
-              console.log(oData.value);
-              //that.downloadExcel(oData.value);
             
+            MessageBox.success("Success");
+            var updatedDate = oData.updated_delivery_date;
+            var oResponseDate = new Date(updatedDate);
+            var deliveryDate = new Date(del_date);
+            var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+            var formattedRespDate = dateFormat.format(oResponseDate);
+            var formattedDelDate = dateFormat.format(deliveryDate);
+            // var calcDiffDate = new Date(updatedDate);
+            if (formattedRespDate > formattedDelDate) {
+              that.getView().byId("_IDGenObjectStatus1").setState("Error");
+              sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+              console.log("updatedDate is greater");
+            }
+            var negSentiment = oData.percentage_negative_news;
+
+
+            // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
+            // sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+            console.log(oData.value);
+
           },
           error: function (e) {
-            MessageBox.error("Please add proper data");
+            MessageBox.error("Gateway Timeout");
           },
         });
 
