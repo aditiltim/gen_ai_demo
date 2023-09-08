@@ -44,8 +44,8 @@
              <Label id="_IDGenLabel7" text="" width ="0.5rem" />
               <Input id="input14" />
             </HBox>
-            <Label id="_IDGenLabel8" text="" width ="2.5rem" />
-            <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/>
+            <!-- <Label id="_IDGenLabel8" text="" width ="2.5rem" />
+            <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/> -->
 			</Toolbar>
 		</subHeader>
 		
@@ -86,7 +86,7 @@
  
             <f:Card id="_IDGenCard1" class="sapUiMediumMargin" width="250px">
                 <f:header>
-                    <card:Header id="_IDGenHeader1" title="Sales Order Analysis" press="hideSalesorderchart" />
+                    <card:Header id="_IDGenHeader1" class="colorBlack" title="Sales Order Analysis" press="hideSalesorderchart" />
                 </f:header>
                 <f:content >
                     <List id="_IDGenList1" showSeparators="None" >
@@ -130,7 +130,7 @@
             </f:Card>
         <f:Card id="_IDGenCard3" class="sapUiMediumMargin" width="250px">
                 <f:header>
-                    <card:Header id="_IDGenHeader3" title="Production Order Analysis" />
+                    <card:Header id="_IDGenHeader3" title="Production Order Analysis" press="hideProductionchart"/>
                 </f:header>
                 <f:content>
                     <List id="_IDGenList3" showSeparators="None">
@@ -158,39 +158,42 @@
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent275" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
                                             <chart:content>
                                                 <viz:VizFrame
-                                                    id="idVizFrame1" 
+                                                   id="idVizFrame1" 
                                                     height="300px"   
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
-                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'}, 
-                                                    title:{ text:'Order Priority for last 12 months'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Sales order'},dataLabel:{visible:true,showTotal:true}}"
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
-                                                    selectData="onClickSalesOrder"
+                                                     selectData="onClickSalesOrder"
                                                 >
                                                     <viz:dataset>
-                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset14122" data="{Data>/Records}" >
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset14122" data="{appModel>/}" >
                                                             <viz.data:dimensions>
-                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11223" name="Month" value="{Month}" />
-                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11221" name="Plant" value="{Plant}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11221" name="Sales_Order" value="{Sales_Order}" />
+                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition110221" name="Status" value="{Status}" />
                                                             </viz.data:dimensions>
                                                             <viz.data:measures>
-                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252211" name="Quantity" value="{Quantity}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition2522151" name="SalesOrderCount" value="{SalesOrderCount}" />
                                                             </viz.data:measures>
                                                         </viz.data:FlattenedDataset>
                                                     </viz:dataset>
                                                     <viz:feeds>
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18521" type="Measure" uid="valueAxis" values="Quantity" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem29231" type="Dimension" uid="categoryAxis" values="Month" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2928" type="Dimension" uid="color" values="Plant" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18521" type="Measure" uid="valueAxis" values="SalesOrderCount" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem29231"  type="Dimension" uid="categoryAxis" values="Sales_Order" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2928" type="Dimension" uid="color" values="Status" />
+                                                        
                                                     </viz:feeds>
                                                 </viz:VizFrame>
                                             </chart:content>
                                         </chart:ChartContainerContent>
                                     </chart:ChartContainer>
                                 </layout:VerticalLayout> 
-                                 <layout:VerticalLayout id="_IDGenVerticalLayout3" width="100%" visible="false">
+                                             
+              
+                    <layout:VerticalLayout id="_IDGenVerticalLayout3" width="100%" visible="false">
                                  
                                      <chart:ChartContainer id="chartContainer74"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent25" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
@@ -200,35 +203,71 @@
                                                     height="300px"   
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
-                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'}, 
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
                                                         title:{ text:'purchase order'},dataLabel:{visible:true,showTotal:true}}"
-                                                    vizType="column"
+                                                    vizType="stacked_bar"
                                                     legendVisible="true"
                                                     visible="true"
                                                      selectData="onClickPurchaseOrder"
                                                 >
                                                     <viz:dataset>
-                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1422" data="{Data>/Records}">
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1422" data="{poModel>/}">
                                                             <viz.data:dimensions>
-                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1123" name="Month" value="{Month}" />
-                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1121" name="Plant" value="{Plant}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1123" name="Status" value="{Status}" />
                                                             </viz.data:dimensions>
                                                             <viz.data:measures>
-                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25211" name="Quantity" value="{Quantity}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25211" name="SalesOrderCount" value="{SalesOrderCount}" />
                                                             </viz.data:measures>
                                                         </viz.data:FlattenedDataset>
                                                     </viz:dataset>
                                                     <viz:feeds>
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem1821" type="Measure" uid="valueAxis" values="Quantity" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2231" type="Dimension" uid="categoryAxis" values="Month" />
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem228" type="Dimension" uid="color" values="Plant" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem1821" type="Measure" uid="valueAxis" values="SalesOrderCount" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2231" type="Dimension" uid="categoryAxis" values="Status" />    
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem228" type="Dimension" uid="color" values="Status" /> -->
                                                     </viz:feeds>
                                                 </viz:VizFrame>
                                             </chart:content>
                                         </chart:ChartContainerContent>
                                     </chart:ChartContainer>
-                                </layout:VerticalLayout>                   
-            
+                                </layout:VerticalLayout> 
+
+                                 <layout:VerticalLayout id="_IDGenVerticalLayout4" width="100%" visible="false">
+                                 
+                                     <chart:ChartContainer id="chartContainer743"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent225" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame3" 
+                                                    height="300px"   
+                                                    width="100%"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'production order'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="stacked_bar"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickProductionOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa2" data="{poModel>/}">
+                                                            <viz.data:dimensions>
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11213" name="Status" value="{Status}" />
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252191" name="SalesOrderCount" value="{SalesOrderCount}" />
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18291" type="Measure" uid="valueAxis" values="SalesOrderCount" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem22301" type="Dimension" uid="categoryAxis" values="Status" />    
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem228" type="Dimension" uid="color" values="Status" /> -->
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+                                </layout:VerticalLayout>             
           </Page>
            
 </mvc:View>
