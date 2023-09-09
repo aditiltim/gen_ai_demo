@@ -5,7 +5,7 @@
     <Page id="page" showHeader="false" enableScrolling="true">
         <content>
             <!-- Table for production orders -->
-            <Table id="productionOrderTable" items="{path: '/Prd_Data'}" sticky="HeaderToolbar,ColumnHeaders,InfoToolbar" mode="MultiSelect" alternateRowColors="true">
+            <Table id="productionOrderTable" items="{oTableModel>/}" sticky="HeaderToolbar,ColumnHeaders,InfoToolbar" mode="MultiSelect" alternateRowColors="true" selectionChange="onSelectedRow">
                 <!-- HeaderToolbar -->
                 <headerToolbar >
                     <OverflowToolbar id="_IDGenOverflowToolbar1">
@@ -18,79 +18,65 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column id="column1" hAlign="Center"> 
+                    <Column id="column1" hAlign="Left" width="6%"> 
                         <Label id="label1" design="Bold" text="Order" wrapping="true"/>
                     </Column>
-                    <Column id="column2" hAlign="Center"> 
-                        <Label id="label2" design="Bold" text="Basic Start Date" wrapping="true"/>
-                    </Column>
-                    <Column id="column3" hAlign="Center"> 
+                    <Column id="column3" hAlign="Left" width="12%"> 
                         <Label id="label3" design="Bold" text="Material"/>
                     </Column>
-                    <Column id="column5" hAlign="Center"> 
-                        <Label id="label5" design="Bold" text="Total Order Quantity" wrapping="true"/>
+                    <Column id="column5" hAlign="Left" width="5.5%"> 
+                        <Label id="label5" design="Bold" text="Quantity" wrapping="true"/>
                     </Column>
-                    <Column id="column6" hAlign="Center"> 
-                        <Label id="label6" design="Bold" text="Base Unit of Measure" wrapping="true"/>
+                    <Column id="column9" hAlign="Left"> 
+                        <Label id="label9" design="Bold" text="SO/SO Item" wrapping="true"/>
                     </Column>
-                    <Column id="column7" hAlign="Center"> 
-                        <Label id="label7" design="Bold" text="Plant"/>
-                    </Column>
-                    <Column id="column8" hAlign="Center"> 
-                        <Label id="label8" design="Bold" text="SLOC"/>
-                    </Column>
-                    <Column id="column9" hAlign="Center"> 
-                        <Label id="label9" design="Bold" text="SO" wrapping="true"/>
-                    </Column>
-                    <Column id="column11" hAlign="Center"> 
-                        <Label id="label11" design="Bold" text="Planned Delivery Date" wrapping="true"/>
-                    </Column>
-                    <Column id="column12" hAlign="Center"> 
-                        <Label id="label12" design="Bold" text="Predicted Finish Date" wrapping="true"/>
-                    </Column>
-                    <Column id="column13" hAlign="Center"> 
+                    <Column id="column13" hAlign="Left" width="9%"> 
                         <Label id="label13" design="Bold" text="Material Component" wrapping="true"/>
                     </Column>
-                    <Column id="column14" hAlign="Center"> 
-                        <Label id="label14" design="Bold" text="Vendor" wrapping="true"/>
-                    </Column>
-                    <Column id="column15" hAlign="Center"> 
+
+                    <Column id="column15" hAlign="Left" width="9%"> 
                         <Label id="label15" design="Bold" text="PO Number" wrapping="true"/>
                     </Column>
-                    <Column id="column16" hAlign="Center"> 
-                        <Label id="label16" design="Bold" text="Critical Part" wrapping="true"/>
+                    <Column id="column2" hAlign="Left" width="8%"> 
+                        <Label id="label2" design="Bold" text="Basic Start Date" wrapping="true"/>
                     </Column>
-                    <Column id="column17" hAlign="Center"> 
+                    <Column id="column11" hAlign="Left" width="8%"> 
+                        <Label id="label11" design="Bold" text="Planned Delivery Date" wrapping="true"/>
+                    </Column>
+                    <Column id="column12" hAlign="Left"> 
+                        <Label id="label12" design="Bold" text="Predicted Finish Date" wrapping="true"/>
+                    </Column>
+                    <Column id="column17" hAlign="Left" width="8%"> 
                         <Label id="label17" design="Bold" text="PO Delivery Date" wrapping="true"/>
                     </Column>
-                    <Column id="column18" hAlign="Center"> 
+                    <Column id="column18" hAlign="Left" width="8%"> 
                         <Label id="label18" design="Bold" text="AI Computed Date" wrapping="true"/>
                     </Column>
-                    <Column id="column19" hAlign="Center"> 
+                    <Column id="column19" hAlign="Left"> 
                         <Label id="label19" design="Bold" text="Sentiment %" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="_IDGenColumnListItem1">
                         <cells>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{Order}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{Basic_Start_Date}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{Material}" text="{Material_Description}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier5" title="{Total_Order_Quantity}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier6" title="{Base_Unit_Measure}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier7" title="{Plant}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{SLOC}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{SO}" text="{SO_Item}"/>
-                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{Planned_Del_Date}"/> -->
-                            <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{path: 'Planned_Del_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{Predicted_Finish_Date}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier13" title="{Material_component}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier14" title="{Vendor}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier15" title="{PO_no}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier16" title="{Critical_part}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{path: 'PO_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier18" title="{path: 'GEN_AI_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier19" title="{Sentiment}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{path: 'oTableModel>Order'}"/>
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{path: 'oTableModel>Basic_Start_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/> -->
+                            <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>Material}" text="{oTableModel>Material_Description}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Total_Order_Quantity}" text="{oTableModel>Base_Unit_Measure}"/>                              
+                            <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>SO}" text="{oTableModel>SO_Item}"/>
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{path: 'oTableModel>Planned_Del_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/> -->
+                            <ObjectIdentifier id="_IDGenObjectIdentifier13" title="{oTableModel>Material_component}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier15" title="{oTableModel>PO_no}"/>
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{path: 'oTableModel>PO_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/> -->
+                            <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{path: 'oTableModel>Basic_Start_Date'}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{oTableModel>Planned_Del_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{oTableModel>Predicted_Finish_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{oTableModel>PO_Delivery_Date}"/>
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier18" title="{path: 'oTableModel>GEN_AI_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/> -->
+                            <ObjectStatus id="_IDGenObjectIdentifier18" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>Planned_Del_Date'], formatter: '.formatter.statusText'}"/>
+                            <!-- <ObjectStatus id="_IDGenObjectIdentifier18" text="{path: 'oTableModel>GEN_AI_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>Planned_Del_Date'], formatter: '.formatter.statusText'}"/> -->
+                            <ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" />
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier19" title="{oTableModel>Sentiment}"/> -->
                         </cells>
                     </ColumnListItem>
                 </items>
