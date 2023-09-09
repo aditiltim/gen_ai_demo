@@ -20,8 +20,8 @@ sap.ui.define([
       formatter: formatter,
       onInit: function () {
         var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        
-        console.log("SalesOrderView");
+        this.busyDialog = new sap.m.BusyDialog({});
+        //console.log("SalesOrderView");
         this.onLoadTabData();
       },
       onLoadTabData: function () {
@@ -49,7 +49,7 @@ sap.ui.define([
         this.getView().setModel(oRowModel, "oRowModel");
       },
       onAvailablePress: function (oEvent) {
-        debugger
+        this.busyDialog.open();
         var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
         var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
         var sold_To = this.getView().getModel("oRowModel").oData.Sold_to;
@@ -90,7 +90,7 @@ sap.ui.define([
           data: JSON.stringify(payload),
           contentType: "application/json",
           success: function (oData) {
-
+            that.busyDialog.close();
             MessageBox.success("Success");
             var updatedDate = oData.updated_delivery_date;
             var oResponseDate = new Date(updatedDate);
@@ -112,6 +112,7 @@ sap.ui.define([
             console.log(oData.value);
           },
           error: function (e) {
+            that.busyDialog.close();
             MessageBox.error("Gateway Timeout");
           },
         });
@@ -128,7 +129,8 @@ sap.ui.define([
       },
 
       onEmailPress: function (odata) {
-        debugger
+        //debugger
+        this.busyDialog.open();
         var that = this;
         //that.onOpenPopoverDialog();
         //payload params
@@ -189,6 +191,8 @@ sap.ui.define([
           data: JSON.stringify(payload),
           contentType: "application/json",
           success: function (oData) {
+            debugger
+            that.busyDialog.close();
             if (oData) {
               var oEmailModel = new sap.ui.model.json.JSONModel();
               oEmailModel.setData(oData);                 
@@ -198,10 +202,16 @@ sap.ui.define([
             }
           },
           error: function (e) {
+            that.busyDialog.close();
             MessageBox.error("Please add proper data");
           },
         });
       },
+      onSendSuccess: function(){
+        sap.m.MessageBox.success("Email has been sent successfully");
+        this._oNewDialog.close();
+      },
+      
       onClickSentiment: function (oEvent) {
         var value, value1, value2, icon, icon1, icon2;
         var sentiment = parseInt(oEvent.getSource().getText());
