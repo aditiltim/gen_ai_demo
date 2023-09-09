@@ -12,8 +12,6 @@ sap.ui.define(function() {
                 return "Error";
             } else if(diffDays <= 0){
                 return "Success";
-            } else{
-                return "None";
             }
         }
     };
