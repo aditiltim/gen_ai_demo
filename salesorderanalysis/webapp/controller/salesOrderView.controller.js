@@ -63,7 +63,7 @@ sap.ui.define([
         $.ajax({
           url: sUrl,
           method: "GET",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": "Fetch"
           },
@@ -103,10 +103,11 @@ sap.ui.define([
             var formattedRespDate = dateFormat.format(oResponseDate);
             var formattedDelDate = dateFormat.format(deliveryDate);
             // var calcDiffDate = new Date(updatedDate);
-
-            if (formattedRespDate >= formattedDelDate) {
-             
+            var iNegativeSentiment = oData.percentage_negative_news;
+            iNegativeSentiment = iNegativeSentiment.toFixed(2);
+            if (formattedRespDate >= formattedDelDate) {           
               sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+              sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
             }
 
             var negSentiment = oData.percentage_negative_news;
@@ -155,7 +156,7 @@ sap.ui.define([
         $.ajax({
           url: sUrl,
           method: "GET",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": "Fetch",
           },
@@ -192,7 +193,7 @@ sap.ui.define([
         jQuery.ajax({
           url: sUrl + urlext,
           type: "POST",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": token,
           },
@@ -219,7 +220,12 @@ sap.ui.define([
         sap.m.MessageBox.success("Email has been sent successfully");
         this._oNewDialog.close();
       },
-      
+      onOpenChat: function (oEvent) {
+        var oUrl = 'https://llm-chatbot-app-wacky-puku-dt.cfapps.eu10.hana.ondemand.com/';
+        var topsss = screen.height - 490;
+        var left = screen.width - 420;
+        window.open(oUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + topsss + ",left=" + left + ",width=420,height=490");      
+    },
       onClickSentiment: function (oEvent) {
         var value, value1, value2, icon, icon1, icon2;
         var sentiment = parseInt(oEvent.getSource().getText());

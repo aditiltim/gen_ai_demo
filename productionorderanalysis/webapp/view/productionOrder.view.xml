@@ -24,7 +24,7 @@
                     <Column id="column2" hAlign="Left" width="15%"> 
                         <Label id="label2" design="Bold" text="Material"/>
                     </Column>
-                    <Column id="column3" hAlign="Right" width="4%"> 
+                    <Column id="column3" hAlign="Right" width="6%"> 
                         <Label id="label3" design="Bold" text="Quantity" wrapping="true"/>
                     </Column>
                     <Column id="column4" hAlign="Left"> 

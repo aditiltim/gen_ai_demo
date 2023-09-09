@@ -118,6 +118,7 @@ sap.ui.define([
                 })
             },
 
+            // on press of reschedule production order
             onReschedulePress: function(){
                 MessageBox.show(
                     "Prodution order has been rescheduled.", {
@@ -129,6 +130,8 @@ sap.ui.define([
                     }
                 );
             },
+
+            // Opening LLM chatbot window
             onOpenChat: function(oEvent) {
                 var oUrl = 'https://llm-chatbot-app-wacky-puku-dt.cfapps.eu10.hana.ondemand.com/';
                 var topWidth = screen.height - 490;
