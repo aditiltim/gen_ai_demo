@@ -19,10 +19,8 @@ sap.ui.define(function () {
               var diffDays = oGenDate.getDate() - oDelDate.getDate(); 
               if(diffDays > 0){
                 return "Error";    
-              }else if (diffDays == 0){
-                return "Information";           
               }else{
-                return "Success";
+                return "Success";           
               }
 		}
 	};
