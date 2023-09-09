@@ -16,7 +16,7 @@
 	</content>
 	<content>
 		<Table class="table1" items="{oTableModel>/}"  id="idTablelist" visible="true"
-				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="SingleSelectMaster" selectionChange="onSelectedRow" alternateRowColors="true">
+				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="MultiSelect" selectionChange="onSelectedRow" alternateRowColors="true">
 				<headerToolbar backgroundDesign="Solid">
 					<OverflowToolbar id="_IDGenOverflowToolbar1">
 						<content>

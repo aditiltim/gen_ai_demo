@@ -6,8 +6,8 @@
 				<Label text="Subject:"/>
 				<!-- <Text text="{oTableModel>/Sales_Order}"/> -->
 				 <Text text="{oEmailModel>/subject}"/> 
-				<Label text="Body:"/>
-				<TextArea value="{oEmailModel>/body}" rows="10" width="200px" editable="false"/>
+				<!-- <Label text="Body:"/> -->
+				<TextArea value="{oEmailModel>/body}" rows="10" width="100%" editable="false"/>
 			</VBox>
 		</content>
 		<buttons>

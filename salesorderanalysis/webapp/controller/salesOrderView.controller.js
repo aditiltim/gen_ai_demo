@@ -7,7 +7,8 @@ sap.ui.define([
   "sap/m/Text",
   "sap/m/ObjectStatus",
   "sap/m/ToolbarSpacer",
-  "sap/m/VBox"
+  "sap/m/VBox",
+  "sap/m/BusyDialog"
 ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -19,6 +20,7 @@ sap.ui.define([
       formatter: formatter,
       onInit: function () {
         var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+        
         console.log("SalesOrderView");
         this.onLoadTabData();
       },
@@ -130,7 +132,7 @@ sap.ui.define([
         var that = this;
         //that.onOpenPopoverDialog();
         //payload params
-        var sold_To = this.getView().getModel("oRowModel").oData.Sold_to;
+        var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;
         var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
         var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
         var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
