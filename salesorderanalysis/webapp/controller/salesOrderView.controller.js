@@ -85,7 +85,7 @@ sap.ui.define([
         jQuery.ajax({
           url: sUrl + urlext,
           type: "POST",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": token
           },
