@@ -297,8 +297,8 @@ sap.ui.define([
         },
         onClickSentiment: function (oEvent) {
           var value, value1, value2, icon, icon1, icon2;
-          // var sentiment = parseInt(oEvent.getSource().getText());
-          var sentiment = 30;
+          var sentiment = parseInt(oEvent.getSource().getText());
+          // var sentiment = 30;
           if (sentiment >= 0 && sentiment <= 30) {
               value = "Heavy Traffic";
               icon = "sap-icon://bus-public-transport";
