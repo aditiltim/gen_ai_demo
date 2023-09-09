@@ -22,6 +22,14 @@ sap.ui.define(function() {
             } else if(sentiment>55){
                 return "Error";
             }
+        },
+
+        setIcon: function(sentiment){
+            if (sentiment >=0 && sentiment<=25) {
+                return "sap-icon://bus-public-transport";
+            } else if(sentiment > 25 && sentiment <40) {
+                return 
+            }
         }
     };
 });

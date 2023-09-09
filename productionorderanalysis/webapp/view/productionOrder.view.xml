@@ -1,7 +1,7 @@
 <mvc:View controllerName="hac2build.productionorderanalysis.controller.productionOrder"
     xmlns:mvc="sap.ui.core.mvc" 
     displayBlock="true"
-    xmlns="sap.m">
+    xmlns="sap.m" xmlns:core="sap.ui.core">
     <Page id="page" showHeader="false" enableScrolling="true">
         <content>
             <!-- Table for production orders -->
@@ -18,42 +18,42 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column id="column1" hAlign="Left" width="6%"> 
+                    <Column id="column1" hAlign="Left"> 
                         <Label id="label1" design="Bold" text="Order" wrapping="true"/>
                     </Column>
-                    <Column id="column3" hAlign="Left" width="12%"> 
+                    <Column id="column3" hAlign="Left"> 
                         <Label id="label3" design="Bold" text="Material"/>
                     </Column>
-                    <Column id="column5" hAlign="Left" width="5.5%"> 
+                    <Column id="column5" hAlign="Left"> 
                         <Label id="label5" design="Bold" text="Quantity" wrapping="true"/>
                     </Column>
-                    <Column id="column9" hAlign="Left"> 
+                    <!-- <Column id="column9" hAlign="Left"> 
                         <Label id="label9" design="Bold" text="SO/SO Item" wrapping="true"/>
-                    </Column>
-                    <Column id="column13" hAlign="Left" width="9%"> 
+                    </Column> -->
+                    <Column id="column13" hAlign="Left"> 
                         <Label id="label13" design="Bold" text="Material Component" wrapping="true"/>
                     </Column>
 
-                    <Column id="column15" hAlign="Left" width="9%"> 
+                    <Column id="column15" hAlign="Left"> 
                         <Label id="label15" design="Bold" text="PO Number" wrapping="true"/>
                     </Column>
-                    <Column id="column2" hAlign="Left" width="8%"> 
+                    <!-- <Column id="column2" hAlign="Left" width="8%"> 
                         <Label id="label2" design="Bold" text="Basic Start Date" wrapping="true"/>
-                    </Column>
-                    <Column id="column11" hAlign="Left" width="8%"> 
+                    </Column> -->
+                    <Column id="column11" hAlign="Left"> 
                         <Label id="label11" design="Bold" text="Planned Delivery Date" wrapping="true"/>
                     </Column>
                     <Column id="column12" hAlign="Left"> 
                         <Label id="label12" design="Bold" text="Predicted Finish Date" wrapping="true"/>
                     </Column>
-                    <Column id="column17" hAlign="Left" width="8%"> 
-                        <Label id="label17" design="Bold" text="PO Delivery Date" wrapping="true"/>
+                    <Column id="column17" hAlign="Left"> 
+                        <Label id="label17" design="Bold" text="Predicted PO Delivery Date" wrapping="true"/>
                     </Column>
-                    <Column id="column18" hAlign="Left" width="8%"> 
-                        <Label id="label18" design="Bold" text="AI Computed Date" wrapping="true"/>
+                    <Column id="column18" hAlign="Left"> 
+                        <Label id="label18" design="Bold" text="Realistic Delivery Date" wrapping="true"/>
                     </Column>
                     <Column id="column19" hAlign="Left"> 
-                        <Label id="label19" design="Bold" text="Sentiment %" wrapping="true"/>
+                        <Label id="label19" design="Bold" text="Impacting Factors" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>
@@ -63,19 +63,26 @@
                             <!-- <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{path: 'oTableModel>Basic_Start_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/> -->
                             <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>Material}" text="{oTableModel>Material_Description}"/>
                             <ObjectNumber id="_IDGenObjectIdentifier5" number="{oTableModel>Total_Order_Quantity}" unit="{oTableModel>Base_Unit_Measure}"/>                              
-                            <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>SO}" text="{oTableModel>SO_Item}"/>
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>SO}" text="{oTableModel>SO_Item}"/> -->
                             <!-- <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{path: 'oTableModel>Planned_Del_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/> -->
                             <ObjectIdentifier id="_IDGenObjectIdentifier13" title="{oTableModel>Material_component}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier15" title="{oTableModel>PO_no}"/>
                             <!-- <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{path: 'oTableModel>PO_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/> -->
-                            <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{path: 'oTableModel>Basic_Start_Date'}"/>
+                            <!-- <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{path: 'oTableModel>Basic_Start_Date'}"/> -->
                             <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{oTableModel>Planned_Del_Date}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier12" title="{oTableModel>Predicted_Finish_Date}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier17" title="{oTableModel>PO_Delivery_Date}"/>
                             <!-- <ObjectIdentifier id="_IDGenObjectIdentifier18" title="{path: 'oTableModel>GEN_AI_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}"/> -->
-                            <ObjectStatus id="_IDGenObjectIdentifier18" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>Planned_Del_Date'], formatter: '.formatter.statusText'}"/>
+                            <ObjectStatus id="_IDGenObjectIdentifier18" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>PO_Delivery_Date'], formatter: '.formatter.statusText'}"/>
                             <!-- <ObjectStatus id="_IDGenObjectIdentifier18" text="{path: 'oTableModel>GEN_AI_Delivery_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd', source: 'yyyy-MM-dd'}}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>Planned_Del_Date'], formatter: '.formatter.statusText'}"/> -->
-                            <ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" />
+                            <VBox >
+                                    <ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" />
+                                <HBox class="sapUiTinyMarginTop">
+                                    <core:Icon src="sap-icon://bus-public-transport" visible="{= ${oTableModel>Sentiment}? true : false}" class="sapUiTinyMarginEnd" useIconTooltip="false" tooltip="Heavy Traffic"/>
+                                    <core:Icon src="sap-icon://weather-proofing" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Extreme Weather Conditions"/>
+                                    <!-- <core:Icon src="{= ${oTableModel>Sentiment} &ge; 0 &amp;&amp; ${oTableModel>Sentiment} &le; 25 ? 'sap-icon://bus-public-transport': '' }" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Extreme Weather Conditions"/> -->
+                                </HBox>
+                            </VBox>
                             <!-- <ObjectIdentifier id="_IDGenObjectIdentifier19" title="{oTableModel>Sentiment}"/> -->
                         </cells>
                     </ColumnListItem>
