@@ -7,24 +7,19 @@ sap.ui.define([
     "sap/m/Text",
     "sap/m/ObjectStatus",
     "sap/m/ToolbarSpacer",
-    "sap/m/VBox"
+    "sap/m/VBox",
+    "sap/m/BusyDialog"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,MessageBox,formatter,Button, Dialog, Text, ObjectStatus, ToolbarSpacer, VBox) {
+    function (Controller,MessageBox,formatter,Button, Dialog, Text, ObjectStatus, ToolbarSpacer, VBox,BusyDialog) {
         "use strict";
 
         return Controller.extend("hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis", {
           formatter: formatter,  
           onInit: function () {
-                this.oBusyDialog = new sap.m.BusyDialog({
-                  text: "Generating Date...Please Wait"
-              });
-              this.oBusyDialog1 = new sap.m.BusyDialog({
-                text: "Generating Mail...Please Wait"
-            });
-            
+                this.oBusyDialog = new sap.m.BusyDialog({});
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 this.onLoadTabData();
 			},
@@ -104,7 +99,7 @@ sap.ui.define([
           success: function (oData) {
             that.oBusyDialog.close();
                     // var that = this;
-                    // debugger
+                    debugger
                     console.log(oData)
                     // console.log(formattedRespDate);
                     var predicted_receipt_date = oData.value[0].predicted_receipt_date;
@@ -292,18 +287,16 @@ sap.ui.define([
         },
   
         onEmailPress: function (oData) {
-          this.oBusyDialog1.open();
+          
           var that = this;
-          //that.onOpenPopoverDialog();
           //payload params
           console.log(oData)
+          that.oBusyDialog.open();
           var sold_To = this.getView().getModel("oRowModel").oData.Supplier;
           var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
           var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
           var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
           var item = this.getView().getModel("oRowModel").oData.SO_Item;
-  
-  
           var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
           var token;
           $.ajax({
@@ -318,7 +311,6 @@ sap.ui.define([
             },
             error: function (result, xhr, data) {
               console.log("Error");
-  
             },
   
           });
@@ -334,16 +326,6 @@ sap.ui.define([
               "item_id": '"' + item + '"'
             }
           }
-  
-          // var payload = {
-          //   "emailData": {
-          //     "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
-          //     "order_id": "ORD001",
-          //     "customer_name": "Akash Dawari",
-          //     "delivery_date": "12-10-2023",
-          //     "item_id": "[item1, item2, item3]"
-          //   }
-          // }
           jQuery.ajax({
             url: sUrl + urlext,
             type: "POST",
@@ -354,17 +336,16 @@ sap.ui.define([
             data: JSON.stringify(payload),
             contentType: "application/json",
             success: function (oData) {
-              that.oBusyDialog1.close();
-              if (oData) {
+              that.oBusyDialog.close();
+              // if (oData) {
                 var oEmailModel = new sap.ui.model.json.JSONModel();
                 oEmailModel.setData(oData);                 
-                
                 that.onOpenPopoverDialog();
                 sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
-              }
+              // }
             },
             error: function (e) {
-              // that.oBusyDialog1.open();
+              that.oBusyDialog.close();
               MessageBox.error("Please add proper data");
             },
           });
@@ -445,9 +426,13 @@ sap.ui.define([
           oDialog.open();
 
       },
-    onCallASN: function (oData) {
-      debugger
-      // this.oBusyDialog.open();
+      onSendSuccess: function(){
+        sap.m.MessageBox.success("Email has been sent successfully");
+        this._oNewDialog.close();
+      },
+      onCallASN: function (oData) {
+      // debugger
+      this.oBusyDialog.open();
       var that = this;
       var oPath = "getBearerToken()";
       var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
@@ -457,8 +442,8 @@ sap.ui.define([
         method: "GET",
         async: true, method: 'GET', dataType: 'json', 
         success: function (oData) {
-          debugger
-          // that.oBusyDialog.close();
+          // debugger
+          
           var oBearer = oData.value;
           var raw = "Plant:1710,Po Date:07/09/2023,Po Item: 10,Po Qty: 180"
           var prompt = "Extract the data for the below feilds:\nPo Item from the below data:" +
@@ -479,12 +464,13 @@ sap.ui.define([
               }),
             };
             $.ajax(settings).done(function (response) {
+              that.oBusyDialog.close();
               console.log(response);
-              MessageBox.success("ASN Processing Called")
+              MessageBox.success("Processing of ASN is successfull.")
             });
           }, 
           error: function (jqXHR) {
-            // that.oBusyDialog.close();
+            that.oBusyDialog.close();
             sap.m.MessageBox.error(jqXHR.responseText);
           },
       });
@@ -511,7 +497,13 @@ sap.ui.define([
       //     MessageBox.error("Please add proper data");
       //   },
       // });
-    }
+      },
+      onOpenChat: function (oEvent) {
+        var oUrl = 'https://llm-chatbot-app-wacky-puku-dt.cfapps.eu10.hana.ondemand.com/';
+        var topsss = screen.height - 490;
+        var left = screen.width - 420;
+        window.open(oUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + topsss + ",left=" + left + ",width=420,height=490");
+      }
     
     });
   });
