@@ -33,3 +33,10 @@
 .roundClass .sapMBtnContent {
     line-height: normal;
 }
+.sapMTableTH {
+
+    /* background-color: rgb(63, 81, 97); */
+
+    background-color: rgb(169, 198, 222);
+
+}

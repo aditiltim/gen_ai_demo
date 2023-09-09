@@ -128,6 +128,7 @@ sap.ui.define([
               var customer = this.getView().getModel("oRowModel").oData.Customer;
               var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
               var that = this;
+              var oGenModel = new sap.ui.model.json.JSONModel();
               var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
               var token;
               $.ajax({
@@ -173,6 +174,8 @@ sap.ui.define([
                 success: function (oData) {
                   that.oBusyDialog.close();
                   // MessageBox.success("Success");
+                  oGenModel.setData(oData);
+                  that.getView().setModel(oGenModel, "oGenModel");
                   var updatedDate = oData.updated_delivery_date;
                   var oResponseDate = new Date(updatedDate);
                   var deliveryDate = new Date(del_date);
@@ -285,18 +288,25 @@ sap.ui.define([
         onNewDialogCancel: function () {
           this._oNewDialog.close();
         },
-  
-        onEmailPress: function (oData) {
-          
+        onEmailPress: function (odata) {
+          debugger
+          this.oBusyDialog.open();
           var that = this;
+          //that.onOpenPopoverDialog();
           //payload params
-          console.log(oData)
-          that.oBusyDialog.open();
-          var sold_To = this.getView().getModel("oRowModel").oData.Supplier;
-          var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
+          var sold_To = this.getView().getModel("oRowModel").oData.PO;
+          //var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
           var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
-          var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
+         // var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
           var item = this.getView().getModel("oRowModel").oData.SO_Item;
+          
+          //formatting Gen date to be passed
+          var del_date = this.getView().getModel("oGenModel").oData.updated_delivery_date;
+          var deliveryDate = new Date(del_date);
+          var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "dd-MM-yyyy" });
+          var emailReqDate = dateFormat.format(deliveryDate);
+          var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
+  
           var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
           var token;
           $.ajax({
@@ -311,6 +321,7 @@ sap.ui.define([
             },
             error: function (result, xhr, data) {
               console.log("Error");
+  
             },
   
           });
@@ -318,14 +329,23 @@ sap.ui.define([
           var urlext = "getEmailData";
           var payload = {
             "emailData": {
-              "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
+              "llm_summary": newsSummary,
               "order_id": sold_To,
               "customer_name": cust_name,
-              "delivery_date": "12-10-2023",
-              //"delivery_date": gen_date,
+              "delivery_date": emailReqDate,
               "item_id": '"' + item + '"'
             }
           }
+  
+          // var payload = {
+          //   "emailData": {
+          //     "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
+          //     "order_id": "ORD001",
+          //     "customer_name": "Akash Dawari",
+          //     "delivery_date": "12-10-2023",
+          //     "item_id": "[item1, item2, item3]"
+          //   }
+          // }
           jQuery.ajax({
             url: sUrl + urlext,
             type: "POST",
@@ -336,13 +356,15 @@ sap.ui.define([
             data: JSON.stringify(payload),
             contentType: "application/json",
             success: function (oData) {
+              debugger
               that.oBusyDialog.close();
-              // if (oData) {
+              if (oData) {
                 var oEmailModel = new sap.ui.model.json.JSONModel();
                 oEmailModel.setData(oData);                 
+                
                 that.onOpenPopoverDialog();
                 sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
-              // }
+              }
             },
             error: function (e) {
               that.oBusyDialog.close();
@@ -350,6 +372,70 @@ sap.ui.define([
             },
           });
         },
+        // onEmailPress: function (oData) {
+          
+        //   var that = this;
+        //   //payload params
+        //   console.log(oData)
+        //   that.oBusyDialog.open();
+        //   var sold_To = this.getView().getModel("oRowModel").oData.Supplier;
+        //   var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
+        //   var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
+        //   var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
+        //   var item = this.getView().getModel("oRowModel").oData.SO_Item;
+        //   var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+        //   var token;
+        //   $.ajax({
+        //     url: sUrl,
+        //     method: "GET",
+        //     async: false,
+        //     headers: {
+        //       "X-CSRF-Token": "Fetch",
+        //     },
+        //     success: function (result, xhr, data) {
+        //       token = data.getResponseHeader("X-CSRF-Token");
+        //     },
+        //     error: function (result, xhr, data) {
+        //       console.log("Error");
+        //     },
+  
+        //   });
+  
+        //   var urlext = "getEmailData";
+        //   var payload = {
+        //     "emailData": {
+        //       "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
+        //       "order_id": sold_To,
+        //       "customer_name": cust_name,
+        //       "delivery_date": "12-10-2023",
+        //       //"delivery_date": gen_date,
+        //       "item_id": '"' + item + '"'
+        //     }
+        //   }
+        //   jQuery.ajax({
+        //     url: sUrl + urlext,
+        //     type: "POST",
+        //     async: false,
+        //     headers: {
+        //       "X-CSRF-Token": token,
+        //     },
+        //     data: JSON.stringify(payload),
+        //     contentType: "application/json",
+        //     success: function (oData) {
+        //       that.oBusyDialog.close();
+        //       // if (oData) {
+        //         var oEmailModel = new sap.ui.model.json.JSONModel();
+        //         oEmailModel.setData(oData);                 
+        //         that.onOpenPopoverDialog();
+        //         sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
+        //       // }
+        //     },
+        //     error: function (e) {
+        //       that.oBusyDialog.close();
+        //       MessageBox.error("Please add proper data");
+        //     },
+        //   });
+        // },
         onRecalPress: function (oEvent) {
               var settings = {
                 "url": "https://openai-serv-app.cfapps.eu10-004.hana.ondemand.com/api/v1/completions",
@@ -497,7 +583,7 @@ sap.ui.define([
       //     MessageBox.error("Please add proper data");
       //   },
       // });
-      },
+    },
       onOpenChat: function (oEvent) {
         var oUrl = 'https://llm-chatbot-app-wacky-puku-dt.cfapps.eu10.hana.ondemand.com/';
         var topsss = screen.height - 490;

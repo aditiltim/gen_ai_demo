@@ -17,10 +17,10 @@
 							<!-- <Title id="_IDGenTitle1" text="Purchase Order Analysis" level="H2"/> -->
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 							<Button id="_IDGenButton3" text="Predicted Delivery Date" press="onLocalAI"/>
-							<Button id="_IDGenButton1" text="Realistic Delivery Date" press="onAvailablePress"/>
-							<Button id="_IDGenButton2" text="Send Notification" press="onEmailPress" icon="sap-icon://email"/>
+							<Button id="_IDGenButton1" icon="model/images/openai.253x256.png" text="Realistic Delivery Date" press="onAvailablePress"/>
+							<Button id="_IDGenButton2" icon="model/images/openai.253x256.png" text="Send Notification" press="onEmailPress"/>
 							<Button id="_IDGenButton4" text="Update PO" press="onUpdatePO"/>
-							<Button id="_IDGenButton5" text="Process ASN" press="onCallASN"/>
+							<Button id="_IDGenButton5" icon="model/images/openai.253x256.png" text="Process ASN" press="onCallASN"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
@@ -43,7 +43,7 @@
 					<!-- <Column id="_IDGenColumn11" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="15%">
 						<Label id="_IDGenLabel11" design="Bold" text="Description" />
 					</Column> -->
-					<Column id="_IDGenColumn12" hAlign="Left" minScreenWidth = "Small" demandPopin="false" width="7%">
+					<Column id="_IDGenColumn12" hAlign="Right" minScreenWidth = "Small" demandPopin="false" width="7%">
 						<Label id="_IDGenLabel12" design="Bold" text="Quantity"/>
 					</Column>
 					<Column id="_IDGenColumn5" hAlign="Left">
@@ -74,7 +74,7 @@
 						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="Realistic Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn17" hAlign="Left" autoPopinWidth="50">
-						<Label id="_IDGenLabel17" design="Bold" wrapping="true" text="Impacting factors"/>
+						<Label id="_IDGenLabel17" design="Bold" wrapping="true" text="Impacting Factors"/>
 					</Column>
 				</columns>
 				<items>
@@ -116,9 +116,6 @@
 				</items>
 			</Table>
 	</content>
-	<!-- <footer>
-		<Button id="_IDGenButton6" type="Reject" text="Reject"/>
-	</footer> -->
 	<VBox id="_IDGenVBox1" alignItems="End" alignContent="End" justifyContent="End">
 		<Button id="_IDGenButton6" icon="sap-icon://lightbulb" text="" type="Emphasized" width="5px" press="onOpenChat" class="roundClass"/>
 	</VBox>

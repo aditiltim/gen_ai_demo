@@ -12,17 +12,17 @@ sap.ui.define(function () {
     // }
     // return Formatter;
     return {
-		statusText: function (genDate, delDate ) {
-            // debugger      
-              var oDelDate = new Date(delDate);
-              var oGenDate = new Date(genDate);
-              var diffDays = oGenDate.getDate() - oDelDate.getDate(); 
-              if(diffDays > 0){
-                return "Error";    
-              }else{
-                return "Success";           
-              }
-		},
+      statusText: function(genDate, delDate){
+        var oDelDate = new Date(delDate);
+        var oGenDate = new Date(genDate);
+        var diffDays = parseInt((oGenDate - oDelDate) / (1000 * 60 * 60 * 24), 10);
+        // var diffDays = oGenDate.getDate() - oDelDate.getDate();
+        if(diffDays > 0){
+            return "Error";
+        } else if(diffDays <= 0){
+            return "Success";
+        }
+    },
     statusTextSentiment: function(sentiment){
       if(sentiment>=0 && sentiment<=30){
           return "Success";
