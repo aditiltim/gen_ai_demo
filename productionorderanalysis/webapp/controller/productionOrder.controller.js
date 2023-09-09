@@ -6,17 +6,19 @@ sap.ui.define([
     "sap/m/Dialog",
     "sap/m/ObjectStatus",
     "sap/m/VBox",
-    "sap/ui/core/BusyIndicator"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageBox, formatter, Button, Dialog, ObjectStatus, VBox, BusyIndicator) {
+    function (Controller, MessageBox, formatter, Button, Dialog, ObjectStatus, VBox) {
         "use strict";
 
         return Controller.extend("hac2build.productionorderanalysis.controller.productionOrder", {
             formatter: formatter,
             onInit: function () {
+                this.oBusyDialog = new sap.m.BusyDialog({
+                    text: "Generating Date...Please Wait"
+                });
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 this.onLoadTabData();
             },
@@ -47,19 +49,18 @@ sap.ui.define([
             },
 
             onAvailabilityCheckPress: function (oEvent) {
+                this.oBusyDialog.open();
                 var that = this;
-                // var oButton = this.getView().byId("availabilityCheck");
-                // oButton.setBusy(true);
-                // oButton.setBusyIndicatorDelay(0);
                 var sPath = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel").sPath;
                 var sContext = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel");
-                var dDeliveryDate = this.getView().getModel("oRowModel").oData.Planned_Del_Date;
+                var sCustomer = this.getView().getModel("oRowModel").oData.Customer;
+                var dDeliveryDate = this.getView().getModel("oRowModel").oData.PO_Delivery_Date;
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 var token;
                 $.ajax({
                     url: sUrl,
                     method: "GET",
-                    async: false,
+                    async: true,
                     headers: {
                         "X-CSRF-Token": "FETCH",
                     },
@@ -72,36 +73,41 @@ sap.ui.define([
                 });
 
                 var odata = {
-                    "newsData": { "company_name": "1000200", "delivery_date": dDeliveryDate }
+                    "newsData": { "company_name": sCustomer, "delivery_date": dDeliveryDate }
                 }
 
                 $.ajax({
                     url: sUrl + "getNewsSummaryData",
                     method: "POST",
-                    async: false,
+                    async: true,
                     headers: {
                         "X-CSRF-Token": token
                     },
                     data: JSON.stringify(odata),
                     contentType: "application/json",
                     success: function (oData) {
-                        // oButton.setBusy(false);
-                        MessageBox.success("Success");
-                        // console.log(oData.value);
+                        that.oBusyDialog.close();
                         var dUpdatedDate = oData.updated_delivery_date;
                         var iNegativeSentiment = oData.percentage_negative_news;
+                        iNegativeSentiment = iNegativeSentiment.toFixed(2);
+                        var predictedFinishDate = new Date(dUpdatedDate);
+                        predictedFinishDate.setDate(predictedFinishDate.getDate() + 5);
                         var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
                         var formattedResponseDate = dateFormat.format(new Date(dUpdatedDate));
                         var formattedDeliveryDate = dateFormat.format(new Date(dDeliveryDate));
+                        var formattedPredictedDate = dateFormat.format(new Date(predictedFinishDate));
                         if (formattedResponseDate > formattedDeliveryDate) {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
-                            sContext.getModel().setProperty(sPath + "/Sentiment", iNegativeSentiment);
+                            sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
+                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                         } else {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
-                            sContext.getModel().setProperty(sPath + "/Sentiment", iNegativeSentiment);
+                            sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
+                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                         }
                     },
                     error: function (e) {
+                        that.oBusyDialog.close();
                         MessageBox.error("Gateway Timeout");
                     }
                 })
@@ -133,7 +139,7 @@ sap.ui.define([
                     icon2 = "sap-icon://machine";
                 }
                 var oDialog = new Dialog({
-                    title: "Reason for delay",
+                    title: "Reasons for delay",
                     content: [
                         new VBox({
                             items:[
