@@ -16,23 +16,23 @@
 	</content>
 	<content>
 		<Table class="table1" items="{oTableModel>/}"  id="idTablelist" visible="true"
-				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="SingleSelectMaster" selectionChange="onSelectedRow" alternateRowColors="true">
+				sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="MultiSelect" selectionChange="onSelectedRow" alternateRowColors="true">
 				<headerToolbar backgroundDesign="Solid">
 					<OverflowToolbar id="_IDGenOverflowToolbar1">
 						<content>
 							<Title id="_IDGenTitle1" text="Sales Order Analysis" level="H2"/>
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton1" text="Availibility Check" press="onAvailablePress"/>
-							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
+							<Button id="_IDGenButton1" text="Realsitic Delivery Date" press="onAvailablePress"/>
+							<Button id="_IDGenButton2" text="Send Notification" press="onEmailPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
 					<Column id="_IDGenColumn1" hAlign="Left">
-						<Label id="_IDGenLabel1" design="Bold" wrapping="true" text="Sales Order / Item"/>
+						<Label id="_IDGenLabel1" design="Bold" wrapping="true" text="Sales Order"/>
 					</Column>
 					<Column id="_IDGenColumn2" hAlign="Left">
-						<Label id="_IDGenLabel2" design="Bold" wrapping="true" text="Sold to Party No. / Name"/>
+						<Label id="_IDGenLabel2" design="Bold" wrapping="true" text="Customer"/>
 					</Column>
 					<!-- <Column id="_IDGenColumn3" hAlign="Center">
 						<Label id="_IDGenLabel3" design="Bold" text="Item"/>
@@ -41,7 +41,7 @@
 						<Label id="_IDGenLabel4" design="Bold" text="Plant"/>
 					</Column> -->
 					<Column id="_IDGenColumn5" hAlign="Left">
-						<Label id="_IDGenLabel5" design="Bold" wrapping="true" text="Material No. / Description"/>
+						<Label id="_IDGenLabel5" design="Bold" wrapping="true" text="Material"/>
 					</Column>
 					<Column id="_IDGenColumn6" hAlign="Center">
 						<Label id="_IDGenLabel6" design="Bold" text="Quantity"/>
@@ -53,10 +53,13 @@
 						<Label id="_IDGenLabel8" design="Bold" wrapping="true" text="Current SAP Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn9" hAlign="Center">
-						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="Gen AI Predicted Delivery Date"/>
+						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="Realsitic Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn10" hAlign="Center" autoPopinWidth="50">
-						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Sentiment %"/>
+						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Impacting Factors"/>
+					</Column>
+					<Column id="_IDGenColumn11" hAlign="Center" autoPopinWidth="50">
+						<Label id="_IDGenLabel11" design="Bold" wrapping="true" />
 					</Column>
 				</columns>
 				<items>
@@ -73,8 +76,16 @@
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}"/> -->
 							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.statusText'}"/>	
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
-							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />				
-						</cells>
+							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />	
+							</cells>	
+							<cells>
+                                    <HBox>	
+                                        <Button icon="sap-icon://bus-public-transport" />
+                                        <Button icon="sap-icon://weather-proofing" /> 
+										<Button icon="sap-icon://shipping-status" />
+										
+                                    </HBox>
+                            </cells>		
 					</ColumnListItem>
 				</items>
 			</Table>
