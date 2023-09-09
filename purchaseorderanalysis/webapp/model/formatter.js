@@ -19,12 +19,19 @@ sap.ui.define(function () {
               var diffDays = oGenDate.getDate() - oDelDate.getDate(); 
               if(diffDays > 0){
                 return "Error";    
-              }else if (diffDays == 0){
-                return "Information";           
               }else{
-                return "Success";
+                return "Success";           
               }
-		}
+		},
+    statusTextSentiment: function(sentiment){
+      if(sentiment>=0 && sentiment<=30){
+          return "Success";
+      } else if(sentiment>30 && sentiment<=55){
+          return "Information";
+      } else if(sentiment>55){
+          return "Error";
+      }
+  }
 	};
 
 

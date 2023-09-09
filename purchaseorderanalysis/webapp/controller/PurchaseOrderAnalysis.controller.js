@@ -1,12 +1,18 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
-    "hac2build/purchaseorderanalysis/model/formatter"
+    "hac2build/purchaseorderanalysis/model/formatter",
+    "sap/m/Button",
+    "sap/m/Dialog",
+    "sap/m/Text",
+    "sap/m/ObjectStatus",
+    "sap/m/ToolbarSpacer",
+    "sap/m/VBox"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,MessageBox,formatter) {
+    function (Controller,MessageBox,formatter,Button, Dialog, Text, ObjectStatus, ToolbarSpacer, VBox) {
         "use strict";
 
         return Controller.extend("hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis", {
@@ -19,7 +25,7 @@ sap.ui.define([
       onLoadTabData: function () {
         var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
         jQuery.ajax({
-          url: sUrl + "PO_Data",
+          url: sUrl + "POData",
           type: "GET",
           async: false,
           contentType: "application/json",
@@ -72,8 +78,8 @@ sap.ui.define([
         var payload = {
           "excelData": [{
             "Supplier": Supplier,
-            "Material": "100-110-01",
-            "Plant": "1002",
+            "Material": Material,
+            "Plant": Plant,
             "Po_qty": Po_qty,
             "Po_delivery_date": Po_delivery_date,
             "Po_item": Po_item
@@ -111,10 +117,10 @@ sap.ui.define([
           });
         },
       onAvailablePress: function (oEvent) {
-              // debugger
+              debugger
               var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
               var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
-              var customer = JSON.stringify(this.getView().getModel("oRowModel").oData.Customer);
+              var customer = this.getView().getModel("oRowModel").oData.Customer;
               var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
       
               var that = this;
@@ -173,14 +179,14 @@ sap.ui.define([
                   if (formattedRespDate > formattedDelDate) {
                     //that.getView().byId("_IDGenObjectStatus1").setState("Error");
                     sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
-                    sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.Sentiment);
-                    
+                    sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
                     console.log("updatedDate is greater");
                   }
-                  // else{
-                  //   sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
-                  //   console.log("updatedDate is greater");
-                  // }
+                  else{
+                    sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                    sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
+                    console.log("updatedDate is less than or equal to ");
+                  }
                   var negSentiment = oData.percentage_negative_news;
       
       
@@ -289,6 +295,58 @@ sap.ui.define([
         onUpdatePO: function () {
           MessageBox.confirm("Do you want to confirm the Purchase Order?");
         },
+        onClickSentiment: function (oEvent) {
+          var value, value1, value2, icon, icon1, icon2;
+          var sentiment = parseInt(oEvent.getSource().getText());
+          // var sentiment = 30;
+          if (sentiment >= 0 && sentiment <= 30) {
+              value = "Heavy Traffic";
+              icon = "sap-icon://bus-public-transport";
+              value1 = "Weather Conditions"; 
+              icon1 = "sap-icon://weather-proofing";
+              value2 = "Failed Delivery Attempts.";
+              icon2 = "sap-icon://shipping-status";
+          } else if (sentiment > 30 && sentiment <= 60) {
+              value = "Customs(Import)";
+              icon = "sap-icon://travel-itinerary";
+              value1 = "Geo Political Issues";
+              icon1 = "sap-icon://map-2";
+              value2 = "War Situations";
+              icon2 = "sap-icon://globe";
+          } else if (sentiment > 60 && sentiment <= 100) {
+              value = "Delay from Supplier";
+              icon = "sap-icon://supplier";
+              value1 = "Financial Crisis"
+              icon1 = "sap-icon://loan";
+              value2= "Delay in Production Supply";
+              icon2 = "sap-icon://machine";
+          }
+          var oDialog = new Dialog({
+              title: "Reason for delay",
+              content: [
+                  new VBox({
+                    // class:"sapUiResponsiveContentPadding",
+                      items:[
+                          new ObjectStatus({"active": false, text: value, icon: icon}).addStyleClass("spaceBelow"),
+                          new ObjectStatus({"active": false, text: value1, icon: icon1}).addStyleClass("spaceBelow"),
+                          new ObjectStatus({"active": false, text: value2, icon:icon2}).addStyleClass("spaceBelow")
+                      ],
+                      alignItems: "Start",
+                  }).addStyleClass("spaceALL")
+              ],
+              beginButton: new Button({
+                  text: "Close",
+                  press: function () {
+                      oDialog.close();
+                  }
+
+              })
+
+          });
+          oDialog.open();
+
+      }
+
         });
 
     });
