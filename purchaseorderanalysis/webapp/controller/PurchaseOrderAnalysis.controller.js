@@ -218,57 +218,144 @@ sap.ui.define([
               //   console.log(response);
               // });
         },
-      onEmailPress: function (odata) {
-              var that = this;
-              var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
-              var token;
-              $.ajax({
-                url: sUrl,
-                method: "GET",
-                async: false,
-                headers: {
-                  "X-CSRF-Token": "Fetch",
-                },
-                success: function (result, xhr, data) {
-                  token = data.getResponseHeader("X-CSRF-Token");
-                },
-                error: function (result, xhr, data) {
-                  console.log("Error");
+      // onEmailPress: function (odata) {
+      //         var that = this;
+      //         var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+      //         var token;
+      //         $.ajax({
+      //           url: sUrl,
+      //           method: "GET",
+      //           async: false,
+      //           headers: {
+      //             "X-CSRF-Token": "Fetch",
+      //           },
+      //           success: function (result, xhr, data) {
+      //             token = data.getResponseHeader("X-CSRF-Token");
+      //           },
+      //           error: function (result, xhr, data) {
+      //             console.log("Error");
       
-                },
+      //           },
       
-              });
+      //         });
       
-              var urlext = "getEmailData";
-              var payload = {
-                "emailData": {
-                  "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
-                  "order_id": "ORD001",
-                  "customer_name": "Akash Dawari",
-                  "delivery_date": "12-10-2023",
-                  "item_id": "[item1, item2, item3]"
-                }
+      //         var urlext = "getEmailData";
+      //         var payload = {
+      //           "emailData": {
+      //             "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
+      //             "order_id": "ORD001",
+      //             "customer_name": "Akash Dawari",
+      //             "delivery_date": "12-10-2023",
+      //             "item_id": "[item1, item2, item3]"
+      //           }
+      //         }
+      //         jQuery.ajax({
+      //           url: sUrl + urlext,
+      //           type: "POST",
+      //           async: false,
+      //           headers: {
+      //             "X-CSRF-Token": token,
+      //           },
+      //           data: JSON.stringify(payload),
+      //           contentType: "application/json",
+      //           success: function (oData) {
+      //             if (oData.value) {
+      //               MessageBox.success("Success");
+      //               console.log(oData.value);
+      //               that.downloadExcel(oData.value);
+      //             }
+      //           },
+        //         error: function (e) {
+        //           MessageBox.error("Please add proper data");
+        //         },
+        //       });
+        // }
+        onOpenPopoverDialog: function () {
+          if (!this._oNewDialog) {
+            this._oNewDialog = sap.ui.xmlfragment("hac2build.purchaseorderanalysis.fragments.newDialog", this);
+            this.getView().addDependent(this._oNewDialog);
+          }
+          this._oNewDialog.open();
+        },
+        onNewDialogCancel: function () {
+          this._oNewDialog.close();
+        },
+  
+        onEmailPress: function (oData) {
+          debugger
+          var that = this;
+          //that.onOpenPopoverDialog();
+          //payload params
+          console.log(oData)
+          var sold_To = this.getView().getModel("oRowModel").oData.Customer;
+          var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
+          var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
+          var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
+          var item = this.getView().getModel("oRowModel").oData.SO_Item;
+  
+  
+          var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+          var token;
+          $.ajax({
+            url: sUrl,
+            method: "GET",
+            async: false,
+            headers: {
+              "X-CSRF-Token": "Fetch",
+            },
+            success: function (result, xhr, data) {
+              token = data.getResponseHeader("X-CSRF-Token");
+            },
+            error: function (result, xhr, data) {
+              console.log("Error");
+  
+            },
+  
+          });
+  
+          var urlext = "getEmailData";
+          var payload = {
+            "emailData": {
+              "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
+              "order_id": sold_To,
+              "customer_name": cust_name,
+              "delivery_date": "12-10-2023",
+              //"delivery_date": gen_date,
+              "item_id": '"' + item + '"'
+            }
+          }
+  
+          // var payload = {
+          //   "emailData": {
+          //     "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
+          //     "order_id": "ORD001",
+          //     "customer_name": "Akash Dawari",
+          //     "delivery_date": "12-10-2023",
+          //     "item_id": "[item1, item2, item3]"
+          //   }
+          // }
+          jQuery.ajax({
+            url: sUrl + urlext,
+            type: "POST",
+            async: false,
+            headers: {
+              "X-CSRF-Token": token,
+            },
+            data: JSON.stringify(payload),
+            contentType: "application/json",
+            success: function (oData) {
+              if (oData) {
+                var oEmailModel = new sap.ui.model.json.JSONModel();
+                oEmailModel.setData(oData);                 
+                
+                that.onOpenPopoverDialog();
+                sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
               }
-              jQuery.ajax({
-                url: sUrl + urlext,
-                type: "POST",
-                async: false,
-                headers: {
-                  "X-CSRF-Token": token,
-                },
-                data: JSON.stringify(payload),
-                contentType: "application/json",
-                success: function (oData) {
-                  if (oData.value) {
-                    MessageBox.success("Success");
-                    console.log(oData.value);
-                    that.downloadExcel(oData.value);
-                  }
-                },
-                error: function (e) {
-                  MessageBox.error("Please add proper data");
-                },
-              });
+            },
+            error: function (e) {
+              MessageBox.error("Please add proper data");
+            },
+          });
         },
       onRecalPress: function (oEvent) {
               var settings = {
