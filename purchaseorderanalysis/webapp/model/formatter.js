@@ -31,6 +31,16 @@ sap.ui.define(function () {
       } else if(sentiment>55){
           return "Error";
       }
+  },
+  getIcon :  function() {
+    var strIcon;
+    if(value<30)
+      strIcon = "sap-icon://basket"
+    else if(value>30 && value<50)
+      strIcon = "sap-icon://badge"
+    else
+      strIcon = "sap-icon://badge"
+    return strIcon;
   }
 	};
 

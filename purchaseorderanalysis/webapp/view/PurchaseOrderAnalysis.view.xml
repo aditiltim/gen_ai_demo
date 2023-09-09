@@ -3,6 +3,7 @@
 <mvc:View controllerName="hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
+	xmlns:core="sap.ui.core"
 	xmlns:plugins="sap.m.plugins"
 	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
 	xmlns:smartTable="sap.ui.comp.smarttable">
@@ -15,19 +16,20 @@
 						<content>
 							<!-- <Title id="_IDGenTitle1" text="Purchase Order Analysis" level="H2"/> -->
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton3" text="Core AI Date" press="onLocalAI"/>
-							<Button id="_IDGenButton1" text="Gen AI Prediction Date" press="onAvailablePress"/>
+							<Button id="_IDGenButton3" text="Predicted Delivery Date" press="onLocalAI"/>
+							<Button id="_IDGenButton1" text="Realistic Delivery Date" press="onAvailablePress"/>
 							<Button id="_IDGenButton2" text="Send Notification" press="onEmailPress" icon="sap-icon://email"/>
 							<Button id="_IDGenButton4" text="Update PO" press="onUpdatePO"/>
+							<Button id="_IDGenButton5" text="Call ASN" press="onCallASN"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column id="_IDGenColumn1" hAlign="Left" minScreenWidth = "Small" demandPopin="false" width="8%">
+					<Column id="_IDGenColumn1" hAlign="Left" minScreenWidth = "Small" demandPopin="false" width="12%">
 						<Label id="_IDGenLabel1" design="Bold" wrapping="true" text="Supplier"/>
 					</Column>
 					<Column id="_IDGenColumn2" hAlign="Left" minScreenWidth = "Small" demandPopin="false" width="12%">
-						<Label id="_IDGenLabel2" design="Bold" wrapping="true" text="Purchase Order / Item"/>
+						<Label id="_IDGenLabel2" design="Bold" wrapping="true" text="Purchase Order"/>
 					</Column>
 					<!-- <Column id="_IDGenColumn3" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="4%">
 						<Label id="_IDGenLabel3" design="Bold" text="PO Item" wrapping="true"/>
@@ -36,7 +38,7 @@
 						<Label id="_IDGenLabel4" design="Bold" text="PO SLN"/>
 					</Column> -->
 					<Column id="_IDGenColumn10" hAlign="Left" minScreenWidth = "Small" demandPopin="false" width="15%">
-						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Material / Description"/>
+						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Material"/>
 					</Column>
 					<!-- <Column id="_IDGenColumn11" hAlign="Center" minScreenWidth = "Small" demandPopin="false" width="15%">
 						<Label id="_IDGenLabel11" design="Bold" text="Description" />
@@ -66,13 +68,13 @@
 									<Label id="_IDGenLabel8" design="Bold" wrapping="true" text="PO Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn16" hAlign="Left" autoPopinWidth="50">
-						<Label id="_IDGenLabel16" design="Bold" wrapping="true" text="Core AI Delivery Date"/>
+						<Label id="_IDGenLabel16" design="Bold" wrapping="true" text="Predicted Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn9" hAlign="Left">
-						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="GEN AI Predicted Delivery Date"/>
+						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="Realistic Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn17" hAlign="Left" autoPopinWidth="50">
-						<Label id="_IDGenLabel17" design="Bold" wrapping="true" text="Sentiment %"/>
+						<Label id="_IDGenLabel17" design="Bold" wrapping="true" text="Impacting factors"/>
 					</Column>
 				</columns>
 				<items>
@@ -99,7 +101,9 @@
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
 							<!-- <ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}"/> -->
 							<!-- <ObjectStatus id="_IDGenObjectStatus3" text="{oTableModel>Sentiment}" active="true" state="Error" press="onClickSentiment" /> -->
-							<ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" />
+							<ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" icon="" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}">
+							</ObjectStatus>
+						
 						</cells>
 					</ColumnListItem>
 				</items>
