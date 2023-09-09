@@ -1,3 +1,6 @@
 /* Enter your custom styles here */
 .red-text 
 { color: red; }
+.spaceALL { padding: 2em; }
+
+.spaceBelow{padding-bottom: 2em;}
