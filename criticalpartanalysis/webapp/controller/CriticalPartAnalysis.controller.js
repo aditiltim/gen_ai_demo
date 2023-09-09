@@ -18,7 +18,10 @@ sap.ui.define([
 
                 this.salesOrderGraph();
                 this.purchaseOrderGraph();
-                this.productionOrderGraph();
+                 this.productionOrderGraph();
+
+                // var oModel = new sap.ui.Json.JSONModel();
+                // oModel.
                 
                   
                 // this._fnGetService = sap.ushell && 
@@ -107,7 +110,7 @@ sap.ui.define([
                         for (var i = 0; i < data.value.length; i++) {
                             var obj = {
                                 SalesOrderCount: data.value[i].SalesOrderCount,
-                                Sales_Order: data.value[i].Sales_Order,
+                                SalesOrder: data.value[i].Sales_Order,
                                 Status: data.value[i].Status
 
                             }
@@ -134,7 +137,7 @@ sap.ui.define([
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 this.purchaseOrderArr = [];
                 $.ajax({
-                    url: sUrl + "PODataView?$apply=groupby((PO,Status),aggregate($count as SalesOrderCount))",
+                    url: sUrl + "PODataView?$apply=groupby((PO,Status),aggregate($count as PurchaseOrderCount))",
                     method: "GET",
                     async: false,
                     headers: {
@@ -144,7 +147,7 @@ sap.ui.define([
                         for (var i = 0; i < data.value.length; i++) {
                             var obj = {
                                 PurchaseOrder  : data.value[i].PO,
-                                PurchaseOrderCount: data.value[i].SalesOrderCount,
+                                PurchaseOrderCount: data.value[i].PurchaseOrderCount,
                                 Status: data.value[i].Status
 
                             }
@@ -171,7 +174,7 @@ sap.ui.define([
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 this.purchaseOrderArr = [];
                 $.ajax({
-                    url: sUrl + "PODataView?$apply=groupby((PO,Status),aggregate($count as SalesOrderCount))",
+                    url: sUrl + "PrdDataView?$apply=groupby((Order,Status),aggregate($count as ProductionOrderCount))",
                     method: "GET",
                     async: false,
                     headers: {
@@ -180,8 +183,8 @@ sap.ui.define([
                     success: function (data) {
                         for (var i = 0; i < data.value.length; i++) {
                             var obj = {
-                                ProductionOrder  : data.value[i].PO,
-                                ProdductionOrderCount: data.value[i].SalesOrderCount,
+                                ProductionOrder  : data.value[i].Order,
+                                ProductionOrderCount: data.value[i].ProductionOrderCount,
                                 Status: data.value[i].Status
 
                             }
@@ -369,16 +372,22 @@ sap.ui.define([
             },
             goToSalesApp: function (oEvent) {
 
-                this.getView().byId("_IDGenVerticalLayout3").setVisible(false);
-                this.getView().byId("_IDGenVerticalLayout4").setVisible(false);
-                this.getView().byId("_IDGenVerticalLayout2").setVisible(true);
-                var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
-                var oVizFrame1 = this.getView().byId("idVizFrame1");
-                oVizFrame1.setModel(jsonData);
-                // oVizFrame1.setVizProperties({
-                //     plotArea: {
+                this.getView().byId("verticallayout4").setVisible(false);
+                this.getView().byId("verticallayout5").setVisible(false);
+                this.getView().byId("verticallayout6").setVisible(false);
+                this.getView().byId("verticallayout1").setVisible(false);
+                this.getView().byId("verticallayout2").setVisible(false);
+                this.getView().byId("verticallayout3").setVisible(false);
+                this.getView().byId("verticallayout7").setVisible(true);
+                this.getView().byId("verticallayout8").setVisible(true);
+                this.getView().byId("verticallayout9").setVisible(true);
+                // var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
+                // var oVizFrame1 = this.getView().byId("idVizFrame1");
+                // oVizFrame1.setModel(jsonData);
+                // // oVizFrame1.setVizProperties({
+                // //     plotArea: {
 
-                //         }});
+                // //         }});
 
 
             },
@@ -392,12 +401,18 @@ sap.ui.define([
                 this.getView().byId("_IDGenVerticalLayout4").setVisible(false);
             },
             goToPOApp: function (oEvent) {
-                this.getView().byId("_IDGenVerticalLayout2").setVisible(false);
-                this.getView().byId("_IDGenVerticalLayout4").setVisible(false);
-                this.getView().byId("_IDGenVerticalLayout3").setVisible(true);
-                var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
-                var oVizFrame1 = this.getView().byId("idVizFrame2");
-                oVizFrame1.setModel(jsonData);
+                this.getView().byId("verticallayout4").setVisible(false);
+                this.getView().byId("verticallayout5").setVisible(false);
+                this.getView().byId("verticallayout6").setVisible(false);
+                this.getView().byId("verticallayout7").setVisible(false);
+                this.getView().byId("verticallayout8").setVisible(false);
+                this.getView().byId("verticallayout9").setVisible(false);
+                this.getView().byId("verticallayout1").setVisible(true);
+                this.getView().byId("verticallayout2").setVisible(true);
+                this.getView().byId("verticallayout3").setVisible(true);
+                // var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
+                // var oVizFrame1 = this.getView().byId("idVizFrame2");
+                // oVizFrame1.setModel(jsonData);
 
             },
             goToAlertsApp: function (oEvent) {
@@ -425,12 +440,19 @@ sap.ui.define([
                 }
             },
             goToProdOApp: function (oEvent) {
-                this.getView().byId("_IDGenVerticalLayout2").setVisible(false);
-                this.getView().byId("_IDGenVerticalLayout3").setVisible(false);
-                this.getView().byId("_IDGenVerticalLayout4").setVisible(true);
-                var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
-                var oVizFrame3 = this.getView().byId("idVizFrame3");
-                oVizFrame3.setModel(jsonData);
+                this.getView().byId("verticallayout7").setVisible(false);
+                this.getView().byId("verticallayout8").setVisible(false);
+                this.getView().byId("verticallayout9").setVisible(false);
+                this.getView().byId("verticallayout1").setVisible(false);
+                this.getView().byId("verticallayout2").setVisible(false);
+                this.getView().byId("verticallayout3").setVisible(false);
+                this.getView().byId("verticallayout4").setVisible(true);
+                this.getView().byId("verticallayout5").setVisible(true);
+                this.getView().byId("verticallayout6").setVisible(true);
+               
+                // var jsonData = new sap.ui.model.json.JSONModel("model/Data.json");
+                // var oVizFrame3 = this.getView().byId("idVizFrame3");
+                // oVizFrame3.setModel(jsonData);
 
 
             },
