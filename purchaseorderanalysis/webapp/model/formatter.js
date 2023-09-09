@@ -12,17 +12,17 @@ sap.ui.define(function () {
     // }
     // return Formatter;
     return {
-		statusText: function (genDate, delDate ) {
-            // debugger      
-              var oDelDate = new Date(delDate);
-              var oGenDate = new Date(genDate);
-              var diffDays = oGenDate.getDate() - oDelDate.getDate(); 
-              if(diffDays > 0){
-                return "Error";    
-              }else{
-                return "Success";           
-              }
-		},
+      statusText: function(genDate, delDate){
+        var oDelDate = new Date(delDate);
+        var oGenDate = new Date(genDate);
+        var diffDays = parseInt((oGenDate - oDelDate) / (1000 * 60 * 60 * 24), 10);
+        // var diffDays = oGenDate.getDate() - oDelDate.getDate();
+        if(diffDays > 0){
+            return "Error";
+        } else if(diffDays <= 0){
+            return "Success";
+        }
+    },
     statusTextSentiment: function(sentiment){
       if(sentiment>=0 && sentiment<=30){
           return "Success";
@@ -31,6 +31,16 @@ sap.ui.define(function () {
       } else if(sentiment>55){
           return "Error";
       }
+  },
+  getIcon :  function() {
+    var strIcon;
+    if(value<30)
+      strIcon = "sap-icon://basket"
+    else if(value>30 && value<50)
+      strIcon = "sap-icon://badge"
+    else
+      strIcon = "sap-icon://badge"
+    return strIcon;
   }
 	};
 

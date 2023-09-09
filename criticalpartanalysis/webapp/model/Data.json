@@ -1,100 +1,146 @@
 {
-	"stackedColumn": {
-		"sap.app": {
-			"id": "sample.CardsLayout.model.Analytical",
-			"type": "card"
-		},
-		"sap.card": {
-			"type": "Analytical",
-			"header": {
-				"type": "Numeric",
-				"data": {
-					"json": {
-						"n": "43.2",
-						"u": "%",
-						"trend": "Down",
-						"valueColor": "Good"
-					}
-				},
-				"title": "Purchase Order Analysis",
-				"mainIndicator": {
-					"number": "{n}",
-					"unit": "{u}",
-					"trend": "{trend}",
-					"state": "{valueColor}"
-				}
-			},
-			"content": {
-				"chartType": "bar",
-				"legend": {
-					"visible": true,
-					"position": "Bottom",
-					"alignment": "Left"
-				},
-				"plotArea": {
-					"dataLabel": {
-						"visible": false,
-						"showTotal": false
-					},
-					"categoryAxisText": {
-						"visible": false
-					},
-					"valueAxisText": {
-						"visible": false
-					}
-				},
-				"title": {
-					"visible": false
-				},
-				"measureAxis": "valueAxis",
-				"dimensionAxis": "categoryAxis",
-				"data": {
-					"json": {
-						"list": [
-							{
-								
-								"Impacted Orders": "1"
-								
-							},
-							{
-								"Category": "Mechanics",
-								"Revenue": 494000.30,
-								"Cost": 238000.00,
-								"Target": 500000.00,
-								"Budget": 224000.00
-							},
-							{
-								"Category": "Software",
-								"Revenue": 491000.17,
-								"Cost": 221000.00,
-								"Target": 500000.00,
-								"Budget": 238000.00
-							}
-						]
-					},
-					"path": "/list"
-				},
-				"dimensions": [
-					{
-						"label": "Categories",
-						"value": "{Category}"
-					}
-				],
-				"measures": [
-					{
-						"label": "Revenue",
-						"value": "{Revenue}"
-					},
-					{
-						"label": "Cost",
-						"value": "{Cost}"
-					},
-					{
-						"label": "Target",
-						"value": "{Target}"
-					}
-				]
-			}
+	"Reports": [
+		{
+			"Impacted Purchase Order": "2",
+			"On Time Purchase Order": "10",
+			"Impacted Production Order": "1",
+			"On Time Production Order": "7",
+			"Impacted Sales Order": "1",
+			"On Time Sales Order": "3",
+			"Purchase Order Count": 12,
+			"Production Order Count": 8,
+			"Sales Order Count": 4
 		}
-	}
+	],
+	"PO": [
+		{
+			"Impacted": "2",
+			"On Time": "10",
+			"Count": 12
+		}
+	],
+	"POTrendCritical": [
+		{
+			"Delayed Po": "11",
+			"On Time": "15",
+			"Material": "P100-100-01-01"
+		},
+		{
+			"Delayed Po": "10",
+			"On Time": "20",
+			"Material": "P100-100-03-02"
+		},
+		{
+			"Delayed Po": "8",
+			"On Time": "14",
+			"Material": "P100-100-04-01"
+		},
+		{
+			"Delayed Po": "7",
+			"On Time": "18",
+			"Material": "P100-100-03-07"
+		}
+	],
+	"POCustomerTrend": [
+		{
+			"Customer": "Emar Industries",
+			"On Time": "15",
+			"Predicted Delay": "11"
+		},
+		{
+			"Customer": "GE Enery Ltd",
+			"On Time": "20",
+			"Predicted Delay": "10"
+		},
+		{
+			"Customer": "ABB",
+			"On Time": "14",
+			"Predicted Delay": "8"
+		},
+		{
+			"Customer": "Home Depo",
+			"On Time": "18",
+			"Predicted Delay": "7"
+		},
+		{
+			"Customer": "HD Supply",
+			"On Time": "15",
+			"Predicted Delay": "5"
+		}
+		
+	],
+	"POTrend": [
+		{
+			"Impacted": "5",
+			"On Time": "18",
+			"Count": 23,
+			"Month": "Oct'23"
+		},
+		{
+			"Month": "Nov'23",
+			"Impacted": "19",
+			"On Time": "24",
+			"Count": 43
+		},
+		{
+			"Month": "Dec'23",
+			"Impacted": "16",
+			"On Time": "20",
+			"Count": 36
+		}
+	],
+	"SO": [
+		{
+			"Impacted": "1",
+			"On Time": "3",
+			"Count": 4
+		}
+	],
+	"SOTrend": [
+		{
+			"Impacted": "1",
+			"On Time": "3",
+			"Count": 4,
+			"Month": "Oct"
+		},
+		{
+			"Month": "Nov",
+			"Impacted": "2",
+			"On Time": "5",
+			"Count": 7
+		},
+		{
+			"Month": "Dec",
+			"Impacted": "3",
+			"On Time": "10",
+			"Count": 13
+		}
+	],
+	"PRDO": [
+		{
+			"Impacted": "1",
+			"On Time": "7",
+			"Count": 8
+		}
+	],
+	"PRDOTrend": [
+		{
+			"Impacted": "1",
+			"On Time": "7",
+			"Count": 8,
+			"Month": "Oct"
+		},
+		{
+			"Month": "Nov",
+			"Impacted": "2",
+			"On Time": "6",
+			"Count": 8
+		},
+		{
+			"Month": "Dec",
+			"Impacted": "1",
+			"On Time": "8",
+			"Count": 9
+		}
+	]
 }
