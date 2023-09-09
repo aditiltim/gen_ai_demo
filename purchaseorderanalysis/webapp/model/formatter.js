@@ -22,7 +22,16 @@ sap.ui.define(function () {
               }else{
                 return "Success";           
               }
-		}
+		},
+    statusTextSentiment: function(sentiment){
+      if(sentiment>=0 && sentiment<=30){
+          return "Success";
+      } else if(sentiment>30 && sentiment<=55){
+          return "Information";
+      } else if(sentiment>55){
+          return "Error";
+      }
+  }
 	};
 
 

@@ -63,7 +63,7 @@
 						<Label id="_IDGenLabel7" design="Bold" wrapping="true" text="Purchasing Group"/>
 					</Column> -->
 					<Column id="_IDGenColumn8" hAlign="Left" autoPopinWidth="50">
-						<Label id="_IDGenLabel8" design="Bold" wrapping="true" text="PO Delivery Date"/>
+									<Label id="_IDGenLabel8" design="Bold" wrapping="true" text="PO Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn16" hAlign="Left" autoPopinWidth="50">
 						<Label id="_IDGenLabel16" design="Bold" wrapping="true" text="Core AI Delivery Date"/>
@@ -98,8 +98,8 @@
 							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date','oTableModel>Delivery_date'],formatter: '.formatter.statusText'}"/>	
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
 							<!-- <ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}"/> -->
-							<ObjectStatus id="_IDGenObjectStatus3" text="{oTableModel>Sentiment}" active="true" state="Error" press="onClickSentiment" />
-
+							<!-- <ObjectStatus id="_IDGenObjectStatus3" text="{oTableModel>Sentiment}" active="true" state="Error" press="onClickSentiment" /> -->
+							<ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" />
 						</cells>
 					</ColumnListItem>
 				</items>
