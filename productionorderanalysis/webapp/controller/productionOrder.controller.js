@@ -16,9 +16,7 @@ sap.ui.define([
         return Controller.extend("hac2build.productionorderanalysis.controller.productionOrder", {
             formatter: formatter,
             onInit: function () {
-                this.oBusyDialog = new sap.m.BusyDialog({
-                    text: "Calculating Date...Please Wait"
-                });
+                this.oBusyDialog = new sap.m.BusyDialog();
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 this.onLoadTabData();
             },
@@ -106,9 +104,11 @@ sap.ui.define([
                         if (formattedResponseDate > formattedDeliveryDate) {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
+                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                         } else {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
+                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                         }
                     },
                     error: function (e) {
@@ -116,6 +116,24 @@ sap.ui.define([
                         MessageBox.error("Gateway Timeout");
                     }
                 })
+            },
+
+            onReschedulePress: function(){
+                MessageBox.show(
+                    "Prodution order has been rescheduled.", {
+                        icon: MessageBox.Icon.INFORMATION,
+                        title: "Reschedule Production Order",
+                        actions: [MessageBox.Action.OK],
+                        emphasizedAction: MessageBox.Action.OK,
+                        onClose: function (oAction) { / * do something * / }
+                    }
+                );
+            },
+            onOpenChat: function(oEvent) {
+                var oUrl = 'https://llm-chatbot-app-wacky-puku-dt.cfapps.eu10.hana.ondemand.com/';
+                var topWidth = screen.height - 490;
+                var leftWdth = screen.width - 420;
+                window.open(oUrl,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,top=" + topWidth + ",left=" + leftWdth + ",width=420,height=490");
             }
         });
     });

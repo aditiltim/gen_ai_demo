@@ -6,6 +6,7 @@
 	xmlns:layout="sap.ui.layout"
 	xmlns:card="sap.f.cards"
 	xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
     xmlns:fb="sap.ui.comp.filterbar"
 	xmlns:svm="sap.ui.comp.smartvariants"
      xmlns:chart="sap.suite.ui.commons"
@@ -15,12 +16,13 @@
     xmlns:vizData="sap.viz.ui5.data"
     xmlns:w="sap.ui.integration.widgets"
 	xmlns:cssgrid="sap.ui.layout.cssgrid"
+       xmlns:mc="sap.suite.ui.microchart"
     xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
     xmlns:C="sap.suite.ui.microchart"
     xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
     xmlns:viz.data="sap.viz.ui5.data"
 	height="100%">
-    <Page id="page">
+    <Page id="page" class = "page2BgImg" >
     		<subHeader>
 			<Toolbar id="_IDGenToolbar1">
 				<HBox id="_IDGenHBox2">
@@ -40,24 +42,45 @@
              <Label id="_IDGenLabel5" text="" width ="0.5rem" />
             <Input id="input13" valueHelpRequest="SuppliersValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
             </HBox>
+             <Label id="_IDGenLabel470" text="" width ="1rem"/>
              <HBox id="_IDGenHBox33">
             <Text id="_IDGenText25" text="Plant"/>
              <Label id="_IDGenLabel13" text="" width ="0.5rem" />
-            <Input id="input15" valueHelpRequest="CustomerValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
+            <Input id="input15" valueHelpRequest="PlantValueHelp" valueHelpOnly="true"  showValueHelp="true"/>
             </HBox>
              <Label id="_IDGenLabel6" text="" width ="1rem"/>
             <HBox id="_IDGenHBox5">
             <Text id="_IDGenText7" text="Period"/>
              <Label id="_IDGenLabel7" text=""  width ="0.5rem" />
-              <Input id="input14"  value = "Next 30 Days"/>
+              <!-- <Input id="input14" width="7rem" value = "Next 30 Days"/> -->
+              <!-- <DateRangeSelection
+			id="DRS1"
+			class="DRS1"
+			value= "{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'yyyy/MM/dd'
+				},
+				'parts': [
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/start'
+					},
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/end'
+					}
+				]
+			}"
+			change="handleChange"/> -->
+             <DatePicker id="DP1"   placeholder="Next 30 Days" valueFormat="yyyy-MM-dd" />
+             
             </HBox>
             <Label id="_IDGenLabel8" text="" width ="1.5rem" />
-            <Button id="button1" type="Emphasized" text="Go" press="handleSearch"/>
+            <Button id="button1" type="Emphasized" width="2rem" text="Go" press="handleSearch"/>
 			</Toolbar>
 		</subHeader>
-		
-			
-   
+	
             <!-- <GenericTile id="_IDGenGenericTile1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Sales Order Analysis"
                 subheader="Click" press="goToSalesApp" >
                 <TileContent id="_IDGenTileContent1" priorityText="Order Value" unit="Order Value :" footer="$350,000">
@@ -90,7 +113,7 @@
             	
 			
           
-             <f:Card id="_IDGenCard2" class="sapUiMediumMargin" width="250px">
+             <!-- <f:Card id="_IDGenCard2" class="sapUiMediumMargin" width="250px">
                 <f:header>
                     <card:Header id="_IDGenHeader2" title="Purchase Order Analysis" press="hidePurchasechart"/>
                 </f:header>
@@ -167,7 +190,7 @@
                         </CustomListItem>
                     </List>
                 </f:content>
-            </f:Card>
+            </f:Card> -->
             	<!-- <f:GridContainer id="_IDGenGridContainer1">
 					<f:layout>
 						<f:GridContainerSettings id="_IDGenGridContainerSettings1" rowSize="5rem" columnSize="5rem" gap="1rem" />
@@ -176,16 +199,186 @@
 						<f:GridContainerSettings id="_IDGenGridContainerSettings2" rowSize="5rem" columnSize="5rem" gap="0.5rem" />
 					</f:layoutS>
 					<w:Card id="_IDGenCard4" manifest="{Data>/stackedColumn}">
-                     <Text id="_IDGenText13" text="Order Value  : $ 350,000" /> <Text id="_IDGenText223" text="Order Value  : $ 350,000" />
 						<w:layoutData>
 							<f:GridContainerItemLayoutData id="_IDGenGridContainerItemLayoutData1" rows="5" columns="4" />
 						</w:layoutData>
 					</w:Card>
                     </f:GridContainer> -->
-           
+                
+                    	<l:BlockLayout id="BlockLayout" background="Dashboard" >
+			<l:BlockLayoutRow accentCells="Accent1">
+				<l:BlockLayoutCell
+					id="Accent1"
+					width="1"
+					title="Purchase Order Analysis">
+                    <VBox class = "sapUiTinyMargin" height="50px" width="300px">
+                    <Title text="Suppliers : 12" titleStyle="H4"/>
+                    <Title text= "PO Value : 170,000 USD" class = "sapUiTinyMarginTop colorRed" titleStyle="H5" ></Title>
+                   
+                        <mc:ColumnMicroChart size="Auto" press="goToPOApp" class="sapUiSmallMargin" allowColumnLabels="true">
+		
+		<mc:columns>
+			<mc:ColumnMicroChartData value="10" label=" On Time"  displayValue="10" color="Good"/>
+			<mc:ColumnMicroChartData value="2" label="Impacted" displayValue="02" color="Error"/>
+			
+		</mc:columns>
+	</mc:ColumnMicroChart>
+
+
+					<!-- <viz:VizFrame
+                                                   id="idVizFrame5" 
+                                                    height="300px"   
+                                                    width="300px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Order Status'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="bar"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="goToPOApp"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset141242" data="{Data>/PO}" >
+                                                            <viz.data:dimensions>
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition114221" name="Count" value="{Count}" />
+                                                               
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                 <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252421951" name="On Time" value="{On Time}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25242151" name="Impacted" value="{Impacted}" />
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem168521" type="Measure" uid="valueAxis" values="On Time" />
+                                                          <viz.feeds:FeedItem id="_IDGenFeedItem1687521" type="Measure" uid="valueAxis" values="Impacted" />
+                                                      <viz.feeds:FeedItem id="_IDGenFeedItem223351" type="Dimension" uid="categoryAxis" values="Count" />    
+                                                        
+                                                    </viz:feeds>
+                                                </viz:VizFrame> -->
+                                                 </VBox>
+                    
+				</l:BlockLayoutCell>
+				<l:BlockLayoutCell title="Production Order Analysis">
+					<VBox class = "sapUiTinyMargin" >
+                    <Title text="Critical Parts : 12" titleStyle="H4" class = "colorOrange"/>
+                    <Title text= "Delivery Plants : 03" class = "sapUiTinyMarginTop" titleStyle="H5"></Title>
+                  
+                       <mc:ColumnMicroChart size="Auto" press="goToProdOApp" class="sapUiSmallMargin" allowColumnLabels="true">
+		
+		<mc:columns>
+			<mc:ColumnMicroChartData value="10" label=" On Time"  displayValue="07" color="Good"/>
+			<mc:ColumnMicroChartData value="2" label="Impacted" displayValue="01" color="Error"/>
+			
+		</mc:columns>
+	</mc:ColumnMicroChart>
+
+					<!-- <viz:VizFrame
+                                                   id="idVizFrame6" 
+                                                    height="300px"   
+                                                    width="300px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Order Status'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="bar"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="goToProdOApp"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDataset1411242" data="{Data>/PRDO}" >
+                                                            <viz.data:dimensions>
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition2114221" name="Count" value="{Count}" />
+                                                               
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                 <viz.data:MeasureDefinition id="_IDGenMeasureDefinition2524215931" name="On Time" value="{On Time}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252421531" name="Impacted" value="{Impacted}" />
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem1685214" type="Measure" uid="valueAxis" values="On Time" />
+                                                      <viz.feeds:FeedItem id="_IDGenFeedItem2233561" type="Measure" uid="valueAxis" values="Impacted" /> 
+                                                      <viz.feeds:FeedItem id="_IDGenFeedItem16785214" type="Dimension" uid="categoryAxis" values="Count" />   
+                                                        
+                                                    </viz:feeds>
+                                                </viz:VizFrame> -->
+                                                  </VBox>
+                    
+				</l:BlockLayoutCell>
+				<l:BlockLayoutCell  title="Sales Order Analysis">
+					<VBox class = "sapUiTinyMargin"   height="100px" width="300px">
+                    <Title text="Customers   : 12" titleStyle="H4"/>
+                    <Title text= "Order Value : 35,000 USD" class = "sapUiTinyMarginTop colorRed" titleStyle="H5"></Title>
+                   
+	   <mc:ColumnMicroChart size="Auto" press="goToSalesApp" class="sapUiSmallMargin" allowColumnLabels="true">
+		
+		<mc:columns>
+			<mc:ColumnMicroChartData value="10" label=" On Time"  displayValue="3" color="Good"/>
+			<mc:ColumnMicroChartData value="2" label="Impacted" displayValue="01" color="Error"/>
+			
+		</mc:columns>
+	</mc:ColumnMicroChart>
+					
+					<!-- <viz:VizFrame
+                            id="idVizFrame7" 
+                            height="300px"   
+                            width="300px"
+                            uiConfig="{applicationSet:'fiori'}"
+                            vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                title:{ text:'Order Status'},dataLabel:{visible:true,showTotal:true}}"
+                            vizType="bar"
+                            legendVisible="true"
+                            visible="true"
+                                selectData="goToSalesApp">
+                                               
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset id="_IDGenFilattenedDataset1411242" data="{Data>/SO}" >
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition id="_IDoGenDimensionDefinition2114221" name="Count" value="{Count}" />
+                                    
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    
+                                    <viz.data:MeasureDefinition id="_IDGenMeasupreDefinition2952421531" name="On Time" value="{On Time}" />
+                                        <viz.data:MeasureDefinition id="_IDGenMeasupreDefinition252421531" name="Impacted" value="{Impacted}" />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            
+                                <viz.feeds:FeedItem id="_IDGenFeedItem16p8535214" type="Measure" uid="valueAxis" values="On Time" />
+                                <viz.feeds:FeedItem id="_IDGenFeedItem16p85214" type="Measure" uid="valueAxis" values="Impacted" />
+                            <viz.feeds:FeedItem id="_IDGenFeedItem2233p561" type="Dimension" uid="categoryAxis" values="Count" />    
+                            
+                        </viz:feeds>
+                    </viz:VizFrame>  -->
+                        </VBox>
+				</l:BlockLayoutCell>
+
+                <!-- <l:BlockLayoutCell title= "Sales Order Analysis">
+                     <VBox class = "sapUiTinyMargin"   width="300px">
+                    <Title text="Customers   : 12" titleStyle="H4"/>
+                    <Title text= "Order Value : 35,000 USD" class = "sapUiTinyMarginTop colorRed" titleStyle="H5"></Title>
+                    </VBox>
+	<mc:ColumnMicroChart size="Auto" press="goToSalesApp" class="sapUiSmallMargin" allowColumnLabels="true">
+		
+		<mc:columns>
+			<mc:ColumnMicroChartData value="10" label=" On Time"  displayValue="10" color="Neutral"/>
+			<mc:ColumnMicroChartData value="2" label="Impacted" displayValue="02" color="Error"/>
+			
+		</mc:columns>
+	</mc:ColumnMicroChart>
+                </l:BlockLayoutCell> -->
+                
+			</l:BlockLayoutRow>
+			
+		</l:BlockLayout>
+       
               <layout:VerticalLayout id="_IDGenVerticalLayout2" width="100%" visible="false">
                                  
-                                     <chart:ChartContainer id="chartContainer7"  showFullScreen="true">
+                                     <!-- <chart:ChartContainer id="chartContainer7"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent275" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
                                             <chart:content>
                                                 <viz:VizFrame
@@ -203,30 +396,33 @@
                                                     <viz:dataset>
                                                         <viz.data:FlattenedDataset id="_IDGenFlattenedDataset14122" data="{appModel>/}" >
                                                             <viz.data:dimensions>
-                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11221" name="Sales_Order" value="{Sales_Order}" />
-                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition110221" name="Status" value="{Status}" />
+                                                                
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11221" name="SalesOrder" value="{SalesOrder}" />
+                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition110221" name="Status" value="{Status}" /> 
                                                             </viz.data:dimensions>
                                                             <viz.data:measures>
                                                                 <viz.data:MeasureDefinition id="_IDGenMeasureDefinition2522151" name="SalesOrderCount" value="{SalesOrderCount}" />
+                                                               
                                                             </viz.data:measures>
                                                         </viz.data:FlattenedDataset>
                                                     </viz:dataset>
                                                     <viz:feeds>
                                                         <viz.feeds:FeedItem id="_IDGenFeedItem18521" type="Measure" uid="valueAxis" values="SalesOrderCount" />
-                                                      <viz.feeds:FeedItem id="_IDGenFeedItem22331" type="Dimension" uid="categoryAxis" values="Sales_Order" />    
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2281" type="Dimension" uid="color" values="Status" /> 
+                                                       
+                                                      <viz.feeds:FeedItem id="_IDGenFeedItem22331" type="Dimension" uid="categoryAxis" values="SalesOrder" />    
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2281" type="Dimension" uid="" values="Status" /> 
                                                         
                                                     </viz:feeds>
                                                 </viz:VizFrame>
                                             </chart:content>
                                         </chart:ChartContainerContent>
-                                    </chart:ChartContainer>
+                                    </chart:ChartContainer> -->
                                 </layout:VerticalLayout> 
                                              
               
                     <layout:VerticalLayout id="_IDGenVerticalLayout3" width="100%" visible="true">
                                  
-                                     <chart:ChartContainer id="chartContainer74"  showFullScreen="true">
+                                     <!-- <chart:ChartContainer id="chartContainer74"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent25" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
                                             <chart:content>
                                                 <viz:VizFrame
@@ -260,12 +456,12 @@
                                                 </viz:VizFrame>
                                             </chart:content>
                                         </chart:ChartContainerContent>
-                                    </chart:ChartContainer>
+                                    </chart:ChartContainer> -->
                                 </layout:VerticalLayout> 
 
                                  <layout:VerticalLayout id="_IDGenVerticalLayout4" width="100%" visible="false">
                                  
-                                     <chart:ChartContainer id="chartContainer743"  showFullScreen="true">
+                                     <!-- <chart:ChartContainer id="chartContainer743"  showFullScreen="true">
                                         <chart:ChartContainerContent id="_IDGenChartContainerContent225" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
                                             <chart:content>
                                                 <viz:VizFrame
@@ -287,20 +483,442 @@
                                                                 <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11213" name="Status" value="{Status}" />
                                                             </viz.data:dimensions>
                                                             <viz.data:measures>
-                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252191" name="ProdductionOrderCount" value="{ProdductionOrderCount}" />
+                                                                <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252191" name="ProductionOrderCount" value="{ProductionOrderCount}" />
                                                             </viz.data:measures>
                                                         </viz.data:FlattenedDataset>
                                                     </viz:dataset>
                                                     <viz:feeds>
-                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18291" type="Measure" uid="valueAxis" values="ProdductionOrderCount" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem18291" type="Measure" uid="valueAxis" values="ProductionOrderCount" />
                                                         <viz.feeds:FeedItem id="_IDGenFeedItem22301" type="Dimension" uid="categoryAxis" values="ProductionOrder" />    
                                                         <viz.feeds:FeedItem id="_IDGenFeedItem2286" type="Dimension" uid="color" values="Status" />
                                                     </viz:feeds>
                                                 </viz:VizFrame>
                                             </chart:content>
                                         </chart:ChartContainerContent>
+                                    </chart:ChartContainer> -->
+                                </layout:VerticalLayout>   
+                    <layout:VerticalLayout width="30%" id="verticallayout1" class="sapUiTinyMargin">
+                    
+                     <chart:ChartContainer id="chartContainer75e43"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContente2256" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame8" 
+                                                    height="300px"   
+                                                    width="400px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Impacted Orders'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickPurchaseOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlatteneedDa72" data="{Data>/POTrend}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDeefinition1162913" name="Month" value="{Month}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinitieon25216791" name="Count" value="{Count}" /> -->
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinitioen25217951" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefiniteion25217591" name="Impacted" value="{Impacted}" />
+                                                                
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem18829e1" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem22e8576" type="Measure" uid="valueAxis" values="On Time" />
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem2e2876" type="Measure" uid="valueAxis" values="Impacted" />
+                                                         
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem223e601" type="Dimension" uid="categoryAxis" values="Month" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
                                     </chart:ChartContainer>
-                                </layout:VerticalLayout>             
+                                    
+                                   
+                                   
+</layout:VerticalLayout>
+<layout:VerticalLayout width="30%" id="verticallayout2"  class="sapUiTinyMargin">
+<chart:ChartContainer id="chartContainer7e3543"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent22e256" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFramee81" 
+                                                    height="300px"   
+                                                    width="400px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Top 5 Customer Delivery Trend'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="false"
+                                                    visible="true"
+                                                     selectData="onClickPurchaseOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlatteneedDa0712" data="{Data>/POCustomerTrend}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDeefinition116219613" name="Customer" value="{Customer}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252166791" name="Count" value="{Count}" /> -->
+                                                                   <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252178951" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252175791" name="Predicted Delay" value="{Predicted Delay}" />
+                                                               
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem1884291" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem2285376" type="Measure" uid="valueAxis" values="On Time" />
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem228736" type="Measure" uid="valueAxis" values="Predicted Delay" />
+                                                        
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2236021" type="Dimension" uid="categoryAxis" values="Customer" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+</layout:VerticalLayout>
+<layout:VerticalLayout width="30%" id="verticallayout3"  class="sapUiTinyMargin">
+               <chart:ChartContainer id="chartContainer75423"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent23256" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFramee48" 
+                                                    height="300px"   
+                                                    width="400px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Top 5 Critical Parts With Maximum Delayed Purchase Order'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickPurchaseOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa372" data="{Data>/POTrendCritical}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11642913" name="Material" value="{Material}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252146791" name="Count" value="{Count}" /> -->
+                                                                   <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252179551" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252157591" name="Delayed Po" value="{Delayed Po}" />
+                                                                
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem1882961" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem2285676" type="Measure" uid="valueAxis" values="On Time" />
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem228776" type="Measure" uid="valueAxis" values="Delayed Po" />
+                                                         
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2236051" type="Dimension" uid="categoryAxis" values="Material" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+</layout:VerticalLayout>
+
+
+                  <layout:VerticalLayout width="30%" id="verticallayout4" class="sapUiTinyMargin" visible="false">
+                    
+                     <chart:ChartContainer id="chartContainer7543"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent2256" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFramee8" 
+                                                    height="300px"   
+                                                    width="400px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Impacted Orders'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickProductionOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa72" data="{Data>/PRDOTrend}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1162913" name="Month" value="{Month}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25216791" name="Count" value="{Count}" /> -->
+                                                                   <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25217951" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25217591" name="Impacted" value="{Impacted}" />
+                                                               
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem188291" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem228576" type="Measure" uid="valueAxis" values="On Time" />
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem22876" type="Measure" uid="valueAxis" values="Impacted" />
+                                                        
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem223601" type="Dimension" uid="categoryAxis" values="Month" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+                                    
+                                   
+                                   
+</layout:VerticalLayout>
+<layout:VerticalLayout width="30%" id="verticallayout5"  class="sapUiTinyMargin" visible="false">
+<chart:ChartContainer id="chartContainer73543"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent22256" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame81" 
+                                                    height="300px"   
+                                                    width="300px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Top 5 Customer Delivery Trend'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickProductionOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa0712" data="{Data>/POCustomerTrend}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition116219613" name="Customer" value="{Customer}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDeefinition252166791" name="Count" value="{Count}" /> -->
+                                                                 <viz.data:MeasureDefinition id="_IDGenMeasureDeefinition252178951" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefeinition252175791" name="Predicted Delay" value="{Predicted Delay}" />
+                                                                
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem188e4291" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                          <viz.feeds:FeedItem id="_IDGenFeedItem2ee285376" type="Measure" uid="valueAxis" values="On Time" />
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem22e8736" type="Measure" uid="valueAxis" values="Predicted Delay" />
+                                                        
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem2e236021" type="Dimension" uid="categoryAxis" values="Customer" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+</layout:VerticalLayout>
+<layout:VerticalLayout width="30%" id="verticallayout6"  class="sapUiTinyMargin" visible="false">
+               <chart:ChartContainer id="chartContainer75e423"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent2e3256" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame48" 
+                                                    height="300px"   
+                                                    width="300px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Top 5 Critical Parts With Maximum Delayed Production Order'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickProductionOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa3e72" data="{Data>/POTrendCritical}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11642e913" name="Material" value="{Material}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25e2146791" name="Count" value="{Count}" /> -->
+                                                                   <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25217e9551" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition252e157591" name="Delayed Po" value="{Delayed Po}" />
+                                                               
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem18e82961" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem22856e76" type="Measure" uid="valueAxis" values="On Time" />
+                                                         <viz.feeds:FeedItem id="_IDGenFeedIteme228776" type="Measure" uid="valueAxis" values="Delayed Po" />
+                                                         
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem22360e51" type="Dimension" uid="categoryAxis" values="Material" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+</layout:VerticalLayout>
+
+                 
+ <layout:VerticalLayout width="30%" id="verticallayout7" class="sapUiTinyMargin" visible="false">
+                    
+                     <chart:ChartContainer id="chartContainer7524233"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent225226" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame25" 
+                                                    height="300px"   
+                                                    width="100%"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Impacted Orders'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickSalesOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa32372" data="{Data>/SOTrend}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition116329213" name="Month" value="{Month}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinition2521236791" name="Count" value="{Count}" /> -->
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition2521793251" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25213237591" name="Impacted" value="{Impacted}" />
+                                                                
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem188232931" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem23283576" type="Measure" uid="valueAxis" values="On Time" /> 
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem22833376" type="Measure" uid="valueAxis" values="Impacted" />
+                                                        
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem22363301" type="Dimension" uid="categoryAxis" values="Month" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+                                    
+                                   
+                                   
+</layout:VerticalLayout>
+<layout:VerticalLayout width="30%" id="verticallayout8"  class="sapUiTinyMargin" visible="false">
+<chart:ChartContainer id="chartContainer7335343"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent2233256" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame80" 
+                                                    height="300px"   
+                                                    width="300px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Top 5 Customer Delivery Trend'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickSalesOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa071332" data="{Data>/POCustomerTrend}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition13162193613" name="Customer" value="{Customer}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25213366791" name="Count" value="{Count}" /> -->
+                                                                   <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25213789351" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25217335791" name="Predicted Delay" value="{Predicted Delay}" />
+                                                                
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem188429331" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                        
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem228533376" type="Measure" uid="valueAxis" values="On Time" />
+                                                          <viz.feeds:FeedItem id="_IDGenFeedItem22873336" type="Measure" uid="valueAxis" values="Predicted Delay" />
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem223602331" type="Dimension" uid="categoryAxis" values="Customer" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+</layout:VerticalLayout>
+<layout:VerticalLayout width="30%" id="verticallayout9"  class="sapUiTinyMargin" visible="false">
+               <chart:ChartContainer id="chartContainer7541233"  showFullScreen="true">
+                                        <chart:ChartContainerContent id="_IDGenChartContainerContent2132564" icon="sap-icon://horizontal-stacked-chart" title="column">
+                                            <chart:content>
+                                                <viz:VizFrame
+                                                    id="idVizFrame50" 
+                                                    height="300px"   
+                                                    width="300px"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizProperties="{plotArea: { drawingEffect: 'glossy'},
+                                                        title:{ text:'Top 5 Critical Parts with Maximum Delayed Sales Order'},dataLabel:{visible:true,showTotal:true}}"
+                                                    vizType="column"
+                                                    legendVisible="true"
+                                                    visible="true"
+                                                     selectData="onClickSalesOrder"
+                                                >
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset id="_IDGenFlattenedDa31472" data="{Data>/POTrendCritical}">
+                                                            <viz.data:dimensions>
+                                                             <viz.data:DimensionDefinition id="_IDGenDimensionDefinition1164214913" name="Material" value="{Material}" />
+                                                                 <!-- <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629143" name="Impacted" value="{Impacted}" />
+                                                                <viz.data:DimensionDefinition id="_IDGenDimensionDefinition11629133" name="On Time" value="{On Time}" />
+                                                                 -->
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                   <!-- <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25121464791" name="Count" value="{Count}" /> -->
+                                                                   <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25211793551" name="On Time" value="{On Time}" />
+                                                                  <viz.data:MeasureDefinition id="_IDGenMeasureDefinition25211573591" name="Delayed Po" value="{Delayed Po}" />
+                                                               
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <!-- <viz.feeds:FeedItem id="_IDGenFeedItem188129631" type="Measure" uid="valueAxis" values="Count" /> -->
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem228514676" type="Measure" uid="valueAxis" values="On Time" />
+                                                         <viz.feeds:FeedItem id="_IDGenFeedItem22187736" type="Measure" uid="valueAxis" values="Delayed Po" />
+                                                        
+                                                        <viz.feeds:FeedItem id="_IDGenFeedItem223601r51" type="Dimension" uid="categoryAxis" values="Material" />    
+                                                       
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </chart:content>
+                                        </chart:ChartContainerContent>
+                                    </chart:ChartContainer>
+</layout:VerticalLayout>
+
           </Page>
            
 </mvc:View>

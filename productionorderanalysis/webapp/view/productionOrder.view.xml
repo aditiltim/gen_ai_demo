@@ -8,12 +8,12 @@
             <Table id="productionOrderTable" items="{oTableModel>/}" sticky="HeaderToolbar,ColumnHeaders,InfoToolbar" mode="MultiSelect" alternateRowColors="true" selectionChange="onSelectedRow">
                 <!-- HeaderToolbar -->
                 <headerToolbar >
-                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                    <OverflowToolbar id="_IDGenOverflowToolbar1" design="Solid">
                         <content>
                             <Title id="tableTitle" text="{i18n>tableTitle}" level="H2"/>
                             <ToolbarSpacer id="_IDGenToolbarSpacer1" />
-                            <Button id="rescheduleProductionOrder" text="{i18n>reschedulePO}"/>
-                            <Button id="availabilityCheck" text="{i18n>availabilityCheck}" press=".onAvailabilityCheckPress"/>
+                            <Button id="availabilityCheck" text="{i18n>availabilityCheck}" press=".onAvailabilityCheckPress" icon="model/images/ai.png"/>
+                            <Button id="rescheduleProductionOrder" text="{i18n>reschedulePO}" press="onReschedulePress"/>
                         </content>
                     </OverflowToolbar>
                 </headerToolbar>
@@ -21,10 +21,10 @@
                     <Column id="column1" hAlign="Left"> 
                         <Label id="label1" design="Bold" text="Order" wrapping="true"/>
                     </Column>
-                    <Column id="column2" hAlign="Left"> 
+                    <Column id="column2" hAlign="Left" width="15%"> 
                         <Label id="label2" design="Bold" text="Material"/>
                     </Column>
-                    <Column id="column3" hAlign="Left"> 
+                    <Column id="column3" hAlign="Right" width="4%"> 
                         <Label id="label3" design="Bold" text="Quantity" wrapping="true"/>
                     </Column>
                     <Column id="column4" hAlign="Left"> 
@@ -37,13 +37,13 @@
                         <Label id="label6" design="Bold" text="Planned Delivery Date" wrapping="true"/>
                     </Column>
                     <Column id="column7" hAlign="Left"> 
-                        <Label id="label7" design="Bold" text="Predicted Finish Date" wrapping="true"/>
+                        <Label id="label7" design="Bold" text="Predicted PO Delivery Date" wrapping="true"/>
                     </Column>
                     <Column id="column8" hAlign="Left"> 
-                        <Label id="label8" design="Bold" text="Predicted PO Delivery Date" wrapping="true"/>
+                        <Label id="label8" design="Bold" text="Realistic Delivery Date" wrapping="true"/>
                     </Column>
                     <Column id="column9" hAlign="Left"> 
-                        <Label id="label9" design="Bold" text="Realistic Delivery Date" wrapping="true"/>
+                        <Label id="label9" design="Bold" text="Realistic Finished Date" wrapping="true"/>
                     </Column>
                     <Column id="column10" hAlign="Left"> 
                         <Label id="label10" design="Bold" text="Impacting Factors" wrapping="true"/>
@@ -58,9 +58,9 @@
                             <ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>Material_component}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>PO_no}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Planned_Del_Date}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Predicted_Finish_Date}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>PO_Delivery_Date}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>PO_Delivery_Date}"/>
                             <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>PO_Delivery_Date'], formatter: '.formatter.statusText'}"/>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Predicted_Finish_Date}"/>
                             <HBox id="_IDGenHBox1">
                                 <core:Icon id="_IDGenIcon1" src="{= ${oTableModel>Sentiment} >= 0 &amp;&amp; ${oTableModel>Sentiment} &lt;= 20 ? 'sap-icon://bus-public-transport': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Logistics"/>
                                 <core:Icon id="_IDGenIcon2" src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://weather-proofing': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Weather" class="sapUiTinyMarginEnd"/>
@@ -74,5 +74,8 @@
                 </items>
             </Table>
         </content>
+        <VBox id="_IDGenVBox1" alignItems="End" alignContent="End" justifyContent="End">
+		    <Button id="_IDGenButton6" icon="sap-icon://lightbulb" text="" type="Emphasized" width="5px" press="onOpenChat" class="roundClass"/>
+	    </VBox>
     </Page>
 </mvc:View>
