@@ -23,7 +23,7 @@
 							<Title id="_IDGenTitle1" text="Sales Order Analysis" level="H2"/>
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 							<Button id="_IDGenButton1" text="Availibility Check" press="onAvailablePress"/>
-							<Button id="_IDGenButton2" text="Notify Customer" press="onOpenPopoverDialog"/>
+							<Button id="_IDGenButton2" text="Notify Customer" press="onEmailPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>

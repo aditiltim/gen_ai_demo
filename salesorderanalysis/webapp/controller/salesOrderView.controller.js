@@ -97,7 +97,7 @@ sap.ui.define([
             var formattedRespDate = dateFormat.format(oResponseDate);
             var formattedDelDate = dateFormat.format(deliveryDate);
             // var calcDiffDate = new Date(updatedDate);
-          
+
             if (formattedRespDate > formattedDelDate) {
               //that.getView().byId("_IDGenObjectStatus1").setState("Error");
               sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
@@ -126,11 +126,13 @@ sap.ui.define([
       },
 
       onEmailPress: function (odata) {
+        debugger
         var that = this;
+        //that.onOpenPopoverDialog();
         //payload params
         var sold_To = this.getView().getModel("oRowModel").oData.Sold_to;
         var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
-        var  cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
+        var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
         var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
         var item = this.getView().getModel("oRowModel").oData.SO_Item;
 
@@ -160,8 +162,9 @@ sap.ui.define([
             "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
             "order_id": sold_To,
             "customer_name": cust_name,
-            "delivery_date": gen_date,
-            "item_id": item
+            "delivery_date": "12-10-2023",
+            //"delivery_date": gen_date,
+            "item_id": '"' + item + '"'
           }
         }
 
@@ -184,25 +187,12 @@ sap.ui.define([
           data: JSON.stringify(payload),
           contentType: "application/json",
           success: function (oData) {
-            if (oData.value) {
-              // var oDialog = new Dialog({
-              //   title: "Email Details",
-              //   content: [
-              //     new Text({ "text": "Subject: " + oData.value }),
-              //     new Text({ "text": "Header: " + oData.value }),
-              //     new Text({ "text": "Body: " + oData.value })
-              //   ],
-              //   beginButton: new Button({
-              //     text: "Close",
-              //     press: function () {
-              //       oDialog.close();
-              //     }
-              //   })
-              // });
-              //oDialog.open();
-              // MessageBox.success("Success");
-              console.log(oData.value);
-              that.downloadExcel(oData.value);
+            if (oData) {
+              var oEmailModel = new sap.ui.model.json.JSONModel();
+              oEmailModel.setData(oData);                 
+              
+              that.onOpenPopoverDialog();
+              sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
             }
           },
           error: function (e) {
