@@ -62,7 +62,7 @@
                             <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{path: 'oTableModel>Order'}"/>
                             <!-- <ObjectIdentifier id="_IDGenObjectIdentifier2" title="{path: 'oTableModel>Basic_Start_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/> -->
                             <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>Material}" text="{oTableModel>Material_Description}"/>
-                            <ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Total_Order_Quantity}" text="{oTableModel>Base_Unit_Measure}"/>                              
+                            <ObjectNumber id="_IDGenObjectIdentifier5" number="{oTableModel>Total_Order_Quantity}" unit="{oTableModel>Base_Unit_Measure}"/>                              
                             <ObjectIdentifier id="_IDGenObjectIdentifier9" title="{oTableModel>SO}" text="{oTableModel>SO_Item}"/>
                             <!-- <ObjectIdentifier id="_IDGenObjectIdentifier11" title="{path: 'oTableModel>Planned_Del_Date', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd',source: 'yyyy-MM-dd'}}"/> -->
                             <ObjectIdentifier id="_IDGenObjectIdentifier13" title="{oTableModel>Material_component}"/>

@@ -48,9 +48,6 @@ sap.ui.define([
 
             onAvailabilityCheckPress: function (oEvent) {
                 var that = this;
-                // var oButton = this.getView().byId("availabilityCheck");
-                // oButton.setBusy(true);
-                // oButton.setBusyIndicatorDelay(0);
                 var sPath = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel").sPath;
                 var sContext = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel");
                 var dDeliveryDate = this.getView().getModel("oRowModel").oData.Planned_Del_Date;
@@ -85,7 +82,6 @@ sap.ui.define([
                     data: JSON.stringify(odata),
                     contentType: "application/json",
                     success: function (oData) {
-                        // oButton.setBusy(false);
                         MessageBox.success("Success");
                         // console.log(oData.value);
                         var dUpdatedDate = oData.updated_delivery_date;
@@ -133,7 +129,7 @@ sap.ui.define([
                     icon2 = "sap-icon://machine";
                 }
                 var oDialog = new Dialog({
-                    title: "Reason for delay",
+                    title: "Reasons for delay",
                     content: [
                         new VBox({
                             items:[
