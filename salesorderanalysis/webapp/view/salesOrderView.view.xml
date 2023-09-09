@@ -4,6 +4,7 @@
 	xmlns:plugins="sap.m.plugins"
 	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
 	xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:core="sap.ui.core"
 	controllerName="hac2build.salesorderanalysis.controller.salesOrderView"
 	height="100%">
 <Page id="_IDGenPage1" showHeader="false" enableScrolling="true">
@@ -70,22 +71,24 @@
 							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier3" title="{oTableModel>SO_Item}"/> -->
 							<!-- <ObjectIdentifier id="_IDGenObjectIdentifier4" title="{oTableModel>Plant}"/> -->
 							<ObjectIdentifier id="_IDGenObjectIdentifier5" title="{oTableModel>Material}"   text="{oTableModel>Material_Description}"/>
-							<ObjectNumber id="_IDGenObjectIdentifier6" number="{oTableModel>Order_Quantity}" unit="EA"/>
-							<ObjectNumber id="_IDGenObjectIdentifier7" number="{oTableModel>Unit_Price}" unit="USD"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier6" title="{oTableModel>Order_Quantity}" text="EA"/>
+							<ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>Unit_Price}" text="USD"/> 
+							<!-- <ObjectNumber id="_IDGenObjectIdentifier6" number="{oTableModel>Order_Quantity}" unit="EA"/>
+							<ObjectNumber id="_IDGenObjectIdentifier7" number="{oTableModel>Unit_Price}" unit="USD"/> -->
 							<ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Current_SAP_Delivery_Date}"/>				
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}"/> -->
 							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.statusText'}"/>	
-							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
-							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />	
-							</cells>	
-							<cells>
-                                    <HBox>	
-                                        <Button icon="sap-icon://bus-public-transport" />
-                                        <Button icon="sap-icon://weather-proofing" /> 
-										<Button icon="sap-icon://shipping-status" />
-										
-                                    </HBox>
-                            </cells>		
+							
+							<!-- <ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />	 -->
+							<HBox>
+                                <core:Icon src="{= ${oTableModel>Sentiment} >= 0 &amp;&amp; ${oTableModel>Sentiment} &lt;= 20 ? 'sap-icon://bus-public-transport': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Logistics"/>
+                                <core:Icon src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://weather-proofing': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Weather" class="sapUiTinyMarginEnd"/>
+                                <core:Icon src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://map-2': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Geo Political Issues"/>
+                                <core:Icon src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://capital-projects': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Supply Financials" class="sapUiTinyMarginEnd"/>
+                                <core:Icon src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://machine': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Delay in Production Supply" class="sapUiTinyMarginEnd"/>
+                                <core:Icon src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://alert': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Natural Calamities"/>
+							</HBox>
+						</cells>	
 					</ColumnListItem>
 				</items>
 			</Table>

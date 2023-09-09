@@ -55,6 +55,8 @@ sap.ui.define([
         var sold_To = this.getView().getModel("oRowModel").oData.Sold_to;
         var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
         // var genDate = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
+
+        var oGenModel = new sap.ui.model.json.JSONModel();
         var that = this;
         var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
         var token;
@@ -91,7 +93,9 @@ sap.ui.define([
           contentType: "application/json",
           success: function (oData) {
             that.busyDialog.close();
-            MessageBox.success("Success");
+           // MessageBox.success("Success");
+           oGenModel.setData(oData);
+           that.getView().setModel(oGenModel, "oGenModel");
             var updatedDate = oData.updated_delivery_date;
             var oResponseDate = new Date(updatedDate);
             var deliveryDate = new Date(del_date);
@@ -100,10 +104,9 @@ sap.ui.define([
             var formattedDelDate = dateFormat.format(deliveryDate);
             // var calcDiffDate = new Date(updatedDate);
 
-            if (formattedRespDate > formattedDelDate) {
-              //that.getView().byId("_IDGenObjectStatus1").setState("Error");
+            if (formattedRespDate >= formattedDelDate) {
+             
               sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
-              console.log("updatedDate is greater");
             }
 
             var negSentiment = oData.percentage_negative_news;
@@ -135,11 +138,17 @@ sap.ui.define([
         //that.onOpenPopoverDialog();
         //payload params
         var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;
-        var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
+        //var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
         var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
-        var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
+       // var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
         var item = this.getView().getModel("oRowModel").oData.SO_Item;
-
+        
+        //formatting Gen date to be passed
+        var del_date = this.getView().getModel("oGenModel").oData.updated_delivery_date;
+        var deliveryDate = new Date(del_date);
+        var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "dd-MM-yyyy" });
+        var emailReqDate = dateFormat.format(deliveryDate);
+        var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
 
         var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
         var token;
@@ -163,11 +172,10 @@ sap.ui.define([
         var urlext = "getEmailData";
         var payload = {
           "emailData": {
-            "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
+            "llm_summary": newsSummary,
             "order_id": sold_To,
             "customer_name": cust_name,
-            "delivery_date": "12-10-2023",
-            //"delivery_date": gen_date,
+            "delivery_date": emailReqDate,
             "item_id": '"' + item + '"'
           }
         }

@@ -17,12 +17,13 @@ sap.ui.define([
             formatter: formatter,
             onInit: function () {
                 this.oBusyDialog = new sap.m.BusyDialog({
-                    text: "Generating Date...Please Wait"
+                    text: "Calculating Date...Please Wait"
                 });
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 this.onLoadTabData();
             },
 
+            // Loading data into model for table
             onLoadTabData: function () {
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 jQuery.ajax({
@@ -41,6 +42,7 @@ sap.ui.define([
                 });
             },
 
+            //  on Selecting item on table
             onSelectedRow: function (oEvent) {
                 var oSelectedItem = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel").getObject();
                 var oRowModel = new sap.ui.model.json.JSONModel();
@@ -48,6 +50,7 @@ sap.ui.define([
                 this.getView().setModel(oRowModel, "oRowModel");
             },
 
+            // on press of generate reliastic date
             onAvailabilityCheckPress: function (oEvent) {
                 this.oBusyDialog.open();
                 var that = this;
@@ -57,6 +60,7 @@ sap.ui.define([
                 var dDeliveryDate = this.getView().getModel("oRowModel").oData.PO_Delivery_Date;
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 var token;
+                // fetching x-csrf token 
                 $.ajax({
                     url: sUrl,
                     method: "GET",
@@ -72,10 +76,12 @@ sap.ui.define([
                     }
                 });
 
+                // payload for getNewsSummaryData API call
                 var odata = {
                     "newsData": { "company_name": sCustomer, "delivery_date": dDeliveryDate }
                 }
 
+                // API call - getNewsSummaryData
                 $.ajax({
                     url: sUrl + "getNewsSummaryData",
                     method: "POST",
@@ -86,6 +92,7 @@ sap.ui.define([
                     data: JSON.stringify(odata),
                     contentType: "application/json",
                     success: function (oData) {
+                        // setting new date from the API call along with Predicated finish date
                         that.oBusyDialog.close();
                         var dUpdatedDate = oData.updated_delivery_date;
                         var iNegativeSentiment = oData.percentage_negative_news;
@@ -99,11 +106,9 @@ sap.ui.define([
                         if (formattedResponseDate > formattedDeliveryDate) {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
-                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                         } else {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
-                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                         }
                     },
                     error: function (e) {
@@ -111,56 +116,6 @@ sap.ui.define([
                         MessageBox.error("Gateway Timeout");
                     }
                 })
-            },
-
-            onClickSentiment: function (oEvent) {
-                var value, value1, value2, icon, icon1, icon2;
-                var sentiment = parseInt(oEvent.getSource().getText());
-                if (sentiment >= 0 && sentiment <= 30) {
-                    value = "Heavy Traffic";
-                    icon = "sap-icon://bus-public-transport";
-                    value1 = "Weather Conditions"; 
-                    icon1 = "sap-icon://weather-proofing";
-                    value2 = "Failed Delivery Attempts.";
-                    icon2 = "sap-icon://shipping-status";
-                } else if (sentiment > 30 && sentiment <= 60) {
-                    value = "Customs(Import)";
-                    icon = "sap-icon://travel-itinerary";
-                    value1 = "Geo Political Issues";
-                    icon1 = "sap-icon://map-2";
-                    value2 = "War Situations";
-                    icon2 = "sap-icon://globe";
-                } else if (sentiment > 60 && sentiment <= 100) {
-                    value = "Delay from Supplier";
-                    icon = "sap-icon://supplier";
-                    value1 = "Financial Crisis"
-                    icon1 = "sap-icon://loan";
-                    value2= "Delay in Production Supply";
-                    icon2 = "sap-icon://machine";
-                }
-                var oDialog = new Dialog({
-                    title: "Reasons for delay",
-                    content: [
-                        new VBox({
-                            items:[
-                                new ObjectStatus({"active": false, text: value, icon: icon}).addStyleClass("spaceBelow"),
-                                new ObjectStatus({"active": false, text: value1, icon: icon1}).addStyleClass("spaceBelow"),
-                                new ObjectStatus({"active": false, text: value2, icon:icon2})
-                            ],
-                            alignItems: "Start"
-                        }).addStyleClass("spaceALL")
-                    ],
-                    beginButton: new Button({
-                        text: "Close",
-                        press: function () {
-                            oDialog.close();
-                        }
-
-                    })
-
-                });
-                oDialog.open();
-
             }
         });
     });
