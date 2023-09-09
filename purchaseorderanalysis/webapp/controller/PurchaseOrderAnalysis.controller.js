@@ -7,19 +7,20 @@ sap.ui.define([
     "sap/m/Text",
     "sap/m/ObjectStatus",
     "sap/m/ToolbarSpacer",
-    "sap/m/VBox"
+    "sap/m/VBox",
+    "sap/m/BusyDialog"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,MessageBox,formatter,Button, Dialog, Text, ObjectStatus, ToolbarSpacer, VBox) {
+    function (Controller,MessageBox,formatter,Button, Dialog, Text, ObjectStatus, ToolbarSpacer, VBox,BusyDialog) {
         "use strict";
 
         return Controller.extend("hac2build.purchaseorderanalysis.controller.PurchaseOrderAnalysis", {
           formatter: formatter,  
           onInit: function () {
+                this.oBusyDialog = new sap.m.BusyDialog({});
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                console.log("Purchase Order View");
                 this.onLoadTabData();
 			},
       onLoadTabData: function () {
@@ -47,12 +48,13 @@ sap.ui.define([
         this.getView().setModel(oRowModel, "oRowModel");
       },
       onLocalAI: function(oEvent){
+        this.oBusyDialog.open();
         var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
         var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
         var Supplier = this.getView().getModel("oRowModel").oData.Supplier;
-        var Material = this.getView().getModel("oRowModel").oData.Material_Description;
+        var Material = this.getView().getModel("oRowModel").oData.Material;
         var Plant = this.getView().getModel("oRowModel").oData.Plant;
-        debugger
+        // debugger
         // var Po_qty = this.getView().getModel("oRowModel").oData.Quantity;
         var Po_qty = JSON.stringify(this.getView().getModel("oRowModel").oData.Quantity);
         var Po_delivery_date = this.getView().getModel("oRowModel").oData.Delivery_date;
@@ -63,7 +65,7 @@ sap.ui.define([
         $.ajax({
           url: sUrl,
           method: "GET",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": "Fetch",
           },
@@ -88,14 +90,15 @@ sap.ui.define([
         jQuery.ajax({
           url: sUrl + urlext,
           type: "POST",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": token,
           },
           data: JSON.stringify(payload),
           contentType: "application/json",
           success: function (oData) {
-              var that = this;
+            that.oBusyDialog.close();
+                    // var that = this;
                     debugger
                     console.log(oData)
                     // console.log(formattedRespDate);
@@ -105,24 +108,25 @@ sap.ui.define([
                     var formattedPredictedReceiptDate= dateFormat.format(oResponseDate);
                     console.log(formattedPredictedReceiptDate)
                     sContext.getModel("oTableModel").setProperty(sPath +"/Local_AI_Delivery_Date", formattedPredictedReceiptDate);
-                    sap.m.MessageBox.success("Success");
-                    
+                    // sap.m.MessageBox.success("Success");
                     // sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
                     console.log(oData.value)
+                    
+
           
           },
             error: function (e) {
+              that.oBusyDialog.close();
               MessageBox.error("Request Timeout");
             },
           });
         },
       onAvailablePress: function (oEvent) {
-              debugger
+              this.oBusyDialog.open();
               var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
               var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
               var customer = this.getView().getModel("oRowModel").oData.Customer;
               var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
-      
               var that = this;
               var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
               var token;
@@ -150,7 +154,7 @@ sap.ui.define([
               jQuery.ajax({
                 url: sUrl + urlext,
                 type: "POST",
-                async: false,
+                async: true,
                 headers: {
                   "X-CSRF-Token": token
                 },
@@ -167,8 +171,8 @@ sap.ui.define([
                   
                 // },
                 success: function (oData) {
-            
-                  MessageBox.success("Success");
+                  that.oBusyDialog.close();
+                  // MessageBox.success("Success");
                   var updatedDate = oData.updated_delivery_date;
                   var oResponseDate = new Date(updatedDate);
                   var deliveryDate = new Date(del_date);
@@ -197,6 +201,7 @@ sap.ui.define([
                 },
                 
                 error: function (e) {
+                  that.oBusyDialog.close();
                   MessageBox.error("Request Timeout");
                 },
               });
@@ -282,18 +287,16 @@ sap.ui.define([
         },
   
         onEmailPress: function (oData) {
-          debugger
+          
           var that = this;
-          //that.onOpenPopoverDialog();
           //payload params
           console.log(oData)
-          var sold_To = this.getView().getModel("oRowModel").oData.Customer;
+          that.oBusyDialog.open();
+          var sold_To = this.getView().getModel("oRowModel").oData.Supplier;
           var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
           var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
           var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
           var item = this.getView().getModel("oRowModel").oData.SO_Item;
-  
-  
           var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
           var token;
           $.ajax({
@@ -308,7 +311,6 @@ sap.ui.define([
             },
             error: function (result, xhr, data) {
               console.log("Error");
-  
             },
   
           });
@@ -324,16 +326,6 @@ sap.ui.define([
               "item_id": '"' + item + '"'
             }
           }
-  
-          // var payload = {
-          //   "emailData": {
-          //     "llm_summary": "Stock Performance: The paragraph mentions that Zomato's stock price settled higher on Monday but has declined significantly on a year-to-date (YTD) basis. This suggests a downward trend in the stock's value, which is generally viewed negatively by investors. Losses: Zomato's net loss for the quarter ending in December (Q3 FY23) widened significantly compared to the previous year and the previous quarter. This indicates financial challenges for the company and is typically viewed negatively.",
-          //     "order_id": "ORD001",
-          //     "customer_name": "Akash Dawari",
-          //     "delivery_date": "12-10-2023",
-          //     "item_id": "[item1, item2, item3]"
-          //   }
-          // }
           jQuery.ajax({
             url: sUrl + urlext,
             type: "POST",
@@ -344,20 +336,21 @@ sap.ui.define([
             data: JSON.stringify(payload),
             contentType: "application/json",
             success: function (oData) {
-              if (oData) {
+              that.oBusyDialog.close();
+              // if (oData) {
                 var oEmailModel = new sap.ui.model.json.JSONModel();
                 oEmailModel.setData(oData);                 
-                
                 that.onOpenPopoverDialog();
                 sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
-              }
+              // }
             },
             error: function (e) {
+              that.oBusyDialog.close();
               MessageBox.error("Please add proper data");
             },
           });
         },
-      onRecalPress: function (oEvent) {
+        onRecalPress: function (oEvent) {
               var settings = {
                 "url": "https://openai-serv-app.cfapps.eu10-004.hana.ondemand.com/api/v1/completions",
                 "method": "POST",
@@ -380,7 +373,7 @@ sap.ui.define([
               });
         },
         onUpdatePO: function () {
-          MessageBox.confirm("Do you want to confirm the Purchase Order?");
+          MessageBox.confirm("Do you want to update the Purchase Order?");
         },
         onClickSentiment: function (oEvent) {
           var value, value1, value2, icon, icon1, icon2;
@@ -432,11 +425,88 @@ sap.ui.define([
           });
           oDialog.open();
 
+      },
+      onSendSuccess: function(){
+        sap.m.MessageBox.success("Email has been sent successfully");
+        this._oNewDialog.close();
+      },
+      onCallASN: function (oData) {
+      // debugger
+      this.oBusyDialog.open();
+      var that = this;
+      var oPath = "getBearerToken()";
+      var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+      var token;
+      $.ajax({
+        url: sUrl+oPath,
+        method: "GET",
+        async: true, method: 'GET', dataType: 'json', 
+        success: function (oData) {
+          // debugger
+          
+          var oBearer = oData.value;
+          var raw = "Plant:1710,Po Date:07/09/2023,Po Item: 10,Po Qty: 180"
+          var prompt = "Extract the data for the below feilds:\nPo Item from the below data:" +
+                            "{" + raw + "} return json key value pair \nNote: put null for fields which doesnot have any data."
+
+            var settings = {
+              "url": "https://openai-serv-app.cfapps.eu10-004.hana.ondemand.com/api/v1/completions",
+              "method": "POST",
+              "timeout": 0,
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + oBearer
+              },
+              "data": JSON.stringify({
+                  "deployment_id": "code-davinci-002",
+                  "prompt": prompt,
+                  "max_tokens": 500,
+              }),
+            };
+            $.ajax(settings).done(function (response) {
+              that.oBusyDialog.close();
+              console.log(response);
+              MessageBox.success("Processing of ASN is successfull.")
+            });
+          }, 
+          error: function (jqXHR) {
+            that.oBusyDialog.close();
+            sap.m.MessageBox.error(jqXHR.responseText);
+          },
+      });
+      // jQuery.ajax({
+      //   url: sUrl + urlext,
+      //   type: "POST",
+      //   async: false,
+      //   headers: {
+      //     "X-CSRF-Token": token,
+      //   },
+      //   data: JSON.stringify(payload),
+      //   contentType: "application/json",
+      //   success: function (oData) {
+      //     if (oData) {
+      //       var oEmailModel = new sap.ui.model.json.JSONModel();
+      //       oEmailModel.setData(oData);                 
+            
+      //       that.onOpenPopoverDialog();
+      //       sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
+      //     }
+      //   },
+      //   error: function (e) {
+      //     this.oBusyDialog1.open();
+      //     MessageBox.error("Please add proper data");
+      //   },
+      // });
+      },
+      onOpenChat: function (oEvent) {
+        var oUrl = 'https://llm-chatbot-app-wacky-puku-dt.cfapps.eu10.hana.ondemand.com/';
+        var topsss = screen.height - 490;
+        var left = screen.width - 420;
+        window.open(oUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + topsss + ",left=" + left + ",width=420,height=490");
       }
-
-        });
-
+    
     });
+  });
 
 
       
