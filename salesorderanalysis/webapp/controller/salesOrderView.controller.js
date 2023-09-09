@@ -230,14 +230,12 @@ sap.ui.define([
           content: [
             new VBox({
               items: [
-                new ObjectStatus({ "active": false, text: value, icon: icon }),
-                new ToolbarSpacer(),
-                new ObjectStatus({ "active": false, text: value1, icon: icon1 }),
-                new ToolbarSpacer(),
-                new ObjectStatus({ "active": false, text: value2, icon: icon2 })
+                new ObjectStatus({ "active": false, text: value, icon: icon }).addStyleClass("spaceBelow"),
+                new ObjectStatus({ "active": false, text: value1, icon: icon1 }).addStyleClass("spaceBelow"),
+                new ObjectStatus({ "active": false, text: value2, icon: icon2 }).addStyleClass("spaceBelow")
               ],
-              alignItems: "Center"
-            })
+              alignItems: "Start"
+            }).addStyleClass("spaceALL")
           ],
           beginButton: new Button({
             text: "Close",

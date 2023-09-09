@@ -73,7 +73,7 @@
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}"/> -->
 							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.statusText'}"/>	
 							<!-- <ObjectStatus id="_IDGenObjectStatus1" text="{Delivery_Date}"/> -->
-							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="None" press="onClickSentiment" />				
+							<ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />				
 						</cells>
 					</ColumnListItem>
 				</items>
