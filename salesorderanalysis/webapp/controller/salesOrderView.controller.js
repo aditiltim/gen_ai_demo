@@ -105,11 +105,14 @@ sap.ui.define([
             // var calcDiffDate = new Date(updatedDate);
             var iNegativeSentiment = oData.percentage_negative_news;
             iNegativeSentiment = iNegativeSentiment.toFixed(2);
-           // if (formattedRespDate >= formattedDelDate) {           
+           if (formattedRespDate > formattedDelDate) {           
               sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
               //sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
               sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-           // }
+           }else{
+              sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+           }
+
 
             var negSentiment = oData.percentage_negative_news;
             // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
