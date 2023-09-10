@@ -17,10 +17,10 @@
 							<!-- <Title id="_IDGenTitle1" text="Purchase Order Analysis" level="H2"/> -->
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 							<Button id="_IDGenButton3" text="Predicted Delivery Date" press="onLocalAI"/>
-							<Button id="_IDGenButton1" icon="../model/images/openai.png" text="Realistic Delivery Date" press="onAvailablePress"/>
-							<Button id="_IDGenButton2" icon="https://fiverr-res.cloudinary.com/t_main1,q_auto,f_auto/gigs/324700180/original/4f45dd11bb0797e5001e01975bf15a66d6b0b6a2.png" text="Send Notification" press="onEmailPress"/>
+							<Button id="_IDGenButton1" icon="https://w7.pngwing.com/pngs/704/673/png-transparent-openai-chatgpt-logo-thumbnail.png" text="Realistic Delivery Date" press="onAvailablePress"/>
+							<Button id="_IDGenButton2" icon="https://w7.pngwing.com/pngs/704/673/png-transparent-openai-chatgpt-logo-thumbnail.png" text="Send Notification" press="onEmailPress"/>
 							<Button id="_IDGenButton4" text="Update PO" press="onUpdatePO"/>
-							<Button id="_IDGenButton5" icon="../model/images/openai.png" text="Process ASN" press="onCallASN"/>
+							<Button id="_IDGenButton5" icon="https://w7.pngwing.com/pngs/704/673/png-transparent-openai-chatgpt-logo-thumbnail.png" text="Process ASN" press="onCallASN"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
@@ -104,7 +104,7 @@
 							<!-- <ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" icon="" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}"/> -->
 							<!-- <Button id="_IDGenButton7" on><core:Icon id="_IDGenIcon1" src="sap-icon://fmessage-information" visible="{= ${oTableModel>Feed}? true : false}" tooltip="{oTableModel>Feed}"/></Button> -->
 							<!-- <Button id="_IDGenButton7" icon="sap-icon://fmessage-information" press="onClickSentiment" visible="{= ${oTableModel>Feed}? true : false}"/> -->
-							<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://message-information" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent"/>
+							<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent"/>
 							<!-- <HBox id="_IDGenHBox1">
                                 <core:Icon id="_IDGenIcon1" src="{= ${oTableModel>Sentiment} >= 0 &amp;&amp; ${oTableModel>Sentiment} &lt;= 20 ? 'sap-icon://bus-public-transport': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Logistics"/>
                                 <core:Icon id="_IDGenIcon2" src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://weather-proofing': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Weather" class="sapUiTinyMarginEnd"/>
