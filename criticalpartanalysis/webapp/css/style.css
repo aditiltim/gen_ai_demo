@@ -20,6 +20,7 @@
 .sapUiSizeCompact .sapMInputBaseHasEndIcons .sapMInputBaseInner, .sapUiSizeCompact .sapMInputBaseHasBeginIcons .sapMInputBaseInner {
    width: calc(7rem);
 }
+
 .colorOrange{
    color:#cd9a23;
 }
@@ -36,6 +37,7 @@
 }
 .sapUiBlockLayoutSizeXL:not(.sapUiBlockLayoutKeepFontSize) .sapUiBlockCellTitle, .sapUiBlockLayoutSizeXL:not(.sapUiBlockLayoutKeepFontSize) .sapUiBlockCellTitle .sapMLnk {
    font-size: 1.3rem;
+   color: blue;
 }
 
 .sapUiBlockCellContent {
@@ -55,7 +57,13 @@ width: 396px;
    padding-top: 125px;
  }
  .page2BgImg {
-   background-image: url('https://attachments.office.net/owa/Shivani.Debbadwar%40ltimindtree.com/service.svc/s/GetAttachmentThumbnail?id=AAMkAGFmMzcxNTQ2LTk1ZWItNGRmMC1iMjBmLTc3NGNkZjg1ZGM2NgBGAAAAAABG%2FAv6vRFZQohFUj4ZzBGUBwBthhd%2F80qUQZ3dtkLcAUQhAAAAAAEMAABthhd%2F80qUQZ3dtkLcAUQhAABjfN8%2BAAABEgAQAN82y5KjizVAmp9VWq0QR1A%3D&thumbnailType=2&token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjczRkI5QkJFRjYzNjc4RDRGN0U4NEI0NDBCQUJCMTJBMzM5RDlGOTgiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJjX3VidnZZMmVOVDM2RXRFQzZ1eEtqT2RuNWcifQ.eyJvcmlnaW4iOiJodHRwczovL291dGxvb2sub2ZmaWNlMzY1LmNvbSIsInVjIjoiMmVlMDA5ZGFjZTg1NDhmOGEzNzk1YTNhZTNmNjYwM2QiLCJzaWduaW5fc3RhdGUiOiJbXCJpbmtub3dubnR3a1wiXSIsInZlciI6IkV4Y2hhbmdlLkNhbGxiYWNrLlYxIiwiYXBwY3R4c2VuZGVyIjoiT3dhRG93bmxvYWRAZmYzNTUyODktNzIxZS00ZGQ3LWE2NjMtYWZlYzYyYWI5ZDU0IiwiaXNzcmluZyI6IldXIiwiYXBwY3R4Ijoie1wibXNleGNocHJvdFwiOlwib3dhXCIsXCJwdWlkXCI6XCIxMTUzODAxMTI0OTYwNzQ2NDgzXCIsXCJzY29wZVwiOlwiT3dhRG93bmxvYWRcIixcIm9pZFwiOlwiMGY5ZDIxYjUtYTcxZC00MTgxLWEzZDItNGViNzNhNWVjMDljXCIsXCJwcmltYXJ5c2lkXCI6XCJTLTEtNS0yMS02NDIyODQ5MDktMjQ4ODY1MDA5Ny00MjcxNTIxNjQ5LTI3MDI1MDE3XCJ9IiwibmJmIjoxNjk0MjU3NDYxLCJleHAiOjE2OTQyNTgwNjEsImlzcyI6IjAwMDAwMDAyLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMEBmZjM1NTI4OS03MjFlLTRkZDctYTY2My1hZmVjNjJhYjlkNTQiLCJhdWQiOiIwMDAwMDAwMi0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvYXR0YWNobWVudHMub2ZmaWNlLm5ldEBmZjM1NTI4OS03MjFlLTRkZDctYTY2My1hZmVjNjJhYjlkNTQiLCJoYXBwIjoib3dhIn0.j1k_5619d2JxVPNJA2vbaeQSixyLKAnl5Jfrqfh8NOog8gQM_-yb8ImBWDhtJELfVX5DwBfWvQT3bcdI2wCdGon6pTpUFdcyKjpG1BiJXYAvqFRBqHkDSDVoRdYoL0TXlV1Jc0JZ-UNAjIjW4BDaEhbZS1PJcR-wb1Qhl0uM8x1ZB2TjaPM5n8QQimuyOze0KK56kOah6xA5hZVvXdjWIObtxfv5p8Wr2JgkpOJKQBG6l3lcMlIAF3WUiLRDh4Zc2oNfwIX5w1jH_6AKexO2kyHYNvkGLgV524o8FN0gSUt3T21TDUmqNzyQGBGeYJeGKeZtT_R1FPFwbitHRLDHnw&X-OWA-CANARY=alifQWkmuUKtl0xmYjsgTYCZz5MksdsYxJ_p4VFyb3A_y1mC_iRXIOFEafVFgfar6IDvxyorLwo.&owa=outlook.office365.com&scriptVer=20230904003.11&animation=true');
+   background-image: url('https://st2.depositphotos.com/1010683/11537/i/950/depositphotos_115370984-stock-photo-industrial-buildings-at-large-factory.jpg');
    background-size: 100% 100%;
  } 
- 
+ .sapUiBlockLayoutBackgroundDashboard:not(.sapUiBlockLayoutSizeS) .sapUiBlockLayoutRow:last-of-type .sapUiBlockCellContent {
+   margin-bottom: 1rem;
+   width: 450px;
+ }
+ .cellContent{
+   flex: none;
+ }
