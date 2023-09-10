@@ -61,21 +61,23 @@
                             <ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>PO_Delivery_Date}"/>
                             <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>PO_Delivery_Date'], formatter: '.formatter.statusText'}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Predicted_Finish_Date}"/>
-                            <HBox id="_IDGenHBox1">
+							<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://message-information" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent"/>
+							<!-- <ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />	                             -->
+                            <!-- <HBox id="_IDGenHBox1">
                                 <core:Icon id="_IDGenIcon1" src="{= ${oTableModel>Sentiment} >= 0 &amp;&amp; ${oTableModel>Sentiment} &lt;= 20 ? 'sap-icon://bus-public-transport': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Logistics"/>
                                 <core:Icon id="_IDGenIcon2" src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://weather-proofing': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Weather" class="sapUiTinyMarginEnd"/>
                                 <core:Icon id="_IDGenIcon3" src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://map-2': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Geo Political Issues"/>
                                 <core:Icon id="_IDGenIcon4" src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://capital-projects': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Supply Financials" class="sapUiTinyMarginEnd"/>
                                 <core:Icon id="_IDGenIcon5" src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://machine': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Delay in Production Supply" class="sapUiTinyMarginEnd"/>
                                 <core:Icon id="_IDGenIcon6" src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://alert': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Natural Calamities"/>
-                            </HBox>
+                            </HBox> -->
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
         </content>
         <VBox id="_IDGenVBox1" alignItems="End" alignContent="End" justifyContent="End">
-		    <Button id="_IDGenButton6" icon="sap-icon://lightbulb" text="" type="Emphasized" width="5px" press="onOpenChat" class="roundClass"/>
+		    <Button id="_IDGenButton6" icon="sap-icon://feedback" text="" type="Emphasized" width="5px" press="onOpenChat" class="roundClass"/>
 	    </VBox>
     </Page>
 </mvc:View>
