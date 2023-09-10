@@ -23,9 +23,9 @@
 						<content>
 							<Title id="_IDGenTitle1" text="Sales Order Analysis" level="H2"/>
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton1" icon="../model/images/openai.253x256.png" text="Realistic Delivery Date" press="onAvailablePress"/>
+							<Button id="_IDGenButton1" icon="https://w7.pngwing.com/pngs/704/673/png-transparent-openai-chatgpt-logo-thumbnail.png" text="Realistic Delivery Date" press="onAvailablePress"/>
 							<!-- <Button id="_IDGenButton1" text="Realsitic Delivery Date" press="onAvailablePress"/> -->
-							<Button id="_IDGenButton2" icon="../model/images/openai.253x256.png" text="Send Notification" press="onEmailPress"/>
+							<Button id="_IDGenButton2" icon="https://w7.pngwing.com/pngs/704/673/png-transparent-openai-chatgpt-logo-thumbnail.png" text="Send Notification" press="onEmailPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
@@ -58,7 +58,7 @@
 						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="Realsitic Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn10" hAlign="Left">
-						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Impacting Factors"/>
+						<Label id="_IDGenLabel10" design="Bold" text="Order Insights"/>
 					</Column>
 				</columns>
 				<items>
@@ -78,21 +78,25 @@
 							<ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.statusText'}"/>	
 							
 							<!-- <ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />	 -->
-							<HBox>
+							<HBox id="_IDGenHBox2">
+								<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent" />
+							</HBox>
+							
+							<!-- <HBox>
                                 <core:Icon src="{= ${oTableModel>Sentiment} >= 0 &amp;&amp; ${oTableModel>Sentiment} &lt;= 20 ? 'sap-icon://bus-public-transport': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Logistics"/>
                                 <core:Icon src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://weather-proofing': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Weather" class="sapUiTinyMarginEnd"/>
                                 <core:Icon src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://map-2': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Geo Political Issues"/>
                                 <core:Icon src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://capital-projects': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Supply Financials" class="sapUiTinyMarginEnd"/>
                                 <core:Icon src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://machine': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Delay in Production Supply" class="sapUiTinyMarginEnd"/>
                                 <core:Icon src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://alert': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Natural Calamities"/>
-							</HBox>
+							</HBox> -->
 						</cells>	
 					</ColumnListItem>
 				</items>
 			</Table>
 	</content>
-	 <VBox id="_IDGenVBox2" alignItems="End" alignContent="End" justifyContent="End">
-        <Button id="_IDGenButton6" icon="sap-icon://lightbulb" text="" type="Emphasized" width="5px" press="onOpenChat" class="roundClass"/>
-	</VBox>
+	<VBox id="_IDGenVBoxInsight" alignItems="End" alignContent="End" justifyContent="End">
+        <Button id="_IDGenButton6" icon="sap-icon://feedback" text="" type="Emphasized" width="5px" press="onOpenChat" class="roundClass"/>
+    </VBox>
 	</Page>
 </mvc:View>

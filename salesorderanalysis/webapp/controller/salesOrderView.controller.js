@@ -52,7 +52,7 @@ sap.ui.define([
         this.busyDialog.open();
         var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
         var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
-        var sold_To = this.getView().getModel("oRowModel").oData.Sold_to;
+        var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
         var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
         // var genDate = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
 
@@ -77,7 +77,7 @@ sap.ui.define([
         var urlext = "getNewsSummaryData";
         var payload = {
           "newsData": {
-            "company_name": sold_To,
+            "company_name": cust_name,
             "delivery_date": del_date
           }
         }
@@ -105,10 +105,14 @@ sap.ui.define([
             // var calcDiffDate = new Date(updatedDate);
             var iNegativeSentiment = oData.percentage_negative_news;
             iNegativeSentiment = iNegativeSentiment.toFixed(2);
-            if (formattedRespDate >= formattedDelDate) {           
+           if (formattedRespDate > formattedDelDate) {           
               sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
-              sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
-            }
+              //sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
+              sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
+           }else{
+              sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+           }
+
 
             var negSentiment = oData.percentage_negative_news;
             // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
@@ -226,6 +230,29 @@ sap.ui.define([
         var left = screen.width - 420;
         window.open(oUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + topsss + ",left=" + left + ",width=420,height=490");      
     },
+    onClickInsights: function (oEvent) {
+      debugger
+      var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
+      var oDialog = new Dialog({
+          title: "Order Insights provided by GEN AI",
+          content: [
+              new VBox({
+                // class:"sapUiResponsiveContentPadding",
+                  items:[
+                      new Text({text: value}),
+                  ],
+                  alignItems: "Start",
+              }).addStyleClass("spaceALL")
+          ],
+          beginButton: new Button({
+              text: "Close",
+              press: function () {
+                  oDialog.close();
+              }
+           })
+          });
+          oDialog.open();
+        },  
       onClickSentiment: function (oEvent) {
         var value, value1, value2, icon, icon1, icon2;
         var sentiment = parseInt(oEvent.getSource().getText());

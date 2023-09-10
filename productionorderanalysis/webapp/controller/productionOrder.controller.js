@@ -102,17 +102,17 @@ sap.ui.define([
                         var formattedResponseDate = dateFormat.format(new Date(dUpdatedDate));
                         var formattedDeliveryDate = dateFormat.format(new Date(dDeliveryDate));
                         var formattedPredictedDate = dateFormat.format(new Date(predictedFinishDate));
-                        if (formattedResponseDate > formattedDeliveryDate) {
+                        // if (formattedResponseDate > formattedDeliveryDate) {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
-                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
+                            // sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-                        } else {
-                            sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
-                            sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
-                            sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
-                            sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-                        }
+                        // } else {
+                        //     sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
+                        //     sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
+                        //     // sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
+                        //     sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
+                        // }
                     },
                     error: function (e) {
                         that.oBusyDialog.close();
