@@ -18,7 +18,7 @@
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 							<Button id="_IDGenButton3" text="Predicted Delivery Date" press="onLocalAI"/>
 							<Button id="_IDGenButton1" icon="../model/images/openai.png" text="Realistic Delivery Date" press="onAvailablePress"/>
-							<Button id="_IDGenButton2" icon="../model/images/openai.png" text="Send Notification" press="onEmailPress"/>
+							<Button id="_IDGenButton2" icon="https://fiverr-res.cloudinary.com/t_main1,q_auto,f_auto/gigs/324700180/original/4f45dd11bb0797e5001e01975bf15a66d6b0b6a2.png" text="Send Notification" press="onEmailPress"/>
 							<Button id="_IDGenButton4" text="Update PO" press="onUpdatePO"/>
 							<Button id="_IDGenButton5" icon="../model/images/openai.png" text="Process ASN" press="onCallASN"/>
 						</content>
