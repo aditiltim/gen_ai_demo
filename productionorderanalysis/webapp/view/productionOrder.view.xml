@@ -12,7 +12,7 @@
                         <content>
                             <Title id="tableTitle" text="{i18n>tableTitle}" level="H2"/>
                             <ToolbarSpacer id="_IDGenToolbarSpacer1" />
-                            <Button id="availabilityCheck" text="{i18n>availabilityCheck}" press=".onAvailabilityCheckPress" icon="model/images/ai.png"/>
+                            <Button id="availabilityCheck" text="{i18n>availabilityCheck}" press=".onAvailabilityCheckPress" icon="../model/images/ai.png"/>
                             <Button id="rescheduleProductionOrder" text="{i18n>reschedulePO}" press="onReschedulePress"/>
                         </content>
                     </OverflowToolbar>
