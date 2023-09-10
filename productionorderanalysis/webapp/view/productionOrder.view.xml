@@ -12,7 +12,7 @@
                         <content>
                             <Title id="tableTitle" text="{i18n>tableTitle}" level="H2"/>
                             <ToolbarSpacer id="_IDGenToolbarSpacer1" />
-                            <Button id="availabilityCheck" text="{i18n>availabilityCheck}" press=".onAvailabilityCheckPress" icon="../model/images/ai.png"/>
+                            <Button id="availabilityCheck" text="{i18n>availabilityCheck}" press=".onAvailabilityCheckPress" icon="https://w7.pngwing.com/pngs/704/673/png-transparent-openai-chatgpt-logo-thumbnail.png"/>
                             <Button id="rescheduleProductionOrder" text="{i18n>reschedulePO}" press="onReschedulePress"/>
                         </content>
                     </OverflowToolbar>
@@ -46,7 +46,7 @@
                         <Label id="label9" design="Bold" text="Realistic Finished Date" wrapping="true"/>
                     </Column>
                     <Column id="column10" hAlign="Left"> 
-                        <Label id="label10" design="Bold" text="Impacting Factors" wrapping="true"/>
+                        <Label id="label10" design="Bold" text="Order Insights" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>
