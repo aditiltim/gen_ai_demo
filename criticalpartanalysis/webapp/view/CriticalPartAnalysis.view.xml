@@ -52,27 +52,6 @@
             <HBox id="_IDGenHBox5">
             <Text id="_IDGenText7" text="Period"/>
              <Label id="_IDGenLabel7" text=""  width ="0.5rem" />
-              <!-- <Input id="input14" width="7rem" value = "Next 30 Days"/> -->
-              <!-- <DateRangeSelection
-			id="DRS1"
-			class="DRS1"
-			value= "{
-				'type': 'sap.ui.model.type.DateInterval',
-				'formatOptions': {
-					'pattern': 'yyyy/MM/dd'
-				},
-				'parts': [
-					{
-						'type': 'sap.ui.model.type.Date',
-						'path': '/start'
-					},
-					{
-						'type': 'sap.ui.model.type.Date',
-						'path': '/end'
-					}
-				]
-			}"
-			change="handleChange"/> -->
              <DatePicker id="DP1"   placeholder="Next 30 Days" valueFormat="yyyy-MM-dd" />
              
             </HBox>
@@ -81,139 +60,19 @@
 			</Toolbar>
 		</subHeader>
 	
-            <!-- <GenericTile id="_IDGenGenericTile1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Sales Order Analysis"
-                subheader="Click" press="goToSalesApp" >
-                <TileContent id="_IDGenTileContent1" priorityText="Order Value" unit="Order Value :" footer="$350,000">
-                    <ImageContent id="_IDGenImageContent1" src="sap-icon://home-share" />
-                </TileContent>
-                <TileContent id="_IDGenTileContent11" priorityText="Order Value" unit="Order Value :" footer="$350,000">
-                    <ImageContent id="_IDGenImageContent11" src="sap-icon://home-share" />
-                </TileContent>
-            </GenericTile>
-            <GenericTile id="_IDGenGenericTile2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Purchase Order Analysis"
-                subheader="Subtitle" press="press" >
-                <TileContent id="_IDGenTileContent2" unit="EUR" footer="Current Quarter">
-                    <ImageContent id="_IDGenImageContent2" src="sap-icon://home-share" />
-                    <FeedContent id="_IDGenFeedContent1" contentText="@@notify Great outcome of the Presentation today. New functionality well received."
-						 subheader="About 1 minute ago in Computer Market" value="352" />
-                </TileContent>
-            </GenericTile>
-            <GenericTile id="_IDGenGenericTile3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Production Order Analysis"
-                subheader="Subtitle" press="press" >
-                <TileContent id="_IDGenTileContent3" unit="EUR" footer="Current Quarter">
-                    <ImageContent id="_IDGenImageContent3" src="sap-icon://home-share" />
-                </TileContent>
-            </GenericTile>
-            <GenericTile id="_IDGenGenericTile4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Alerts / Notifications"
-                subheader="Subtitle" press="press">
-                <TileContent id="_IDGenTileContent4" unit="EUR" footer="Current Quarter">
-                    <ImageContent id="_IDGenImageContent4" src="sap-icon://home-share" />
-                </TileContent>
-            </GenericTile> -->
-            	
-			
-          
-             <!-- <f:Card id="_IDGenCard2" class="sapUiMediumMargin" width="250px">
-                <f:header>
-                    <card:Header id="_IDGenHeader2" title="Purchase Order Analysis" press="hidePurchasechart"/>
-                </f:header>
-                <f:content>
-                    <List id="_IDGenList2" showSeparators="None">
-                        <CustomListItem id="_IDGenCustomListItem2">
-                                <VBox id="_IDGenVBox21" class="sapUiSmallMarginBegin" >
-                                    <Button id="_IDGenButton2" icon="sap-icon://customer-and-supplier" type="Transparent" press="goToPOApp" />
-                                    <Text id="_IDGenText21" text="Suppliers  : 12" />
-                                </VBox>
-                                <VBox id="_IDGenVBox22" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Label id="_IDGenText22" text="Purchase Orders : 15" design="Bold"/>
-                                </VBox>
-                                 <VBox id="_IDGenVBox222" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText212" text="Impacted Orders : 01" />
-                                </VBox>
-                                <VBox id="_IDGenVBox23" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                    <Text id="_IDGenText23" text="PO Value : $ 170,000" />
-                                </VBox>
-                        </CustomListItem>
-                    </List>
-                </f:content>
-            </f:Card>
-            <f:Card id="_IDGenCard3" class="sapUiMediumMargin" width="250px">
-                <f:header>
-                    <card:Header id="_IDGenHeader3" title="Production Order Analysis" press="hideProductionchart"/>
-                </f:header>
-                <f:content>
-                    <List id="_IDGenList3" showSeparators="None">
-                        <CustomListItem id="_IDGenCustomListItem3">
-                                <VBox id="_IDGenVBox31" class="sapUiSmallMarginBegin" >
-                                    <Button id="_IDGenButton3" icon="sap-icon://factory" type="Transparent" press="goToProdOApp" />
-                                   
-                                    <Label id="_IDGenText31" text="Critical Parts  :  80" />
-                                    
-                                </VBox>
-                                  <VBox id="_IDGenVBox33" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                    <Label id="_IDGenText33" text="Production Order :  40" design="Bold"/>
-                                </VBox>
-                                <VBox id="_IDGenVBox22122" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText21212" text="Impacted Orders : 01" />
-                                </VBox>
-                                <VBox id="_IDGenVBox32" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText32" text="Delivery Plants : 03" />
-                                </VBox>
-                              
-                                
-                        </CustomListItem>
-                    </List>
-                </f:content>
-            </f:Card>
-            <f:Card id="_IDGenCard1" class="sapUiMediumMargin" width="250px">
-                <f:header>
-                    <card:Header id="_IDGenHeader1" class="colorBlack" title="Sales Order Analysis" press="hideSalesorderchart" />
-                </f:header>
-                <f:content >
-                    <List id="_IDGenList1" showSeparators="None" >
-                        <CustomListItem id="_IDGenCustomListItem1" >
-                                <VBox id="_IDGenVBox1" class="sapUiSmallMarginBegin" >
-                                <HBox id="_IDGenHBox6">
-                                    <Button id="_IDGenButton1" icon="sap-icon://my-sales-order" type="Transparent" press="goToSalesApp" />
-                                     </HBox>
-                                    <Text id="_IDGenText1" text="Customers  : 12"  />
-                                </VBox>
-                                <VBox id="_IDGenVBox2" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Label id="_IDGenText2" text="Sales Orders : 05" design="Bold"/>
-                                </VBox>
-                                   <VBox id="_IDGenVBox2212" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"  >
-                                    <Text id="_IDGenText2122" text="Impacted Orders : 01" />
-                                </VBox>
-                                <VBox id="_IDGenVBox3" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                    <Text id="_IDGenText3" text="Order Value  : $ 350,000" />
-                                </VBox>
-                        </CustomListItem>
-                    </List>
-                </f:content>
-            </f:Card> -->
-            	<!-- <f:GridContainer id="_IDGenGridContainer1">
-					<f:layout>
-						<f:GridContainerSettings id="_IDGenGridContainerSettings1" rowSize="5rem" columnSize="5rem" gap="1rem" />
-					</f:layout>
-					<f:layoutS>
-						<f:GridContainerSettings id="_IDGenGridContainerSettings2" rowSize="5rem" columnSize="5rem" gap="0.5rem" />
-					</f:layoutS>
-					<w:Card id="_IDGenCard4" manifest="{Data>/stackedColumn}">
-						<w:layoutData>
-							<f:GridContainerItemLayoutData id="_IDGenGridContainerItemLayoutData1" rows="5" columns="4" />
-						</w:layoutData>
-					</w:Card>
-                    </f:GridContainer> -->
-                
-                    	<l:BlockLayout id="BlockLayout" background="Dashboard" >
-			<l:BlockLayoutRow accentCells="Accent1">
+                   
+                        
+                    	<l:BlockLayout id="BlockLayout" background="Dashboard" class="sapUiNoContentPadding">
+                       
+			<l:BlockLayoutRow accentCells="Accent1" >
 				<l:BlockLayoutCell
 					id="Accent1"
-					width="1"
+					class="cellContent"
+                    width="30"
 					title="Purchase Order Analysis">
-                    <VBox class = "sapUiTinyMargin" height="50px" width="300px">
-                    <Title text="Suppliers : 12" titleStyle="H4"/>
-                    <Title text= "PO Value : 170,000 USD" class = "sapUiTinyMarginTop colorRed" titleStyle="H5" ></Title>
+                    <VBox class = "sapUiTinyMargin"  height="100px" width="400px">
+                    <Title text="Suppliers : 05" titleStyle="H5"/>
+                    <Title text= "PO Value : 175,000 USD" class = "sapUiTinyMarginTop" titleStyle="H5" ></Title>
                    
                         <mc:ColumnMicroChart size="Auto" press="goToPOApp" class="sapUiSmallMargin" allowColumnLabels="true">
 		
@@ -259,16 +118,16 @@
                                                  </VBox>
                     
 				</l:BlockLayoutCell>
-				<l:BlockLayoutCell title="Production Order Analysis">
-					<VBox class = "sapUiTinyMargin" >
-                    <Title text="Critical Parts : 12" titleStyle="H4" class = "colorOrange"/>
+				<l:BlockLayoutCell title="Production Order Analysis" class="cellContent"  width="30">
+					<VBox class = "sapUiTinyMargin"   height="100px" width="300px" >
+                    <Title text="Critical Parts : 08" titleStyle="H5"/>
                     <Title text= "Delivery Plants : 03" class = "sapUiTinyMarginTop" titleStyle="H5"></Title>
                   
                        <mc:ColumnMicroChart size="Auto" press="goToProdOApp" class="sapUiSmallMargin" allowColumnLabels="true">
 		
 		<mc:columns>
-			<mc:ColumnMicroChartData value="10" label=" On Time"  displayValue="07" color="Good"/>
-			<mc:ColumnMicroChartData value="2" label="Impacted" displayValue="01" color="Error"/>
+			<mc:ColumnMicroChartData value="07" label=" On Time"  displayValue="07" color="Good"/>
+			<mc:ColumnMicroChartData value="01" label="Impacted" displayValue="01" color="Error"/>
 			
 		</mc:columns>
 	</mc:ColumnMicroChart>
@@ -307,10 +166,10 @@
                                                   </VBox>
                     
 				</l:BlockLayoutCell>
-				<l:BlockLayoutCell  title="Sales Order Analysis">
+				<l:BlockLayoutCell  title="Sales Order Analysis" class="cellContent"  width="30">
 					<VBox class = "sapUiTinyMargin"   height="100px" width="300px">
-                    <Title text="Customers   : 12" titleStyle="H4"/>
-                    <Title text= "Order Value : 35,000 USD" class = "sapUiTinyMarginTop colorRed" titleStyle="H5"></Title>
+                    <Title text="Customers   : 4" titleStyle="H5"/>
+                    <Title text= "Order Value : 350,000 USD" class = "sapUiTinyMarginTop" titleStyle="H5"></Title>
                    
 	   <mc:ColumnMicroChart size="Auto" press="goToSalesApp" class="sapUiSmallMargin" allowColumnLabels="true">
 		
@@ -373,6 +232,7 @@
                 </l:BlockLayoutCell> -->
                 
 			</l:BlockLayoutRow>
+        
 			
 		</l:BlockLayout>
        
@@ -508,7 +368,7 @@
                                                     width="400px"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'},
-                                                        title:{ text:'Impacted Orders'},dataLabel:{visible:true,showTotal:true}}"
+                                                        title:{ text:'Impacted Purchase Orders'},dataLabel:{visible:true,showTotal:true}}"
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
@@ -649,7 +509,7 @@
                                                     width="400px"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'},
-                                                        title:{ text:'Impacted Orders'},dataLabel:{visible:true,showTotal:true}}"
+                                                        title:{ text:'Impacted Production Orders'},dataLabel:{visible:true,showTotal:true}}"
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
@@ -790,7 +650,7 @@
                                                     width="100%"
                                                     uiConfig="{applicationSet:'fiori'}"
                                                     vizProperties="{plotArea: { drawingEffect: 'glossy'},
-                                                        title:{ text:'Impacted Orders'},dataLabel:{visible:true,showTotal:true}}"
+                                                        title:{ text:'Impacted Sales Orders'},dataLabel:{visible:true,showTotal:true}}"
                                                     vizType="column"
                                                     legendVisible="true"
                                                     visible="true"
