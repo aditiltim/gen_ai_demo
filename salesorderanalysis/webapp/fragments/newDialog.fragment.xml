@@ -4,9 +4,9 @@
 		<content>
 			<VBox id="_IDGenVBox1">
 				<HBox >
-					<Label text="Subject:"/>
+					<Label text="Subject: {oEmailModel>/subject}"/>
 					<!-- <Text text="{oTableModel>/Sales_Order}"/> -->
-					<Text text="{oEmailModel>/subject}"/> 
+					<!-- <Text text="{oEmailModel>/subject}"/>  -->
 				</HBox>				
 				<!-- <Label text="Body:"/> -->
 				<TextArea value="{oEmailModel>/body}" rows="10" width="100%" height="100%" editable="false"/>
