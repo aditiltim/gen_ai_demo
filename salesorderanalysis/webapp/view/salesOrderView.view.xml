@@ -23,9 +23,9 @@
 						<content>
 							<Title id="_IDGenTitle1" text="Sales Order Analysis" level="H2"/>
 							<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-							<Button id="_IDGenButton1" icon="model/images/openai.253x256.png" text="Realistic Delivery Date" press="onAvailablePress"/>
+							<Button id="_IDGenButton1" icon="../model/images/openai.253x256.png" text="Realistic Delivery Date" press="onAvailablePress"/>
 							<!-- <Button id="_IDGenButton1" text="Realsitic Delivery Date" press="onAvailablePress"/> -->
-							<Button id="_IDGenButton2" icon="model/images/openai.253x256.png" text="Send Notification" press="onEmailPress"/>
+							<Button id="_IDGenButton2" icon="../model/images/openai.253x256.png" text="Send Notification" press="onEmailPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
