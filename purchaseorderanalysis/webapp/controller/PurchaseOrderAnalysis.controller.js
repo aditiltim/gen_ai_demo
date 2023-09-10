@@ -194,7 +194,7 @@ sap.ui.define([
                   else{
                     sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
                     sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
-                    sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
+                    // sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
                     console.log("updatedDate is less than or equal to ");
                   }
                   var negSentiment = oData.percentage_negative_news;
