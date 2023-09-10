@@ -122,10 +122,11 @@ sap.ui.define([
           });
         },
       onAvailablePress: function (oEvent) {
+            debugger
               this.oBusyDialog.open();
               var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
               var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
-              var customer = this.getView().getModel("oRowModel").oData.Customer;
+              var customer = this.getView().getModel("oRowModel").oData.Supplier_Name;
               var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
               var that = this;
               var oGenModel = new sap.ui.model.json.JSONModel();
@@ -187,11 +188,13 @@ sap.ui.define([
                     //that.getView().byId("_IDGenObjectStatus1").setState("Error");
                     sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
                     sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
+                    sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
                     console.log("updatedDate is greater");
                   }
                   else{
                     sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
                     sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
+                    sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
                     console.log("updatedDate is less than or equal to ");
                   }
                   var negSentiment = oData.percentage_negative_news;
@@ -296,7 +299,7 @@ sap.ui.define([
           //payload params
           var sold_To = this.getView().getModel("oRowModel").oData.PO;
           //var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
-          var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
+          var cust_name = this.getView().getModel("oRowModel").oData.Supplier_Name;
          // var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
           var item = this.getView().getModel("oRowModel").oData.SO_Item;
           
@@ -462,7 +465,7 @@ sap.ui.define([
           MessageBox.confirm("Do you want to update the Purchase Order?");
         },
         onClickSentiment: function (oEvent) {
-          var value, value1, value2, icon, icon1, icon2;
+          var value, value1, value2, value3, icon, icon1, icon2;
           var sentiment = parseInt(oEvent.getSource().getText());
           // var sentiment = 30;
           if (sentiment >= 0 && sentiment <= 30) {
@@ -495,7 +498,8 @@ sap.ui.define([
                       items:[
                           new ObjectStatus({"active": false, text: value, icon: icon}).addStyleClass("spaceBelow"),
                           new ObjectStatus({"active": false, text: value1, icon: icon1}).addStyleClass("spaceBelow"),
-                          new ObjectStatus({"active": false, text: value2, icon:icon2}).addStyleClass("spaceBelow")
+                          new ObjectStatus({"active": false, text: value2, icon:icon2}).addStyleClass("spaceBelow"),
+                          new ObjectStatus({"active": false, text: value3,}).addStyleClass("spaceBelow")
                       ],
                       alignItems: "Start",
                   }).addStyleClass("spaceALL")
@@ -589,7 +593,33 @@ sap.ui.define([
         var topsss = screen.height - 490;
         var left = screen.width - 420;
         window.open(oUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + topsss + ",left=" + left + ",width=420,height=490");
-      }
+      },
+      onClickInsights: function (oEvent) {
+        debugger
+        var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
+        var oDialog = new Dialog({
+            title: "Order Insights provided by GEN AI",
+            content: [
+                new VBox({
+                  // class:"sapUiResponsiveContentPadding",
+                    items:[
+                        new Text({text: value}),
+                    ],
+                    alignItems: "Start",
+                }).addStyleClass("spaceALL")
+            ],
+            beginButton: new Button({
+                text: "Close",
+                press: function () {
+                    oDialog.close();
+                }
+
+            })
+
+        });
+        oDialog.open();
+
+    },
     
     });
   });
