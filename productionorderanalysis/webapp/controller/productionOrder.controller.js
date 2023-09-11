@@ -197,7 +197,8 @@ sap.ui.define([
             },
 
             onClickInsights: function (oEvent) {
-                var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
+                // var value = oEvent.oSource.mBindingInfos.visible.binding.aValues[0];
+                var value = oEvent.oSource.getBindingContext("oTableModel").getProperty("Feed");
                 var oDialog = new Dialog({
                     title: "Order Insights provided by GEN AI",
                     draggable:true,
