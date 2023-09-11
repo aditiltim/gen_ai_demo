@@ -79,7 +79,8 @@
 							
 							<!-- <ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />	 -->
 							<HBox id="_IDGenHBox2">
-								<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent" />
+								<!-- <Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent" /> -->
+								<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{parts: ['oTableModel>Feed','oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.feedCheck'}" type="Transparent" />
 							</HBox>
 							
 							<!-- <HBox>
