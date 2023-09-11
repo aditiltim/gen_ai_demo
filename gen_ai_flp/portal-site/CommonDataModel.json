@@ -62,7 +62,14 @@
 									"config": {
 										"applications": {
 											"Shell-home": {}
-										}
+										},
+										"enableSearch": false,
+										"enablePersonalization": true,
+										"enableSetTheme": true,
+										"enableSetLanguage": true,
+										"enableAutomaticSignout": true,
+										"sessionTimeoutIntervalInMinutes": 20,
+										"sessionTimeoutReminderInMinutes": 10
 									}
 								}
 							}

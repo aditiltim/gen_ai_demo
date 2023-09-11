@@ -45,7 +45,7 @@
                     <Column id="column9" hAlign="Left"> 
                         <Label id="label9" design="Bold" text="Realistic Finished Date" wrapping="true"/>
                     </Column>
-                    <Column id="column10" hAlign="Center"> 
+                    <Column id="column10" hAlign="Left"> 
                         <Label id="label10" design="Bold" text="Delivery Date Impact Insights" wrapping="true"/>
                     </Column>
                 </columns>
