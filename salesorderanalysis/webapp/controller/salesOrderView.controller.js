@@ -8,12 +8,13 @@ sap.ui.define([
   "sap/m/ObjectStatus",
   "sap/m/ToolbarSpacer",
   "sap/m/VBox",
-  "sap/m/BusyDialog"
+  "sap/m/BusyDialog",
+  "sap/m/FormattedText"
 ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, MessageBox, formatter, Button, Dialog, Text, ObjectStatus, ToolbarSpacer, VBox) {
+  function (Controller, MessageBox, formatter, Button, Dialog, Text, ObjectStatus, ToolbarSpacer, VBox, FormattedText) {
     "use strict";
 
     return Controller.extend("hac2build.salesorderanalysis.controller.salesOrderView", {
@@ -43,7 +44,7 @@ sap.ui.define([
         });
       },
       onSelectedRow: function (oEvent) {
-        if(this.getView().byId("idTablelist").getSelectedItem()){
+        if (this.getView().byId("idTablelist").getSelectedItem()) {
           var oSelectedItem = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").getObject();
           var oRowModel = new sap.ui.model.json.JSONModel();
           oRowModel.setData(oSelectedItem);
@@ -51,86 +52,86 @@ sap.ui.define([
         }
       },
       onAvailablePress: function (oEvent) {
-        if(this.getView().byId("idTablelist").getSelectedItem()){
-            this.busyDialog.open();
-            var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
-            var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
-            var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
-            var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
-            // var genDate = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
+        if (this.getView().byId("idTablelist").getSelectedItem()) {
+          this.busyDialog.open();
+          var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
+          var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
+          var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
+          var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
+          // var genDate = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
 
-            var oGenModel = new sap.ui.model.json.JSONModel();
-            var that = this;
-            var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
-            var token;
-            $.ajax({
-              url: sUrl,
-              method: "GET",
-              async: true,
-              headers: {
-                "X-CSRF-Token": "Fetch"
-              },
-              success: function (result, xhr, data) {
-                token = data.getResponseHeader("X-CSRF-Token");
-              },
-              error: function (result, xhr, data) {
-                console.log("Error");
-              },
-            });
-            var urlext = "getNewsSummaryData";
-            var payload = {
-              "newsData": {
-                "company_name": cust_name,
-                "delivery_date": del_date
-              }
+          var oGenModel = new sap.ui.model.json.JSONModel();
+          var that = this;
+          var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+          var token;
+          $.ajax({
+            url: sUrl,
+            method: "GET",
+            async: true,
+            headers: {
+              "X-CSRF-Token": "Fetch"
+            },
+            success: function (result, xhr, data) {
+              token = data.getResponseHeader("X-CSRF-Token");
+            },
+            error: function (result, xhr, data) {
+              console.log("Error");
+            },
+          });
+          var urlext = "getNewsSummaryData";
+          var payload = {
+            "newsData": {
+              "company_name": cust_name,
+              "delivery_date": del_date
             }
-            var that = this;
-            jQuery.ajax({
-              url: sUrl + urlext,
-              type: "POST",
-              async: true,
-              headers: {
-                "X-CSRF-Token": token
-              },
-              data: JSON.stringify(payload),
-              contentType: "application/json",
-              success: function (oData) {
-                that.busyDialog.close();
+          }
+          var that = this;
+          jQuery.ajax({
+            url: sUrl + urlext,
+            type: "POST",
+            async: true,
+            headers: {
+              "X-CSRF-Token": token
+            },
+            data: JSON.stringify(payload),
+            contentType: "application/json",
+            success: function (oData) {
+              that.busyDialog.close();
               // MessageBox.success("Success");
               oGenModel.setData(oData);
               that.getView().setModel(oGenModel, "oGenModel");
-                var updatedDate = oData.updated_delivery_date;
-                var oResponseDate = new Date(updatedDate);
-                var deliveryDate = new Date(del_date);
-                var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
-                var formattedRespDate = dateFormat.format(oResponseDate);
-                var formattedDelDate = dateFormat.format(deliveryDate);
-                // var calcDiffDate = new Date(updatedDate);
-                var iNegativeSentiment = oData.percentage_negative_news;
-                iNegativeSentiment = iNegativeSentiment.toFixed(2);
-              if (formattedRespDate > formattedDelDate) {           
-                  sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
-                  //sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
-                  sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-              }else{
-                  sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+              var updatedDate = oData.updated_delivery_date;
+              var oResponseDate = new Date(updatedDate);
+              var deliveryDate = new Date(del_date);
+              var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+              var formattedRespDate = dateFormat.format(oResponseDate);
+              var formattedDelDate = dateFormat.format(deliveryDate);
+              // var calcDiffDate = new Date(updatedDate);
+              var iNegativeSentiment = oData.percentage_negative_news;
+              iNegativeSentiment = iNegativeSentiment.toFixed(2);
+              if (formattedRespDate > formattedDelDate) {
+                sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                //sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
+                sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
+              } else {
+                sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
               }
 
 
-                var negSentiment = oData.percentage_negative_news;
-                // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
-                // this.getView().byId("idTablelist").getBinding("items").refresh();
-                console.log(oData.value);
-              },
-              error: function (e) {
-                that.busyDialog.close();
-                MessageBox.error(e.statusText);
-              },
-            
-            });
-      }else{
-        MessageBox.error("Please select a row");
-      }
+              var negSentiment = oData.percentage_negative_news;
+              // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
+              // this.getView().byId("idTablelist").getBinding("items").refresh();
+              console.log(oData.value);
+            },
+            error: function (e) {
+              that.busyDialog.close();
+              MessageBox.error(e.statusText);
+            },
+
+          });
+        } else {
+          MessageBox.error("Please select a row");
+        }
       },
       onOpenPopoverDialog: function () {
         if (!this._oNewDialog) {
@@ -152,9 +153,9 @@ sap.ui.define([
         var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;
         //var del_date = this.getView().getModel("oRowModel").oData.Current_SAP_Delivery_Date;
         var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;
-       // var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
+        // var gen_date = this.getView().getModel("oRowModel").oData.GEN_AI_Delivery_Date;
         var item = this.getView().getModel("oRowModel").oData.SO_Item;
-        
+
         //formatting Gen date to be passed
         var del_date = this.getView().getModel("oGenModel").oData.updated_delivery_date;
         var deliveryDate = new Date(del_date);
@@ -215,8 +216,8 @@ sap.ui.define([
             that.busyDialog.close();
             if (oData) {
               var oEmailModel = new sap.ui.model.json.JSONModel();
-              oEmailModel.setData(oData);                 
-              
+              oEmailModel.setData(oData);
+
               that.onOpenPopoverDialog();
               sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
             }
@@ -227,7 +228,7 @@ sap.ui.define([
           },
         });
       },
-      onSendSuccess: function(){
+      onSendSuccess: function () {
         sap.m.MessageBox.success("Email has been sent successfully");
         this._oNewDialog.close();
       },
@@ -235,32 +236,162 @@ sap.ui.define([
         var oUrl = 'https://llm-chatbot-app-wacky-puku-dt.cfapps.eu10.hana.ondemand.com/';
         var topsss = screen.height - 490;
         var left = screen.width - 420;
-        window.open(oUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + topsss + ",left=" + left + ",width=420,height=490");      
-    },
-    onClickInsights: function (oEvent) {
-      //debugger
-      var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
-      var oDialog = new Dialog({
+        window.open(oUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + topsss + ",left=" + left + ",width=420,height=490");
+      },
+      onClickInsights: function (oEvent) {
+        //debugger
+        //var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
+        var value = oEvent.oSource.getBindingContext("oTableModel").getProperty("Feed");
+        var oDialog = new Dialog({
           title: "Order Insights provided by GEN AI",
-          draggable:true,
+          draggable: true,
           content: [
-              new VBox({
-                // class:"sapUiResponsiveContentPadding",
-                  items:[
-                      new Text({text: value}),
-                  ],
-                  alignItems: "Start",
-              }).addStyleClass("spaceALL")
+            new VBox({
+              // class:"sapUiResponsiveContentPadding",
+              items: [
+                new Text({ text: value }),
+              ],
+              alignItems: "Start",
+            }).addStyleClass("spaceALL")
           ],
           beginButton: new Button({
-              text: "Close",
-              press: function () {
-                  oDialog.close();
-              }
-           })
-          });
-          oDialog.open();
-        },  
+            text: "Close",
+            press: function () {
+              oDialog.close();
+            }
+          })
+        });
+        oDialog.open();
+      },
+      // Suggestion function
+      onSuggestionPress: function (odata) {
+        //debugger
+        this.busyDialog.open();
+        var that = this;
+        
+        //payload params
+        // var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;     
+        // var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;   
+        // var item = this.getView().getModel("oRowModel").oData.SO_Item;
+
+       
+        var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
+
+        var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+        var token;
+        $.ajax({
+          url: sUrl,
+          method: "GET",
+          async: true,
+          headers: {
+            "X-CSRF-Token": "Fetch",
+          },
+          success: function (result, xhr, data) {
+            token = data.getResponseHeader("X-CSRF-Token");
+          },
+          error: function (result, xhr, data) {
+            console.log("Error");
+
+          },
+        });
+        var urlext = "getSuggestionData";
+        var payload = {
+          "suggestionData": {
+            "news_summary": newsSummary           
+          }
+        }
+
+       
+        jQuery.ajax({
+          url: sUrl + urlext,
+          type: "POST",
+          async: true,
+          headers: {
+            "X-CSRF-Token": token,
+          },
+          data: JSON.stringify(payload),
+          contentType: "application/json",
+          success: function (oData) {
+            //debugger
+            that.busyDialog.close();
+            if (oData) {
+              //var suggData = oData.suggestion.split("\n\n")
+              var oSuggestionModel = new sap.ui.model.json.JSONModel();
+              oSuggestionModel.setData(oData);
+              
+              that.onOpenPopoverDialogSuggest();
+              sap.ui.getCore().byId("_IDNewDialogSuggest").setModel(oSuggestionModel, "oSuggestionModel");
+              //var value = oEvent.oSource.getBindingContext("oTableModel").getProperty("Suggestion");
+
+              // var oDialog = new Dialog({
+              //   title: "Suggestions provided by GEN AI",
+              //   draggable: true,
+              //   content: [
+              //     new VBox({
+              //       // class:"sapUiResponsiveContentPadding",
+              //       items: [
+
+              //        // new FormattedText({ htmlText: suggData })
+              //       ],
+              //       alignItems: "Start",
+              //     }).addStyleClass("spaceALL")
+              //   ],
+              //   beginButton: new Button({
+              //     text: "Close",
+              //     press: function () {
+              //       oDialog.close();
+              //     }
+              //   })
+              // });
+              //oDialog.open();
+              //that.onOpenPopoverDialog();
+             // sap.ui.getCore().byId("_IDNewDialog").setModel(oSuggestionModel, "oSuggestionModel");
+            }
+          },
+          error: function (e) {
+            that.busyDialog.close();
+            MessageBox.error("Please add proper data");
+          },
+        });
+      },
+      onOpenPopoverDialogSuggest: function () {
+        if (!this._oNewDialogSugg) {
+          this._oNewDialogSugg = sap.ui.xmlfragment("hac2build.salesorderanalysis.fragments.newSuggestion", this);
+          this.getView().addDependent(this._oNewDialogSugg);
+        }
+        this._oNewDialogSugg.open();
+      },
+      onNewDialogCancelSuggest: function () {
+        this._oNewDialogSugg.close();
+      },
+      onClickSuggestion: function (oEvent) {
+        //debugger
+        //var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
+        var value = oEvent.oSource.getBindingContext("oTableModel").getProperty("Suggestion");
+        var oDialog = new Dialog({
+          title: "Suggestions provided by GEN AI",
+          draggable: true,
+          content: [
+            new VBox({
+              // class:"sapUiResponsiveContentPadding",
+              items: [
+                new Text({ text: value }),
+              ],
+              alignItems: "Start",
+            }).addStyleClass("spaceALL")
+          ],
+          beginButton: new Button({
+            text: "Close",
+            press: function () {
+              oDialog.close();
+            }
+          })
+        });
+        oDialog.open();
+      },
+
+
+
       onClickSentiment: function (oEvent) {
         var value, value1, value2, icon, icon1, icon2;
         var sentiment = parseInt(oEvent.getSource().getText());

@@ -26,21 +26,25 @@ sap.ui.define(function () {
       }
     },
     statusTextSentiment: function (sentiment) {
-
       if (sentiment >= 0 && sentiment <= 30) {
-
         return "Success";
-
       } else if (sentiment > 30 && sentiment <= 55) {
-
         return "Information";
-
       } else if (sentiment > 55) {
-
         return "Error";
-
       }
-
+    },
+    feedCheck:function(feedInp, genDate, currDate){
+    //  debugger;
+      var oDelDate = new Date(currDate);
+      var oGenDate = new Date(genDate);
+      //var diffDays = oGenDate.getDate() - oDelDate.getDate();
+      var diffDays = parseInt((oGenDate - oDelDate) / (1000 * 60 * 60 * 24), 10);
+      if(feedInp !== null && diffDays > 0){
+        return true;
+      }else{
+        return false;
+      }
     }
   };
 
