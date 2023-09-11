@@ -74,7 +74,7 @@
 						<Label id="_IDGenLabel9" design="Bold" wrapping="true" text="Realistic Delivery Date"/>
 					</Column>
 					<Column id="_IDGenColumn17" hAlign="Left" autoPopinWidth="50">
-						<Label id="_IDGenLabel17" design="Bold" wrapping="true" text="Order Insights"/>
+						<Label id="_IDGenLabel17" design="Bold" wrapping="true" text="Delivery Date Impact Insights"/>
 					</Column>
 				</columns>
 				<items>

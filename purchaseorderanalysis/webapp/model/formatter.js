@@ -15,8 +15,8 @@ sap.ui.define(function () {
       statusText: function(genDate, delDate){
         var oDelDate = new Date(delDate);
         var oGenDate = new Date(genDate);
-        var diffDays = parseInt((oGenDate - oDelDate) / (1000 * 60 * 60 * 24), 10);
-        // var diffDays = oGenDate.getDate() - oDelDate.getDate();
+        // var diffDays = parseInt((oGenDate - oDelDate) / (1000 * 60 * 60 * 24), 10);
+        var diffDays = oGenDate.getDate() - oDelDate.getDate();
         if(diffDays > 0){
             return "Error";
         } else if(diffDays <= 0){
