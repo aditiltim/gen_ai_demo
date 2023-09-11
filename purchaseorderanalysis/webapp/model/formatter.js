@@ -41,6 +41,29 @@ sap.ui.define(function () {
     else
       strIcon = "sap-icon://badge"
     return strIcon;
+  },
+  feedCheck: function (feedInp, genDate, currDate) {
+
+    debugger;
+
+    var oDelDate = new Date(currDate);
+
+    var oGenDate = new Date(genDate);
+
+    //var diffDays = oGenDate.getDate() - oDelDate.getDate();
+
+    var diffDays = parseInt((oGenDate - oDelDate) / (1000 * 60 * 60 * 24), 10);
+
+    if (feedInp !== null && diffDays > 0) {
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
+
   }
 	};
 

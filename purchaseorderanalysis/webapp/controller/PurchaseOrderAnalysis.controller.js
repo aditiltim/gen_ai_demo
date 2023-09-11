@@ -42,13 +42,13 @@ sap.ui.define([
         });
       },
       onSelectedRow: function (oEvent) {
-      if(this.getView().byId("idTablelist").getSelectedItem()){
-        var oSelectedItem = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").getObject();
-        var oRowModel = new sap.ui.model.json.JSONModel();
-        oRowModel.setData(oSelectedItem);
-        this.getView().setModel(oRowModel, "oRowModel");
-      }
-    },
+        if (this.getView().byId("idTablelist").getSelectedItem()) {
+          var oSelectedItem = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").getObject();
+          var oRowModel = new sap.ui.model.json.JSONModel();
+          oRowModel.setData(oSelectedItem);
+          this.getView().setModel(oRowModel, "oRowModel");
+        }
+      },
       onLocalAI: function (oEvent) {
         this.oBusyDialog.open();
         var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
@@ -124,106 +124,116 @@ sap.ui.define([
         });
       },
       onAvailablePress: function (oEvent) {
-      if(this.getView().byId("idTablelist").getSelectedItem()){
-        debugger
-        this.oBusyDialog.open();
-        var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
-        var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
-        var customer = this.getView().getModel("oRowModel").oData.Supplier_Name;
-        var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
-        var that = this;
-        var oGenModel = new sap.ui.model.json.JSONModel();
-        var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
-        var token;
-        $.ajax({
-          url: sUrl,
-          method: "GET",
-          async: false,
-          headers: {
-            "X-CSRF-Token": "Fetch"
-          },
-          success: function (result, xhr, data) {
-            token = data.getResponseHeader("X-CSRF-Token");
-          },
-          error: function (result, xhr, data) {
-            console.log("Error");
-          },
-        });
-        var urlext = "getNewsSummaryData";
-        var payload = {
-          "newsData": {
-            "company_name": customer,
-            "delivery_date": del_date
+        if (this.getView().byId("idTablelist").getSelectedItem()) {
+          debugger
+          this.oBusyDialog.open();
+          var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
+          var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
+          var customer = this.getView().getModel("oRowModel").oData.Supplier_Name;
+          var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
+          var that = this;
+          var oGenModel = new sap.ui.model.json.JSONModel();
+          var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+          var token;
+          $.ajax({
+            url: sUrl,
+            method: "GET",
+            async: false,
+            headers: {
+              "X-CSRF-Token": "Fetch"
+            },
+            success: function (result, xhr, data) {
+              token = data.getResponseHeader("X-CSRF-Token");
+            },
+            error: function (result, xhr, data) {
+              console.log("Error");
+            },
+          });
+          var urlext = "getNewsSummaryData";
+          var payload = {
+            "newsData": {
+              "company_name": customer,
+              "delivery_date": del_date
+            }
           }
+          jQuery.ajax({
+            url: sUrl + urlext,
+            type: "POST",
+            async: true,
+            headers: {
+              "X-CSRF-Token": token
+            },
+            data: JSON.stringify(payload),
+            contentType: "application/json",
+            // success: function (oData) {
+            //   var that = this;
+            //     sap.m.MessageBox.success("Success");
+            //     console.log(oData)
+            //     sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", oData.updated_delivery_date);
+            //     sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
+            //     console.log(oData.value);
+            //     //that.downloadExcel(oData.value);
+
+            // },
+            success: function (oData) {
+              that.oBusyDialog.close();
+              // MessageBox.success("Success");
+              oGenModel.setData(oData);
+              that.getView().setModel(oGenModel, "oGenModel");
+              var updatedDate = oData.updated_delivery_date;
+              var oResponseDate = new Date(updatedDate);
+              var deliveryDate = new Date(del_date);
+              var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+              var formattedRespDate = dateFormat.format(oResponseDate);
+              var formattedDelDate = dateFormat.format(deliveryDate);
+              // var calcDiffDate = new Date(updatedDate);
+              if (formattedRespDate > formattedDelDate) {
+                //that.getView().byId("_IDGenObjectStatus1").setState("Error");
+                sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
+                sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
+                console.log("updatedDate is greater");
+              }
+              else {
+                sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
+                sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
+                // sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
+                console.log("updatedDate is less than or equal to ");
+              }
+              var negSentiment = oData.percentage_negative_news;
+
+
+              // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
+              // this.getView().byId("idTablelist").getBinding("items").refresh();
+              console.log(oData.value);
+
+            },
+
+            error: function (e) {
+              that.oBusyDialog.close();
+              MessageBox.error("Request Timeout");
+            },
+          });
+        } else {
+          MessageBox.error("Please select a row");
         }
-        jQuery.ajax({
-          url: sUrl + urlext,
-          type: "POST",
-          async: true,
-          headers: {
-            "X-CSRF-Token": token
-          },
-          data: JSON.stringify(payload),
-          contentType: "application/json",
-          // success: function (oData) {
-          //   var that = this;
-          //     sap.m.MessageBox.success("Success");
-          //     console.log(oData)
-          //     sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", oData.updated_delivery_date);
-          //     sap.ui.getCore().byId("idTablelist").getBinding("items").refresh();
-          //     console.log(oData.value);
-          //     //that.downloadExcel(oData.value);
-
-          // },
-          success: function (oData) {
-            that.oBusyDialog.close();
-            // MessageBox.success("Success");
-            oGenModel.setData(oData);
-            that.getView().setModel(oGenModel, "oGenModel");
-            var updatedDate = oData.updated_delivery_date;
-            var oResponseDate = new Date(updatedDate);
-            var deliveryDate = new Date(del_date);
-            var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
-            var formattedRespDate = dateFormat.format(oResponseDate);
-            var formattedDelDate = dateFormat.format(deliveryDate);
-            // var calcDiffDate = new Date(updatedDate);
-            if (formattedRespDate > formattedDelDate) {
-              //that.getView().byId("_IDGenObjectStatus1").setState("Error");
-              sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
-              sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
-              sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-              console.log("updatedDate is greater");
-            }
-            else {
-              sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedRespDate);
-              sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", oData.percentage_negative_news);
-              // sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-              console.log("updatedDate is less than or equal to ");
-            }
-            var negSentiment = oData.percentage_negative_news;
-
-
-            // sContext.getModel("oTableModel").setProperty(sPath +"/GEN_AI_Delivery_Date", negSentiment);
-            // this.getView().byId("idTablelist").getBinding("items").refresh();
-            console.log(oData.value);
-
-          },
-
-          error: function (e) {
-            that.oBusyDialog.close();
-            MessageBox.error("Request Timeout");
-          },
-        });
-      }else{
-        MessageBox.error("Please select a row");
-      }
-    },
+      },
       onOpenPopoverDialog: function () {
         if (!this._oNewDialog) {
           this._oNewDialog = sap.ui.xmlfragment("hac2build.purchaseorderanalysis.fragments.newDialog", this);
           this.getView().addDependent(this._oNewDialog);
         }
         this._oNewDialog.open();
+      },
+      onOpenASNPopoverDialog: function () {
+        if (!this._oNewASNDialog) {
+          this._oNewASNDialog = sap.ui.xmlfragment("hac2build.purchaseorderanalysis.fragments.newASNDialog", this);
+          this.getView().addDependent(this._oNewASNDialog);
+        }
+        this._oNewASNDialog.open();
+      },
+      onNewASNDialogCancel: function () {
+        this._oNewASNDialog.close();
       },
       onNewDialogCancel: function () {
         this._oNewDialog.close();
@@ -252,7 +262,7 @@ sap.ui.define([
         $.ajax({
           url: sUrl,
           method: "GET",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": "Fetch",
           },
@@ -289,7 +299,7 @@ sap.ui.define([
         jQuery.ajax({
           url: sUrl + urlext,
           type: "POST",
-          async: false,
+          async: true,
           headers: {
             "X-CSRF-Token": token,
           },
@@ -301,9 +311,10 @@ sap.ui.define([
             if (oData) {
               var oEmailModel = new sap.ui.model.json.JSONModel();
               oEmailModel.setData(oData);
-
               that.onOpenPopoverDialog();
+              // var oEmailModel = new sap.ui.model.json.JSONModel();
               sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
+
             }
           },
           error: function (e) {
@@ -457,15 +468,23 @@ sap.ui.define([
         sap.m.MessageBox.success("Email has been sent successfully");
         this._oNewDialog.close();
       },
-      onCallASN: function (oData) {
-        // debugger
-        // var sold_To = this.getView().getModel("oRowModel").oData.PO_Item;
-        // var del_date = this.getView().getModel("oRowModel").oData.Material;
-        // var cust_name = this.getView().getModel("oRowModel").oData.Material_Description;
-        // var gen_date = this.getView().getModel("oRowModel").oData.Quantity;
-        // var item = JSON.stringify(this.getView().getModel("oRowModel").oData.Plant);
-        // var gen_date = this.getView().getModel("oRowModel").oData.S_LOC
-        // var gen_date = this.getView().getModel("oRowModel").oData.Delivery_date
+      onCallASN: function (odata) {
+        debugger
+        // var sPath = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel").sPath;
+        // var sContext = this.getView().byId("idTablelist").getSelectedItem().getBindingContext("oTableModel")
+        var po_item = JSON.stringify(this.getView().getModel("oRowModel").oData.PO_Item);
+        var po_no = this.getView().getModel("oRowModel").oData.PO;
+        var material = this.getView().getModel("oRowModel").oData.Material;
+        var mat_desc = this.getView().getModel("oRowModel").oData.Material_Description;
+        var quantity = JSON.stringify(this.getView().getModel("oRowModel").oData.Quantity);
+        var plant = this.getView().getModel("oRowModel").oData.Plant;
+        var s_loc = this.getView().getModel("oRowModel").oData.S_LOC;
+        var del_date = this.getView().getModel("oRowModel").oData.Delivery_date;
+        var s_name = this.getView().getModel("oRowModel").oData.Supplier_Name;
+        var s_no = this.getView().getModel("oRowModel").oData.Supplier;
+        var pur_name = this.getView().getModel("oRowModel").oData.Purchase_Orgnisation;
+        var pur_grp = this.getView().getModel("oRowModel").oData.Purchasing_Group;
+        var uom = 'EA';
         this.oBusyDialog.open();
         var that = this;
         var oPath = "getBearerToken()";
@@ -479,11 +498,26 @@ sap.ui.define([
             // debugger
 
             var oBearer = oData.value;
-            var raw = "Po Item Material No Description Po Qty UOM Plant Storage Locn PO Del. date 10 P100-100-01-04 Mechanical Seals 180 EA 1710 1000 25/10/202"
-            var raw1 = "Po Item Material No Description Po Qty UOM Plant Storage Locn PO Del. date \n"+ 
-            "10 P100-100-01-01 Pump Casing Split Case 220 EA 1710 1000 15/11/2023"
-            var prompt = "Extract the data for the below feilds:\nPo Item, Material No, Description, Po, Qty, UOM, Plant, Storage Locn, PO Del. date, from the below data\n" +
-                                raw1 + " return json key value pair \nNote: put null for fields which doesnot have any data."
+            var raw = {
+              "Purchasing Group ": pur_grp,
+              "Purchasing Organization ": pur_name,
+              "Purchase Order ": po_item,
+              "Item Number": po_item,
+              "Material ": material,
+              "Material Description": mat_desc,
+              "Quantity": quantity,
+              "UOM": uom,
+              "Plant": plant,
+              "Storage Location": s_loc,
+              "PO_Delivery Date": del_date,
+              "PO_No": po_no,
+              "Supplier": s_name,
+              "Supplier Id": s_no
+            }
+            // var raw = "Po Item Material No Description Po Qty UOM Plant Storage Locn PO Del. date 10 P100-100-01-04 Mechanical Seals 180 EA 1710 1000 25/10/202"
+            // var raw1 = "Po Item Material No Description Po Qty UOM Plant Storage Locn PO Del. date 10 P100-100-01-01 Pump Casing Split Case 180 EA 1710 1000 25/10/2023"            
+            var prompt = "Extract the data for the below feilds:\nPurchasing Group, Purchasing Organization, Purchase Order,Item Number, Material, Material Description, Quantity, Plant, Storage Location, PO_Delivery, Supplier, Supplier Id\nfrom the below data\n" +
+              raw + " return json key value pair \nNote: put null for fields which does not have any data."
             var settings = {
               "url": "https://openai-serv-app.cfapps.eu10-004.hana.ondemand.com/api/v1/completions",
               "method": "POST",
@@ -498,17 +532,53 @@ sap.ui.define([
                 "max_tokens": 500,
               }),
             };
+            // var p_json = JSON.parse(raw);
             $.ajax(settings).done(function (response) {
+              debugger
               that.oBusyDialog.close();
               console.log(response);
-              // that.onClickASNP(response);
-              MessageBox.success("Processing of ASN is successfull")
+              console.log(raw)
+              // that.onClickASNP(response.responseText);
+              var str = JSON.stringify(raw, null, "\t")
+              str = str.replace(/"/g, '')
+              str.replace(/"/g, '')
+              MessageBox.success("Processing of ASN is successfull. \n\n Output of ASN in JSON Format is \n\n" + str)
+              // var oDialog = new Dialog({
+              //   title: "ASN Processing",
+              //   draggable:true,
+              //   content: [
+              //     new VBox({
+              //       // class:"sapUiResponsiveContentPadding",
+              //       items: [
+              //         new Text({ text: str  }),
+              //       ],
+              //       alignItems: "Start",
+              //     })
+              //   ],
+              //   beginButton: new Button({
+              //     text: "Close",
+              //     press: function () {
+              //       oDialog.close();
+              //     }
+
+              //   })
+
+              // });
+              // oDialog.open();
+              // if (str) {
+              //   var oEmailModel = new sap.ui.model.json.JSONModel();
+              //   oEmailModel.setData(str);
+
+              //   that.onOpenASNPopoverDialog();
+              //   sap.ui.getCore().byId("_IDNewASNDialog").setModel(oASNModel, "oASNModel");
+              // }
+
               // MessageBox.success("Processing of ASN is successfull. Output is "+response.choices[0].text.split("\n")[2].split(",",8).toString())
             });
           },
           error: function (jqXHR) {
             that.oBusyDialog.close();
-            
+            sap.m.MessageBox.error(jqXHR.responseText);
           },
         });
         // jQuery.ajax({
@@ -543,10 +613,10 @@ sap.ui.define([
       },
       onClickInsights: function (oEvent) {
         debugger
-        var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
+        var value = oEvent.oSource.mBindingInfos.visible.binding.aValues[0];
         var oDialog = new Dialog({
           title: "Order Insights provided by GEN AI",
-          draggable:true,
+          draggable: true,
           content: [
             new VBox({
               // class:"sapUiResponsiveContentPadding",
@@ -568,33 +638,178 @@ sap.ui.define([
         oDialog.open();
 
       },
-      onClickASNP: function (response) {
-        debugger
-        var value = response.choices[0].text.split("\n")[2].split(",",8).toString();
-        var oDialog = new Dialog({
-          title: "ASN Processing response",
-          content: [
-            new VBox({
-              // class:"sapUiResponsiveContentPadding",
-              items: [
-                new Text({ text: "ASN Processing is Successfull" }),
-                value
-              ],
-              alignItems: "Start",
-            }).addStyleClass("spaceALL")
-          ],
-          beginButton: new Button({
-            text: "Close",
-            press: function () {
-              oDialog.close();
-            }
+      onTranslate: function (odata) {
+        // var oTransModel = new sap.ui.model.json.JSONModel();
+        // var email = this.getView().getModel("oEmailModel").oData.subject;
+        var subject = sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").oData.subject;
+        var body = sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").oData.body;
+        // var body="Dear GE Electric,\n\nWe hope this email finds you well. \n\nWe are getting in touch with you regarding Order ID #4500002993, which contains item ID #10 from your esteemed organization. We have recently been monitoring the activities in the Industrial Products market sphere and have been made aware of the recent slump in stock performance of General Electric Co. We understand these are volatile times and believe that it could potentially affect our ongoing orders.\n\nTherefore, we are writing to confirm the estimated delivery date of this pending order. According to our records, the new estimated delivery date is slated to be on 01-11-2023. We understand that the current market condition is difficult, and there may be challenges that could lead to potential delays. \n\nHowever, we want to ensure that we are managing our resources in the most effective way, and therefore knowing your projected delivery schedule would help align with our plans. We hope you appreciate our position and will update us at the earliest opportunity.\n\nWe look forward to your timely response to ensure we can adjust our plans accordingly and continue maintaining fruitful cooperation.\n\nThank you in advance for your understanding and assistance.\n\nBest Regards,\n\nLTIMindtree Team"
+        // var subject = "Order Id - 4500002993 Item Id - 10 to be delivered on 01-11-2023"
+        var lan = 'DE'
+        // var lang = oEvent.mParameters.item.mProperties.text;
+        // if (lang == 'German') {
+        //   lang = 'DE'
+        // }
+        // else if (lang == 'Japanese') {
+        //   lang = 'JA'
+        // }
+        // else if (lang == 'French') { 
+        //   lang = 'FR' 
+        // }
+        // else { 
+        //   lang = 'EN' 
+        // }
+        var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+        var token;
+        $.ajax({
+          url: sUrl,
+          method: "GET",
+          async: true,
+          headers: {
+            "X-CSRF-Token": "Fetch",
+          },
+          success: function (result, xhr, data) {
+            token = data.getResponseHeader("X-CSRF-Token");
+          },
+          error: function (result, xhr, data) {
+            console.log("Error");
 
-          })
+          },
 
         });
-        oDialog.open();
 
-      }
+        var urlext = "getEmailTranslation";
+        var payload = {
+          "emailData": {
+            "body": body,
+            "subject": subject,
+            "language": lan
+          }
+        }
+        jQuery.ajax({
+          url: sUrl + urlext,
+          type: "POST",
+          async: true,
+          headers: {
+            "X-CSRF-Token": token,
+          },
+          data: JSON.stringify(payload),
+          contentType: "application/json",
+          success: function (oData) {
+            debugger
+            console.log(response)
+            if (oData) {
+              // oEmailModel.setData(oData);
+              // this.getModel("oEmailModel").refresh();
+              sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").refresh(true);
+            }
+          },
+          error: function (e) {
+            MessageBox.error(e+" Not able to Translate.Please try again later.");
+          },
+          // Suggestion function
+        });
+      },
+      onSuggestionPress: function (odata) {
+        debugger
+        this.oBusyDialog.open();
+        var that = this;
+        
+        //payload params
+        // var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;     
+        // var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;   
+        // var item = this.getView().getModel("oRowModel").oData.SO_Item;
+
+       
+        var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
+
+        var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+        var token;
+        $.ajax({
+          url: sUrl,
+          method: "GET",
+          async: true,
+          headers: {
+            "X-CSRF-Token": "Fetch",
+          },
+          success: function (result, xhr, data) {
+            token = data.getResponseHeader("X-CSRF-Token");
+          },
+          error: function (result, xhr, data) {
+            console.log("Error");
+
+          },
+        });
+        var urlext = "getSuggestionData";
+        var payload = {
+          "suggestionData": {
+            "news_summary": newsSummary           
+          }
+        }
+
+       
+        jQuery.ajax({
+          url: sUrl + urlext,
+          type: "POST",
+          async: true,
+          headers: {
+            "X-CSRF-Token": token,
+          },
+          data: JSON.stringify(payload),
+          contentType: "application/json",
+          success: function (oData) {
+            //debugger
+            that.oBusyDialog.close();
+            if (oData) {
+              //var suggData = oData.suggestion.split("\n\n")
+              var oSuggestionModel = new sap.ui.model.json.JSONModel();
+              oSuggestionModel.setData(oData);
+              
+              that.onOpenPopoverDialogSuggest();
+              sap.ui.getCore().byId("_IDNewDialogSuggest").setModel(oSuggestionModel, "oSuggestionModel");
+              //var value = oEvent.oSource.getBindingContext("oTableModel").getProperty("Suggestion");
+
+              // var oDialog = new Dialog({
+              //   title: "Suggestions provided by GEN AI",
+              //   draggable: true,
+              //   content: [
+              //     new VBox({
+              //       // class:"sapUiResponsiveContentPadding",
+              //       items: [
+
+              //        // new FormattedText({ htmlText: suggData })
+              //       ],
+              //       alignItems: "Start",
+              //     }).addStyleClass("spaceALL")
+              //   ],
+              //   beginButton: new Button({
+              //     text: "Close",
+              //     press: function () {
+              //       oDialog.close();
+              //     }
+              //   })
+              // });
+              //oDialog.open();
+              //that.onOpenPopoverDialog();
+             // sap.ui.getCore().byId("_IDNewDialog").setModel(oSuggestionModel, "oSuggestionModel");
+            }
+          },
+          error: function (e) {
+            that.oBusyDialog.close();
+            MessageBox.error("Please add proper data");
+          },
+        });
+      },
+      onOpenPopoverDialogSuggest: function () {
+        if (!this._oNewDialogSugg) {
+          this._oNewDialogSugg = sap.ui.xmlfragment("hac2build.purchaseorderanalysis.fragments.newSuggestion", this);
+          this.getView().addDependent(this._oNewDialogSugg);
+        }
+        this._oNewDialogSugg.open();
+      },
+      onNewDialogCancelSuggest: function () {
+        this._oNewDialogSugg.close();
+      },
     });
   });
 

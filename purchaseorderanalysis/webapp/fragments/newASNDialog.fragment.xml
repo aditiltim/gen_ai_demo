@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog id="_IDNewDialog" class="sapUiResponsiveContentPadding" title="ASN Processing"  state="Information"
+		beforeOpen="onBeforeFilterDialogOpen" contentWidth="50%">
+		<content>
+			<VBox id="_IDGenVBox1">
+				<!-- <HBox id="_IDGenHBox1"> -->
+					<!-- <Label id="_IDGenLabel1" text="Subject: "/> -->
+					<!-- <Text text="{oTableModel>/Sales_Order}"/> -->
+					<!-- <Text id="_IDGenText1" text="  Subject : {oASNModel>/asnstr}"/>  -->
+					<!-- <Label text="Body:"/> -->
+				<!-- </HBox> -->
+				<TextArea id="_IDGenTextArea1" value="{oASNModel>/asnstr}" rows="10" width="100%" height="100%" editable="false"/>
+				
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar id="_IDGenToolbar1" > 
+				<Button id="_IDGenButton2" text="Close" press="onNewASNDialogCancel" type="Default"/>
+			</Toolbar>
+		</footer>
+	</Dialog>
+</core:FragmentDefinition>
