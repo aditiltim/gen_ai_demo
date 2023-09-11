@@ -43,14 +43,20 @@ sap.ui.define([
 
             //  on Selecting item on table
             onSelectedRow: function (oEvent) {
-                var oSelectedItem = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel").getObject();
-                var oRowModel = new sap.ui.model.json.JSONModel();
-                oRowModel.setData(oSelectedItem);
-                this.getView().setModel(oRowModel, "oRowModel");
+                if(this.getView().byId("productionOrderTable").getSelectedItem()){
+                    var oSelectedItem = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel").getObject();
+                    var oRowModel = new sap.ui.model.json.JSONModel();
+                    oRowModel.setData(oSelectedItem);
+                    this.getView().setModel(oRowModel, "oRowModel");
+                }
             },
 
             // on press of generate reliastic date
             onAvailabilityCheckPress: function (oEvent) {
+                if(!this.getView().byId("productionOrderTable").getSelectedItem()){
+                    MessageBox.error("Please select a row");
+                    return;
+                }
                 this.oBusyDialog.open();
                 var that = this;
                 var sPath = this.getView().byId("productionOrderTable").getSelectedItem().getBindingContext("oTableModel").sPath;
@@ -59,6 +65,12 @@ sap.ui.define([
                 var dDeliveryDate = this.getView().getModel("oRowModel").oData.PO_Delivery_Date;
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 var token;
+
+                // payload for getNewsSummaryData API call
+                var odata = {
+                    "newsData": { "company_name": sCustomer, "delivery_date": dDeliveryDate }
+                }
+
                 // fetching x-csrf token 
                 $.ajax({
                     url: sUrl,
@@ -71,14 +83,9 @@ sap.ui.define([
                         token = data.getResponseHeader("X-CSRF-Token");
                     },
                     error: function (result, xhr, data) {
-                        console.log("Error");
+                        console.log("Error in X-CSRF Token");
                     }
                 });
-
-                // payload for getNewsSummaryData API call
-                var odata = {
-                    "newsData": { "company_name": sCustomer, "delivery_date": dDeliveryDate }
-                }
 
                 // API call - getNewsSummaryData
                 $.ajax({
@@ -102,21 +109,21 @@ sap.ui.define([
                         var formattedResponseDate = dateFormat.format(new Date(dUpdatedDate));
                         var formattedDeliveryDate = dateFormat.format(new Date(dDeliveryDate));
                         var formattedPredictedDate = dateFormat.format(new Date(predictedFinishDate));
-                        // if (formattedResponseDate > formattedDeliveryDate) {
+                        if (formattedResponseDate > formattedDeliveryDate) {
                             sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
                             // sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                             sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-                        // } else {
-                        //     sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
-                        //     sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
+                        } else {
+                            sContext.getModel("oTableModel").setProperty(sPath + "/GEN_AI_Delivery_Date", formattedResponseDate);
+                            sContext.getModel("oTableModel").setProperty(sPath + "/Predicted_Finish_Date", formattedPredictedDate);
                         //     // sContext.getModel("oTableModel").setProperty(sPath + "/Sentiment", iNegativeSentiment);
                         //     sContext.getModel("oTableModel").setProperty(sPath + "/Feed", oData.news_summarization);
-                        // }
+                        }
                     },
                     error: function (e) {
                         that.oBusyDialog.close();
-                        MessageBox.error("Gateway Timeout");
+                        MessageBox.error(e.statusText);
                     }
                 })
             },
@@ -193,6 +200,7 @@ sap.ui.define([
                 var value = oEvent.oSource.mBindingInfos.visible.binding.aValues;
                 var oDialog = new Dialog({
                     title: "Order Insights provided by GEN AI",
+                    draggable:true,
                     content: [
                         new VBox({
                             // class:"sapUiResponsiveContentPadding",

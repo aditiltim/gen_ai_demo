@@ -46,7 +46,7 @@
                         <Label id="label9" design="Bold" text="Realistic Finished Date" wrapping="true"/>
                     </Column>
                     <Column id="column10" hAlign="Left"> 
-                        <Label id="label10" design="Bold" text="Order Insights" wrapping="true"/>
+                        <Label id="label10" design="Bold" text="Delivery Date Impact Insights" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>
@@ -61,7 +61,7 @@
                             <ObjectIdentifier id="_IDGenObjectIdentifier7" title="{oTableModel>PO_Delivery_Date}"/>
                             <ObjectStatus id="_IDGenObjectStatus1" text="{oTableModel>GEN_AI_Delivery_Date}" state="{parts: ['oTableModel>GEN_AI_Delivery_Date', 'oTableModel>PO_Delivery_Date'], formatter: '.formatter.statusText'}"/>
                             <ObjectIdentifier id="_IDGenObjectIdentifier8" title="{oTableModel>Predicted_Finish_Date}"/>
-							<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://message-information" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent"/>
+							<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent"/>
 							<!-- <ObjectStatus id="_IDGenObjectStatus2" text="{oTableModel>Sentiment}" active="true" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}" press="onClickSentiment" />	                             -->
                             <!-- <HBox id="_IDGenHBox1">
                                 <core:Icon id="_IDGenIcon1" src="{= ${oTableModel>Sentiment} >= 0 &amp;&amp; ${oTableModel>Sentiment} &lt;= 20 ? 'sap-icon://bus-public-transport': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Logistics"/>

@@ -13,7 +13,6 @@ sap.ui.define(function () {
   // return Formatter;
   return {
     statusText: function (genDate, delDate) {
-      debugger
       var oDelDate = new Date(delDate);
       var oGenDate = new Date(genDate);
       //var diffDays = oGenDate.getDate() - oDelDate.getDate();
