@@ -60,6 +60,9 @@
 					<Column id="_IDGenColumn10" hAlign="Left" width="10%">
 						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Delivery Date Impact Insights"/>
 					</Column>
+					<Column id="_IDGenColumn11" hAlign="Left" width="10%">
+						<Label id="_IDGenLabel11" design="Bold" wrapping="true" text="Suggestion"/>
+					</Column>
 				</columns>
 				<items>
 					<ColumnListItem id="_IDGenColumnListItem1" class="cells" press="onRowSelected">
@@ -81,6 +84,10 @@
 							<HBox id="_IDGenHBox2">
 								<!-- <Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent" /> -->
 								<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{parts: ['oTableModel>Feed','oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.feedCheck'}" type="Transparent" />
+							</HBox>
+							<HBox id="_IDGenHBox3">
+								<!-- <Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent" /> -->
+								<Button id="ButtonSuggest" tooltip="Click to see the suggestions" icon="sap-icon://checklist" press="onSuggestionPress" visible="{parts: ['oTableModel>Feed','oTableModel>GEN_AI_Delivery_Date','oTableModel>Current_SAP_Delivery_Date'],formatter: '.formatter.feedCheck'}" type="Transparent" />
 							</HBox>
 							
 							<!-- <HBox>
