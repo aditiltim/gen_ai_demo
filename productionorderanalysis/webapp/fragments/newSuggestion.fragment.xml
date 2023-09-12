@@ -5,17 +5,13 @@
 			<VBox id="_IDGenVBox1">
 				<HBox >
 					<Label text=""/>
-					<!-- <Text text="{oTableModel>/Sales_Order}"/> -->
-					<!-- <Text text="{oEmailModel>/subject}"/>  -->
 				</HBox>				
-				<!-- <Label text="Body:"/> -->
 				<TextArea value="{oSuggestionModel>/suggestion}" rows="10" width="100%" height="100%" editable="false"/>
 				
 			</VBox>
 		</content>
 		<buttons>
 			<Button id="_IDGenButton1" text="Ok"  press="onNewDialogCancelSuggest" type="Emphasized"/> 
-			<!-- <Button id="_IDGenButton2" text="Close" press="onNewDialogCancel" type="Default"/> -->
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

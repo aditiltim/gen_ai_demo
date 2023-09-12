@@ -48,6 +48,9 @@
                     <Column id="column10" hAlign="Left"> 
                         <Label id="label10" design="Bold" text="Delivery Date Impact Insights" wrapping="true"/>
                     </Column>
+                    <Column id="column11" hAlign="Left">
+						<Label id="label11" design="Bold" wrapping="true" text="Suggested Actions"/>
+					</Column>
                 </columns>
                 <items>
                     <ColumnListItem id="_IDGenColumnListItem1">
@@ -72,6 +75,7 @@
                                 <core:Icon id="_IDGenIcon5" src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://machine': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Delay in Production Supply" class="sapUiTinyMarginEnd"/>
                                 <core:Icon id="_IDGenIcon6" src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://alert': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Natural Calamities"/>
                             </HBox> -->
+                            <Button id="ButtonSuggest" tooltip="Click to see the suggestions" icon="sap-icon://checklist" press="onSuggestionPress" visible="{parts: ['oTableModel>Feed','oTableModel>GEN_AI_Delivery_Date','oTableModel>PO_Delivery_Date'],formatter: '.formatter.feedCheck'}" type="Transparent" />
                         </cells>
                     </ColumnListItem>
                 </items>
