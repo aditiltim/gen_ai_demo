@@ -643,8 +643,9 @@ sap.ui.define([
         // var email = this.getView().getModel("oEmailModel").oData.subject;
         var subject = sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").oData.subject;
         var body = sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").oData.body;
-        // var body="Dear GE Electric,\n\nWe hope this email finds you well. \n\nWe are getting in touch with you regarding Order ID #4500002993, which contains item ID #10 from your esteemed organization. We have recently been monitoring the activities in the Industrial Products market sphere and have been made aware of the recent slump in stock performance of General Electric Co. We understand these are volatile times and believe that it could potentially affect our ongoing orders.\n\nTherefore, we are writing to confirm the estimated delivery date of this pending order. According to our records, the new estimated delivery date is slated to be on 01-11-2023. We understand that the current market condition is difficult, and there may be challenges that could lead to potential delays. \n\nHowever, we want to ensure that we are managing our resources in the most effective way, and therefore knowing your projected delivery schedule would help align with our plans. We hope you appreciate our position and will update us at the earliest opportunity.\n\nWe look forward to your timely response to ensure we can adjust our plans accordingly and continue maintaining fruitful cooperation.\n\nThank you in advance for your understanding and assistance.\n\nBest Regards,\n\nLTIMindtree Team"
-        // var subject = "Order Id - 4500002993 Item Id - 10 to be delivered on 01-11-2023"
+        // var body="Dear GE Electric,\n\nWe hope this email finds you well. \n\nWe are getting in touch with you regarding Order ID #4500002993, which contains item ID #10 from your esteemed organization." 
+        // We have recently been monitoring the activities in the Industrial Products market sphere and have been made aware of the recent slump in stock performance of General Electric Co. We understand these are volatile times and believe that it could potentially affect our ongoing orders.\n\nTherefore, we are writing to confirm the estimated delivery date of this pending order. According to our records, the new estimated delivery date is slated to be on 01-11-2023. We understand that the current market condition is difficult, and there may be challenges that could lead to potential delays. \n\nHowever, we want to ensure that we are managing our resources in the most effective way, and therefore knowing your projected delivery schedule would help align with our plans. We hope you appreciate our position and will update us at the earliest opportunity.\n\nWe look forward to your timely response to ensure we can adjust our plans accordingly and continue maintaining fruitful cooperation.\n\nThank you in advance for your understanding and assistance.\n\nBest Regards,\n\nLTIMindtree Team"
+        var subject = "Order Id - 4500002993 Item Id - 10 to be delivered on 01-11-2023"
         var lan = 'DE'
         // var lang = oEvent.mParameters.item.mProperties.text;
         // if (lang == 'German') {
@@ -697,15 +698,18 @@ sap.ui.define([
           contentType: "application/json",
           success: function (oData) {
             debugger
-            console.log(response)
+            console.log(oData)
             if (oData) {
+              // var oEmailModel = new sap.ui.model.json.JSONModel();
               // oEmailModel.setData(oData);
               // this.getModel("oEmailModel").refresh();
-              sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").refresh(true);
+              sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").setData(oData)
+              // sap.ui.getCore().byId("_IDNewDialog").setModel(oEmailModel, "oEmailModel");
+              sap.ui.getCore().byId("_IDNewDialog").getModel("oEmailModel").refresh()
             }
           },
           error: function (e) {
-            MessageBox.error(e+" Not able to Translate.Please try again later.");
+            MessageBox.error(e.statusText+" Not able to Translate.Please try again later.");
           },
           // Suggestion function
         });
