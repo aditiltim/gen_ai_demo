@@ -264,19 +264,14 @@ sap.ui.define([
         oDialog.open();
       },
       // Suggestion function
-      onSuggestionPress: function (odata) {
+      onSuggestionPress: function (oEvent) {
         //debugger
         this.busyDialog.open();
         var that = this;
         
-        //payload params
-        // var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;     
-        // var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;   
-        // var item = this.getView().getModel("oRowModel").oData.SO_Item;
-
-       
-        var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
-
+        //payload param
+        //var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
+        var sNewsSummary = oEvent.oSource.getBindingContext("oTableModel").getProperty("Feed");
         var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
         var token;
         $.ajax({
@@ -297,7 +292,7 @@ sap.ui.define([
         var urlext = "getSuggestionData";
         var payload = {
           "suggestionData": {
-            "news_summary": newsSummary           
+            "news_summary": sNewsSummary           
           }
         }
 
@@ -322,35 +317,12 @@ sap.ui.define([
               that.onOpenPopoverDialogSuggest();
               sap.ui.getCore().byId("_IDNewDialogSuggest").setModel(oSuggestionModel, "oSuggestionModel");
               //var value = oEvent.oSource.getBindingContext("oTableModel").getProperty("Suggestion");
-
-              // var oDialog = new Dialog({
-              //   title: "Suggestions provided by GEN AI",
-              //   draggable: true,
-              //   content: [
-              //     new VBox({
-              //       // class:"sapUiResponsiveContentPadding",
-              //       items: [
-
-              //        // new FormattedText({ htmlText: suggData })
-              //       ],
-              //       alignItems: "Start",
-              //     }).addStyleClass("spaceALL")
-              //   ],
-              //   beginButton: new Button({
-              //     text: "Close",
-              //     press: function () {
-              //       oDialog.close();
-              //     }
-              //   })
-              // });
-              //oDialog.open();
-              //that.onOpenPopoverDialog();
-             // sap.ui.getCore().byId("_IDNewDialog").setModel(oSuggestionModel, "oSuggestionModel");
+              
             }
           },
           error: function (e) {
             that.busyDialog.close();
-            MessageBox.error("Please add proper data");
+            MessageBox.error(e.statusText);
           },
         });
       },
