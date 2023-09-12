@@ -268,7 +268,7 @@ sap.ui.define([
         //debugger
         this.busyDialog.open();
         var that = this;
-        
+        var data = odata
         //payload params
         // var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;     
         // var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;   

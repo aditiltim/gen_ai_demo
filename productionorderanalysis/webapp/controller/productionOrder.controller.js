@@ -65,6 +65,7 @@ sap.ui.define([
                 var dDeliveryDate = this.getView().getModel("oRowModel").oData.PO_Delivery_Date;
                 var sUrl = this.getOwnerComponent().getModel().sServiceUrl;
                 var token;
+                var oGenModel = new sap.ui.model.json.JSONModel();
 
                 // payload for getNewsSummaryData API call
                 var odata = {
@@ -100,6 +101,8 @@ sap.ui.define([
                     success: function (oData) {
                         // setting new date from the API call along with Predicated finish date
                         that.oBusyDialog.close();
+                        oGenModel.setData(oData);
+                        that.getView().setModel(oGenModel, "oGenModel");
                         var dUpdatedDate = oData.updated_delivery_date;
                         var iNegativeSentiment = oData.percentage_negative_news;
                         iNegativeSentiment = iNegativeSentiment.toFixed(2);
@@ -221,6 +224,74 @@ sap.ui.define([
 
                 });
                 oDialog.open();
+            },
+
+            // on suggestion button press
+            onSuggestionPress: function(oEvent){
+                this.oBusyDialog.open();
+                var that = this;
+                // var sNewsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
+                var sNewsSummary = oEvent.oSource.getBindingContext("oTableModel").getProperty("Feed");
+                var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
+                var token;
+                $.ajax({
+                    url: sUrl,
+                    method: "GET",
+                    async: true,
+                    headers: {
+                        "X-CSRF-Token": "Fetch",
+                    },
+                    success: function(result, xhr, data){
+                        token = data.getResponseHeader("X-CSRF-Token");
+                    },
+                    error: function(result, xhr, data){
+                        console.log("Error in X-CSRF Token")
+                    }
+                });
+
+                var payload = {
+                    "suggestionData": {
+                        "news_summary": sNewsSummary
+                    }
+                }
+
+                $.ajax({
+                    url: sUrl + "getSuggestionData",
+                    type: "POST",
+                    async: true,
+                    headers: {
+                        "X-CSRF-Token": token,
+                    },
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                    success: function(oData){
+                        that.oBusyDialog.close();
+                        if(oData){
+                            var oSuggestionModel = new sap.ui.model.json.JSONModel();
+                            oSuggestionModel.setData(oData);
+                            that.onOpenPopoverDialogSuggest();
+                            sap.ui.getCore().byId("_IDNewDialogSuggest").setModel(oSuggestionModel, "oSuggestionModel");
+                        }
+                    },
+                    error: function(e) {
+                        that.oBusyDialog.close();
+                        MessageBox.error(e.statusText);
+                    }
+                });
+            },
+
+            //open suggestion popup
+            onOpenPopoverDialogSuggest: function() {
+                if(!this._oNewSuggestionDialog) {
+                    this._oNewSuggestionDialog = sap.ui.xmlfragment("hac2build.productionorderanalysis.fragments.newSuggestion", this);
+                    this.getView().addDependent(this._oNewSuggestionDialog);
+                }
+                this._oNewSuggestionDialog.open();
+            },
+
+            // close of suggestion dialog
+            onNewDialogCancelSuggest: function () {
+                this._oNewSuggestionDialog.close();
             }
         });
     });

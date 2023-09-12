@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog id="_IDNewDialogSuggest" class="sapUiResponsiveContentPadding" title="Suggestions"  state="Information"
+		beforeOpen="onBeforeFilterDialogOpen" contentWidth="50%">
+		<content>
+			<VBox id="_IDGenVBox1">
+				<HBox >
+					<Label text=""/>
+				</HBox>				
+				<TextArea value="{oSuggestionModel>/suggestion}" rows="10" width="100%" height="100%" editable="false"/>
+				
+			</VBox>
+		</content>
+		<buttons>
+			<Button id="_IDGenButton1" text="Ok"  press="onNewDialogCancelSuggest" type="Emphasized"/> 
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
