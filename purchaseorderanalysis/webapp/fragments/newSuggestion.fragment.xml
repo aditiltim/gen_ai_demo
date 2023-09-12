@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
-	<Dialog id="_IDNewDialogSuggest" class="sapUiResponsiveContentPadding" title="Suggestions"  state="Information"
+	<Dialog id="_IDNewDialogSuggest" class="sapUiResponsiveContentPadding" title="Suggested Actions"  state="Information"
 		beforeOpen="onBeforeFilterDialogOpen" contentWidth="50%">
 		<content>
 			<VBox id="_IDGenVBox1">

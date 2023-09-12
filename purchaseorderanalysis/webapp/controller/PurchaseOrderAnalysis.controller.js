@@ -714,7 +714,7 @@ sap.ui.define([
           // Suggestion function
         });
       },
-      onSuggestionPress: function (odata) {
+      onSuggestionPress: function (oEvent) {
         debugger
         this.oBusyDialog.open();
         var that = this;
@@ -725,8 +725,8 @@ sap.ui.define([
         // var item = this.getView().getModel("oRowModel").oData.SO_Item;
 
        
-        var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
-
+        // var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
+        var sNewsSummary = oEvent.oSource.getBindingContext("oTableModel").getProperty("Feed");
         var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
         var token;
         $.ajax({
@@ -747,7 +747,7 @@ sap.ui.define([
         var urlext = "getSuggestionData";
         var payload = {
           "suggestionData": {
-            "news_summary": newsSummary           
+            "news_summary": sNewsSummary     
           }
         }
 
