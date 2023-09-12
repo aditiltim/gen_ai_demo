@@ -2,7 +2,7 @@
 	<Dialog id="_IDNewDialogSuggest" class="sapUiResponsiveContentPadding" title="Suggested Actions"  state="Information"
 		beforeOpen="onBeforeFilterDialogOpen" contentWidth="50%" draggable="true">
 		<content>
-			<VBox id="_IDGenVBox1">
+			<VBox>
 				<HBox >
 					<Label text=""/>
 					<!-- <Text text="{oTableModel>/Sales_Order}"/> -->
