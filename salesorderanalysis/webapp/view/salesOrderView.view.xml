@@ -61,7 +61,7 @@
 						<Label id="_IDGenLabel10" design="Bold" wrapping="true" text="Delivery Date Impact Insights"/>
 					</Column>
 					<Column id="_IDGenColumn11" hAlign="Left" width="10%">
-						<Label id="_IDGenLabel11" design="Bold" wrapping="true" text="Suggestion"/>
+						<Label id="_IDGenLabel11" design="Bold" wrapping="true" text="Suggested Actions"/>
 					</Column>
 				</columns>
 				<items>
