@@ -76,6 +76,9 @@
 					<Column id="_IDGenColumn17" hAlign="Left" autoPopinWidth="50">
 						<Label id="_IDGenLabel17" design="Bold" wrapping="true" text="Delivery Date Impact Insights"/>
 					</Column>
+					<Column id="_IDGenColumn111" hAlign="Left" width="10%">
+						<Label id="_IDGenLabel111" design="Bold" wrapping="true" text="Suggestion"/>
+					</Column>
 				</columns>
 				<items>
 					<ColumnListItem id="_IDGenColumnListItem1" class="cells">
@@ -104,7 +107,8 @@
 							<!-- <ObjectStatus id="sentiment" text="{oTableModel>Sentiment}" icon="" active="true" press="onClickSentiment" state="{parts: ['oTableModel>Sentiment'], formatter: '.formatter.statusTextSentiment'}"/> -->
 							<!-- <Button id="_IDGenButton7" on><core:Icon id="_IDGenIcon1" src="sap-icon://fmessage-information" visible="{= ${oTableModel>Feed}? true : false}" tooltip="{oTableModel>Feed}"/></Button> -->
 							<!-- <Button id="_IDGenButton7" icon="sap-icon://fmessage-information" press="onClickSentiment" visible="{= ${oTableModel>Feed}? true : false}"/> -->
-							<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent"/>
+							<!-- <Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent"/> -->
+							
 							<!-- <HBox id="_IDGenHBox1">
                                 <core:Icon id="_IDGenIcon1" src="{= ${oTableModel>Sentiment} >= 0 &amp;&amp; ${oTableModel>Sentiment} &lt;= 20 ? 'sap-icon://bus-public-transport': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Logistics"/>
                                 <core:Icon id="_IDGenIcon2" src="{= ${oTableModel>Sentiment} > 20 &amp;&amp; ${oTableModel>Sentiment} &lt; 40 ? 'sap-icon://weather-proofing': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Weather" class="sapUiTinyMarginEnd"/>
@@ -113,7 +117,14 @@
                                 <core:Icon id="_IDGenIcon5" src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://machine': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Delay in Production Supply" class="sapUiTinyMarginEnd"/>
                                 <core:Icon id="_IDGenIcon6" src="{= ${oTableModel>Sentiment} >= 40 ? 'sap-icon://alert': None}" visible="{= ${oTableModel>Sentiment}? true : false}" tooltip="Natural Calamities"/>
                             </HBox> -->
-						
+							<HBox id="_IDGenHBox2">
+								<!-- <Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent" /> -->
+								<Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{parts: ['oTableModel>Feed','oTableModel>GEN_AI_Delivery_Date','oTableModel>Delivery_date'], formatter: '.formatter.feedCheck'}" type="Transparent" />
+							</HBox>
+							<HBox id="_IDGenHBox3">
+								<!-- <Button id="Button1" tooltip="Click to see the insights" icon="sap-icon://lightbulb" press="onClickInsights" visible="{= ${oTableModel>Feed}? true : false}" type="Transparent" /> -->
+								<Button id="ButtonSuggest" tooltip="Click to see the suggestions" icon="sap-icon://checklist" press="onSuggestionPress" visible="{parts: ['oTableModel>Feed','oTableModel>GEN_AI_Delivery_Date','oTableModel>Delivery_date'],formatter: '.formatter.feedCheck'}" type="Transparent" />
+							</HBox>
 						</cells>
 					</ColumnListItem>
 				</items>

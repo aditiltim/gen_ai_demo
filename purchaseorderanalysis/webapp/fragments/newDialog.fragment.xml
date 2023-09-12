@@ -13,9 +13,21 @@
 				
 			</VBox>
 		</content>
-		<buttons>
-			<Button id="_IDGenButton1" text="Send"  press="onSendSuccess" type="Emphasized"/> 
-			<Button id="_IDGenButton2" text="Close" press="onNewDialogCancel" type="Default"/>
-		</buttons>
+		<footer>
+			<Toolbar id="_IDGenToolbar1" >
+				<!-- <MenuButton id="_IDGenMenuButton1" text="Languages">
+					<menu>
+						<Menu id="_IDGenMenu1" itemSelected="onTranslate">
+							<MenuItem id="_IDGenMenuItem1" text="German" />
+							<MenuItem id="_IDGenMenuItem2" text="French"  />
+							<MenuItem id="_IDGenMenuItem3" text="Japanese" />
+						</Menu>
+					</menu>
+				</MenuButton> -->
+				<Button id="_IDGenButton3" text="Translate to German"  press="onTranslate" type="Emphasized"/>
+				<Button id="_IDGenButton1" text="Send"  press="onSendSuccess" type="Emphasized"/> 
+				<Button id="_IDGenButton2" text="Close" press="onNewDialogCancel" type="Default"/>
+			</Toolbar>
+		</footer>
 	</Dialog>
 </core:FragmentDefinition>

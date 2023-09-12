@@ -269,9 +269,14 @@ sap.ui.define([
         this.busyDialog.open();
         var that = this;
         
-        //payload param
-        //var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
-        var sNewsSummary = oEvent.oSource.getBindingContext("oTableModel").getProperty("Feed");
+        //payload params
+        // var sold_To = this.getView().getModel("oRowModel").oData.Sales_Order;     
+        // var cust_name = this.getView().getModel("oRowModel").oData.Customer_Name;   
+        // var item = this.getView().getModel("oRowModel").oData.SO_Item;
+
+       
+        var newsSummary = this.getView().getModel("oGenModel").oData.news_summarization;
+
         var sUrl = this.getOwnerComponent().getModel("cdsModel").sServiceUrl;
         var token;
         $.ajax({
