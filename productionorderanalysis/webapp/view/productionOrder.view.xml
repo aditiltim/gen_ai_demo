@@ -49,7 +49,7 @@
                         <Label id="label10" design="Bold" text="Delivery Date Impact Insights" wrapping="true"/>
                     </Column>
                     <Column id="column11" hAlign="Left">
-						<Label id="label11" design="Bold" wrapping="true" text="Suggestion"/>
+						<Label id="label11" design="Bold" wrapping="true" text="Suggested Actions"/>
 					</Column>
                 </columns>
                 <items>
